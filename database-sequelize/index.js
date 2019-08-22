@@ -12,42 +12,63 @@ sequelize
     console.error('Unable to connect to the database:', err);
   });
 
-const Reservation = sequelize.define('reservation', {
-  adults: {
+const Listing = sequelize.define('listing', {
+  maxAdults: {
     type: Sequelize.INTEGER,
     allowNull: false,
-    defaultValue: 0
   },
-  children: {
+  maxChildren: {
     type: Sequelize.INTEGER,
     allowNull: false,
-    defaultValue: 0
   },
-  infants: {
+  maxInfants: {
     type: Sequelize.INTEGER,
     allowNull: false,
-    defaultValue: 0
   },
-  checkInDate: {
-    type: Sequelize.DATEONLY,
+  chargePerNight: {
+    type: Sequelize.INTEGER,
     allowNull: false,
   },
-  checkOutDate: {
-    type: Sequelize.DATEONLY,
+  cleaningFee: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
+  serviceFee: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
+  occupancyFee: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
+  rating: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
+  numberOfRatings: {
+    type: Sequelize.INTEGER,
     allowNull: false,
   }
 });
 
-const BookedDates = sequelize.define('bookedDate', {
-  date: {
-    primaryKey: true,
-    type: Sequelize.DATEONLY
+const BookedDate = sequelize.define('bookedDate', {
+  year: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
   },
-  reservationId: {
+  month: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
+  date: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
+  listingId: {
     type: Sequelize.INTEGER,
     allowNull: false,
     references: {
-      model: Reservation,
+      model: Listing,
       key: 'id'
     }
   }
@@ -59,12 +80,6 @@ sequelize.drop()
   })
   .then(() => {
     console.log('Reservations and BookedDates tables created');
-  })
-  .then(() => {
-    Reservation.create(dummyData.randomReservationGenerator());
-  })
-  .then(() => {
-    console.log('reservation created');
   })
   .catch((error) => {
     console.log('Error creating tables', error);
