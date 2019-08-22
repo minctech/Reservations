@@ -52,14 +52,14 @@ const BookedDates = sequelize.define('bookedDate', {
 });
 
 
-
-Reservation.sync()
+sequelize.drop()
   .then(() => {
-    BookedDates.sync();
+    sequelize.sync({force: true});
   })
   .then(() => {
     console.log('Reservations and BookedDates tables created');
   })
   .catch((error) => {
     console.log('Error creating tables', error);
+    return;
   });
