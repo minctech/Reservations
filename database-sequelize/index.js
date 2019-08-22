@@ -1,4 +1,6 @@
 const Sequelize = require('sequelize');
+const dummyData = require('./dummyData');
+
 const sequelize = new Sequelize('reservations', 'root', '', { dialect: 'mysql' });
 
 sequelize
@@ -51,15 +53,19 @@ const BookedDates = sequelize.define('bookedDate', {
   }
 });
 
-
 sequelize.drop()
   .then(() => {
-    sequelize.sync({force: true});
+    sequelize.sync();
   })
   .then(() => {
     console.log('Reservations and BookedDates tables created');
   })
+  .then(() => {
+    Reservation.create(dummyData.randomReservationGenerator());
+  })
+  .then(() => {
+    console.log('reservation created');
+  })
   .catch((error) => {
     console.log('Error creating tables', error);
-    return;
   });
