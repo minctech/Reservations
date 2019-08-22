@@ -13,11 +13,7 @@ sequelize
   });
 
 const Listing = sequelize.define('listing', {
-  maxAdults: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-  },
-  maxChildren: {
+  maxGuests: {
     type: Sequelize.INTEGER,
     allowNull: false,
   },
@@ -31,15 +27,12 @@ const Listing = sequelize.define('listing', {
   },
   cleaningFee: {
     type: Sequelize.INTEGER,
-    allowNull: false,
   },
   serviceFee: {
     type: Sequelize.INTEGER,
-    allowNull: false,
   },
   occupancyFee: {
     type: Sequelize.INTEGER,
-    allowNull: false,
   },
   rating: {
     type: Sequelize.INTEGER,
@@ -80,6 +73,16 @@ sequelize.drop()
   })
   .then(() => {
     console.log('Reservations and BookedDates tables created');
+  })
+  .then(() => {
+    let listings = [];
+    for (let i = 0; i < 100; i++) {
+      listings.push(dummyData.randomListingGenerator());
+    }
+    Listing.bulkCreate(listings);
+  })
+  .then(() => {
+    console.log('listings created');
   })
   .catch((error) => {
     console.log('Error creating tables', error);
