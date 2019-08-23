@@ -1,7 +1,6 @@
 /* eslint-disable no-console */
 /* eslint-disable no-plusplus */
 const Sequelize = require('sequelize');
-const dummyData = require('./dummyData');
 
 const sequelize = new Sequelize('reservations', 'root', '', { dialect: 'mysql' });
 
@@ -60,23 +59,8 @@ const BookedDate = sequelize.define('bookeddate', {
   },
 });
 
-sequelize.query('DROP DATABASE IF EXISTS reservations;')
-  .then(() => sequelize.query('CREATE DATABASE reservations;'))
-  .then(() => sequelize.query('USE reservations;'))
-  .then(() => sequelize.sync())
-  .then(() => {
-    const listings = [];
-    for (let i = 0; i < 100; i++) {
-      listings.push(dummyData.randomListingGenerator());
-    }
-    return Listing.bulkCreate(listings);
-  })
-  .then(() => {
-    let bookings = [];
-    for (let i = 1; i <= 100; i++) {
-      bookings = bookings.concat(dummyData.randomBookingGenerator(i));
-    }
-    return BookedDate.bulkCreate(bookings);
-  })
-  .then(() => console.log('tables and seed data created'))
-  .catch((error) => console.log('Error creating tables', error));
+module.exports = {
+  sequelize,
+  Listing,
+  BookedDate,
+};

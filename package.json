@@ -8,13 +8,14 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-    "databuild": "node ./database-sequelize/index.js",
+    "databuild": "node ./database-sequelize/seed.js",
     "start": "nodemon ./server/server.js",
     "build": "npx webpack --watch",
     "test": "jest"
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
+    "axios": "^0.19.0",
     "babel-jest": "^24.9.0",
     "express": "^4.17.1",
     "morgan": "^1.9.1",
