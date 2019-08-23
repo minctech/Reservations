@@ -8,7 +8,8 @@
     "node": ">=6.13.0"
   },
   "scripts": {
-    "build": "node ./database-sequelize/index.js"
+    "build": "node ./database-sequelize/index.js",
+    "start": "nodemon ./server/server.js"
   },
   "dependencies": {
     "express": "^4.17.1",
