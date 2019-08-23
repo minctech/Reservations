@@ -86,7 +86,7 @@ sequelize.drop()
     return BookedDate.bulkCreate(bookings);
   })
   .then(() => {
-    console.log('bookings created');
+    console.log('tables and seed data created');
     return;
   })
   .catch((error) => {
