@@ -14,14 +14,4 @@ axios.get('/api/dblistings', {
   .catch((error) => {
     console.log('error fetching listing data', error);
   });
-
-// var listing = {
-//   maxGuests: 5,
-//   maxInfants: 3,
-//   chargePerNight: 150,
-//   cleaningFee: 10,
-//   serviceFee: 10,
-//   occupancyFee: 10,
-//   rating: 9,
-//   numberOfRatings: 300,
-// };
+  
