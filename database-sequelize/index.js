@@ -1,16 +1,9 @@
+/* eslint-disable no-console */
+/* eslint-disable no-plusplus */
 const Sequelize = require('sequelize');
 const dummyData = require('./dummyData');
 
 const sequelize = new Sequelize('reservations', 'root', '', { dialect: 'mysql' });
-
-sequelize
-  .authenticate()
-  .then(() => {
-    console.log('Connection has been established successfully.');
-  })
-  .catch(err => {
-    console.error('Unable to connect to the database:', err);
-  });
 
 const Listing = sequelize.define('listing', {
   maxGuests: {
@@ -41,7 +34,7 @@ const Listing = sequelize.define('listing', {
   numberOfRatings: {
     type: Sequelize.INTEGER,
     allowNull: false,
-  }
+  },
 });
 
 const BookedDate = sequelize.define('bookeddate', {
@@ -62,17 +55,17 @@ const BookedDate = sequelize.define('bookeddate', {
     allowNull: false,
     references: {
       model: Listing,
-      key: 'id'
-    }
-  }
+      key: 'id',
+    },
+  },
 });
 
-sequelize.drop()
+sequelize.query('DROP DATABASE IF EXISTS reservations;')
+  .then(() => sequelize.query('CREATE DATABASE reservations;'))
+  .then(() => sequelize.query('USE reservations;'))
+  .then(() => sequelize.sync())
   .then(() => {
-    return sequelize.sync();
-  })
-  .then(() => {
-    let listings = [];
+    const listings = [];
     for (let i = 0; i < 100; i++) {
       listings.push(dummyData.randomListingGenerator());
     }
@@ -85,11 +78,5 @@ sequelize.drop()
     }
     return BookedDate.bulkCreate(bookings);
   })
-  .then(() => {
-    console.log('tables and seed data created');
-    return;
-  })
-  .catch((error) => {
-    console.log('Error creating tables', error);
-    return;
-  });
+  .then(() => console.log('tables and seed data created'))
+  .catch((error) => console.log('Error creating tables', error));
