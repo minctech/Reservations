@@ -9,7 +9,7 @@ axios.get('/api/dblistings', {
   }
 })
   .then((listing) => {
-    ReactDOM.render(<App listing={listing}/>, document.getElementById('root'));
+    ReactDOM.render(<App listing={listing.data}/>, document.getElementById('root'));
   })
   .catch((error) => {
     console.log('error fetching listing data', error);
