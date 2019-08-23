@@ -1,4 +1,6 @@
 const Sequelize = require('sequelize');
+const dummyData = require('./dummyData');
+
 const sequelize = new Sequelize('reservations', 'root', '', { dialect: 'mysql' });
 
 sequelize
@@ -10,56 +12,84 @@ sequelize
     console.error('Unable to connect to the database:', err);
   });
 
-const Reservation = sequelize.define('reservation', {
-  adults: {
+const Listing = sequelize.define('listing', {
+  maxGuests: {
     type: Sequelize.INTEGER,
     allowNull: false,
-    defaultValue: 0
   },
-  children: {
+  maxInfants: {
     type: Sequelize.INTEGER,
     allowNull: false,
-    defaultValue: 0
   },
-  infants: {
+  chargePerNight: {
     type: Sequelize.INTEGER,
     allowNull: false,
-    defaultValue: 0
   },
-  checkInDate: {
-    type: Sequelize.DATEONLY,
+  cleaningFee: {
+    type: Sequelize.INTEGER,
+  },
+  serviceFee: {
+    type: Sequelize.INTEGER,
+  },
+  occupancyFee: {
+    type: Sequelize.INTEGER,
+  },
+  rating: {
+    type: Sequelize.INTEGER,
     allowNull: false,
   },
-  checkOutDate: {
-    type: Sequelize.DATEONLY,
+  numberOfRatings: {
+    type: Sequelize.INTEGER,
     allowNull: false,
   }
 });
 
-const BookedDates = sequelize.define('bookedDate', {
-  date: {
-    primaryKey: true,
-    type: Sequelize.DATEONLY
+const BookedDate = sequelize.define('bookeddate', {
+  year: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
   },
-  reservationId: {
+  month: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
+  date: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+  },
+  listingId: {
     type: Sequelize.INTEGER,
     allowNull: false,
     references: {
-      model: Reservation,
+      model: Listing,
       key: 'id'
     }
   }
 });
 
-
-
-Reservation.sync()
+sequelize.drop()
   .then(() => {
-    BookedDates.sync();
+    return sequelize.sync();
   })
   .then(() => {
-    console.log('Reservations and BookedDates tables created');
+    let listings = [];
+    for (let i = 0; i < 100; i++) {
+      listings.push(dummyData.randomListingGenerator());
+    }
+    return Listing.bulkCreate(listings);
+  })
+  .then(() => {
+    let bookings = [];
+    for (let i = 1; i <= 100; i++) {
+      bookings = bookings.concat(dummyData.randomBookingGenerator(i));
+    }
+    return BookedDate.bulkCreate(bookings);
+  })
+  .then(() => {
+    console.log('tables and seed data created');
+    return;
   })
   .catch((error) => {
     console.log('Error creating tables', error);
+    return;
   });
