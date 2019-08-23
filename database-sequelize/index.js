@@ -44,7 +44,7 @@ const Listing = sequelize.define('listing', {
   }
 });
 
-const BookedDate = sequelize.define('bookedDate', {
+const BookedDate = sequelize.define('bookeddate', {
   year: {
     type: Sequelize.INTEGER,
     allowNull: false,
@@ -69,21 +69,27 @@ const BookedDate = sequelize.define('bookedDate', {
 
 sequelize.drop()
   .then(() => {
-    sequelize.sync();
-  })
-  .then(() => {
-    console.log('Reservations and BookedDates tables created');
+    return sequelize.sync();
   })
   .then(() => {
     let listings = [];
     for (let i = 0; i < 100; i++) {
       listings.push(dummyData.randomListingGenerator());
     }
-    Listing.bulkCreate(listings);
+    return Listing.bulkCreate(listings);
   })
   .then(() => {
-    console.log('listings created');
+    let bookings = [];
+    for (let i = 1; i <= 100; i++) {
+      bookings = bookings.concat(dummyData.randomBookingGenerator(i));
+    }
+    return BookedDate.bulkCreate(bookings);
+  })
+  .then(() => {
+    console.log('bookings created');
+    return;
   })
   .catch((error) => {
     console.log('Error creating tables', error);
+    return;
   });

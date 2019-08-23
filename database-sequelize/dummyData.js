@@ -19,6 +19,36 @@ const randomListingGenerator = () => {
   };
 };
 
+const randomBookingGenerator = (listingId) => {
+  let dates = [];
+
+  for (let j = 8; j < 11; j++) {
+    for (let i = 1; i < 31; i++) {
+      if (Math.random() > 0.5) {
+        dates.push({
+          year: 2019,
+          month: j,
+          date: i,
+          listingId,
+        });
+      }
+    }
+    if (j === 9) {
+      if (Math.random() > 0.5) {
+        dates.push({
+          year: 2019,
+          month: 9,
+          date: 31,
+          listingId,
+        });
+      }
+    }
+  }
+
+  return dates;
+};
+
 module.exports = {
   randomListingGenerator,
+  randomBookingGenerator,
 };
