@@ -1,17 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
 
 const App = ({ listing }) => {
   const chargePerNight = `$${listing.chargePerNight} per night`;
   const review = `${listing.numberOfRatings}`;
+  const Container = styled.div`
+    position: fixed;
+    top: 75px;
+    margin-left: 45px;
+    width: 376px;
+    border: 1px lightgray solid;
+  `;
 
   return (
-    <div className="app">
+    <Container>
       <div>
         <span>{chargePerNight}</span>
         <span>{review}</span>
       </div>
-    </div>
+    </Container>
   );
 };
 
