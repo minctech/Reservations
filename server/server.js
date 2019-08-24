@@ -8,7 +8,7 @@ const port = 3000;
 const app = express();
 
 app.use(morgan('tiny'));
-app.use(express.static('public'));
+app.use('/api/listings/:listing', express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
