@@ -4,23 +4,45 @@ import styled from 'styled-components';
 
 
 const App = ({ listing }) => {
-  const chargePerNight = `$${listing.chargePerNight} per night`;
+  const chargePerNight = `$${listing.chargePerNight}`;
   const review = `${listing.numberOfRatings}`;
-  const Container = styled.div`
+
+  const OuterContainer = styled.div`
     position: fixed;
     top: 75px;
     margin-left: 45px;
     width: 376px;
     border: 1px lightgray solid;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+  `;
+
+  const InnerContainer = styled.div`
+    display: flex;
+    flex-direction: column;
+    margin-top: 16px;
+    margin-bottom: 24px;
+    padding-left: 24px;
+    padding-right: 24px;
+  `;
+
+  const Cost = styled.span`
+    font-size: 22px;
+    font-weight: 700;
+    margin-right: 5px;
   `;
 
   return (
-    <Container>
-      <div>
-        <span>{chargePerNight}</span>
-        <span>{review}</span>
-      </div>
-    </Container>
+    <OuterContainer>
+      <InnerContainer>
+        <div>
+          <Cost>{chargePerNight}</Cost>
+          <span>per night</span>
+        </div>
+        <div>
+          <span>{review}</span>
+        </div>
+      </InnerContainer>
+    </OuterContainer>
   );
 };
 
@@ -49,6 +71,5 @@ App.defaultProps = {
     numberOfRatings: 300,
   },
 };
-
 
 export default App;
