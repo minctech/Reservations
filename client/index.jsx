@@ -1,17 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/App.jsx';
 import axios from 'axios';
+import { Provider } from 'react-redux';
+import AppContainer from './containers/AppContainer';
+import store from './store/store';
+import changeListing from './actions/App';
 
-axios.get('/api/dblistings', {
-  params: {
-    listing: 1,
-  }
-})
-  .then((listing) => {
-    ReactDOM.render(<App listing={listing.data}/>, document.getElementById('root'));
-  })
-  .catch((error) => {
-    console.log('error fetching listing data', error);
-  });
-  
+ReactDOM.render(
+  <Provider store={store}>
+    <AppContainer />
+  </Provider>,
+  document.getElementById('root'),
+  () => {
+    axios.get('/api/dblistings', {
+      params: {
+        listing: document.URL.split('/').reverse()[1],
+      },
+    })
+      .then((listing) => {
+        store.dispatch(changeListing(listing.data));
+      })
+      .catch((error) => {
+        console.log('error fetching listing data', error);
+      });
+  },
+);
