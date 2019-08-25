@@ -6,6 +6,10 @@ const Flex = styled.div`
   display: flex;
 `;
 
+const FlexJustifyCenter = styled(Flex)`
+  justify-content: center;
+`;
+
 const StarRatings = styled.span`
   font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
   font-size 14px;
@@ -33,9 +37,10 @@ const BottomStars = styled(StarRatings)`
   z-index: 0;
 `;
 
+// outercontainer top should be 75px
 const OuterContainer = styled.div`
   position: fixed;
-  top: 75px;
+  top: 150px;
   margin-left: 45px;
   width: 376px;
   border: 1px lightgray solid;
@@ -71,6 +76,24 @@ const InputBox = styled.div`
   border: 1px solid lightgray;
   height: 42px;
   display: flex;
+  margin-bottom: 8px;
+`;
+
+const GuestsBox = styled.button`
+  border: 1px solid lightgray;
+  height: 42px;
+  display: flex;
+  margin-bottom: 8px;
+  font-size: 17px;
+`;
+
+const ReserveButton = styled(GuestsBox)`
+  background-color: rgb(255, 90, 95);
+  margin-top: 24px;
+  border-radius: 4px;
+  border: 2px solid transparent;
+  display: flex;
+  justify-content: center;
 `;
 
 const Label = styled.span`
@@ -78,13 +101,18 @@ const Label = styled.span`
   font-weight: 600;
 `;
 
-const CheckInDate = styled.div`
+const ReserveWord = styled.span`
+  font-size: 16px;
+  font-weight: 800;
+  color: white;
+`;
+
+const Dates = styled.div`
   padding: 0 6px;
   border-radius: 3px;
-  background-color: lightblue;
   font-size: 17px;
   margin: 10px 8px;
-  width: 150px;
+  width: 130px;
   display: inline-block;
 `;
 
@@ -114,11 +142,22 @@ const App = ({ listing }) => {
         <Seperator />
         <Label>Dates</Label>
         <InputBox>
-          <CheckInDate>Check-in</CheckInDate>
+          <Dates>Check-in</Dates>
           <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false" style={{ height: '25px', width: '25px', margin: '7px 0' }}>
             <path d="m0 12.5a.5.5 0 0 0 .5.5h21.79l-6.15 6.15a.5.5 0 1 0 .71.71l7-7v-.01a.5.5 0 0 0 .14-.35.5.5 0 0 0 -.14-.35v-.01l-7-7a .5.5 0 0 0 -.71.71l6.15 6.15h-21.79a.5.5 0 0 0 -.5.5z" fillRule="evenodd" />
           </svg>
+          <Dates>Checkout</Dates>
         </InputBox>
+        <Label>Guests</Label>
+        <GuestsBox>
+          <span style={{ fontSize: '17px', marginLeft: '8px' }}>1 guest</span>
+        </GuestsBox>
+        <ReserveButton>
+          <ReserveWord>Reserve</ReserveWord>
+        </ReserveButton>
+        <FlexJustifyCenter>
+          <Label>You won’t be charged yet</Label>
+        </FlexJustifyCenter>
       </InnerContainer>
     </OuterContainer>
   );
