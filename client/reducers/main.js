@@ -1,5 +1,7 @@
 import { combineReducers } from 'redux';
-import listing from './App';
+import appReducers from './App';
+
+const { listing } = appReducers;
 
 const rootReducer = combineReducers({
   listing,

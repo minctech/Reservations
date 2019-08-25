@@ -1,4 +1,4 @@
-const listingReducer = (state = null, action) => {
+const listing = (state = null, action) => {
   switch (action.type) {
     case 'CHANGE_LISTING':
       return action.listing || null;
@@ -7,4 +7,4 @@ const listingReducer = (state = null, action) => {
   }
 };
 
-export default listingReducer;
+export default { listing };

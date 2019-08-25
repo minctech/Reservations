@@ -4,6 +4,7 @@ module.exports = {
     es6: true,
     node: true,
   },
+  parser: "babel-eslint",
   extends: [
     'airbnb',
   ],
@@ -22,5 +23,6 @@ module.exports = {
     'react',
   ],
   rules: {
+    strict: 0,
   },
 };

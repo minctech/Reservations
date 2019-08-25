@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Provider } from 'react-redux';
 import AppContainer from './containers/AppContainer';
 import store from './store/store';
-import changeListing from './actions/App';
+import appActions from './actions/App';
 
 ReactDOM.render(
   <Provider store={store}>
@@ -18,7 +18,7 @@ ReactDOM.render(
       },
     })
       .then((listing) => {
-        store.dispatch(changeListing(listing.data));
+        store.dispatch(appActions.changeListing(listing.data));
       })
       .catch((error) => {
         console.log('error fetching listing data', error);

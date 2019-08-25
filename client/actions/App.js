@@ -3,4 +3,4 @@ const changeListing = (listing) => ({
   listing,
 });
 
-export default changeListing;
+export default { changeListing };
