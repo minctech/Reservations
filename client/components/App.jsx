@@ -62,6 +62,31 @@ const Cost = styled.span`
   margin-right: 5px;
 `;
 
+const Seperator = styled.div`
+  margin: 10px 0;
+  border-bottom: 1px solid lightgray;
+`;
+
+const InputBox = styled.div`  
+  border: 1px solid lightgray;
+  height: 42px;
+  display: flex;
+`;
+
+const Label = styled.span`
+  font-size: 12px;
+  font-weight: 600;
+`;
+
+const CheckInDate = styled.div`
+  padding: 0 6px;
+  border-radius: 3px;
+  background-color: lightblue;
+  font-size: 17px;
+  margin: 10px 8px;
+  width: 150px;
+  display: inline-block;
+`;
 
 const App = ({ listing }) => {
   const chargePerNight = `$${listing.chargePerNight}`;
@@ -86,6 +111,14 @@ const App = ({ listing }) => {
           </StarRatings>
           <StaticWord>{review}</StaticWord>
         </Flex>
+        <Seperator />
+        <Label>Dates</Label>
+        <InputBox>
+          <CheckInDate>Check-in</CheckInDate>
+          <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false" style={{ height: '25px', width: '25px', margin: '7px 0' }}>
+            <path d="m0 12.5a.5.5 0 0 0 .5.5h21.79l-6.15 6.15a.5.5 0 1 0 .71.71l7-7v-.01a.5.5 0 0 0 .14-.35.5.5 0 0 0 -.14-.35v-.01l-7-7a .5.5 0 0 0 -.71.71l6.15 6.15h-21.79a.5.5 0 0 0 -.5.5z" fillRule="evenodd" />
+          </svg>
+        </InputBox>
       </InnerContainer>
     </OuterContainer>
   );
