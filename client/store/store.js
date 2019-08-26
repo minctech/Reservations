@@ -5,6 +5,7 @@ export default createStore(
   rootReducer,
   {
     listing: {
+      id: 0,
       maxGuests: 510,
       maxInfants: 3,
       chargePerNight: 150,

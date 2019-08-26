@@ -16,4 +16,13 @@ const currentYear = (state = null, action) => {
   }
 };
 
-export default { currentMonth, currentYear };
+const bookedDates = (state = [], action) => {
+  switch (action.type) {
+    case 'CHANGE_BOOKED_DATES':
+      return action.bookedDates || [];
+    default:
+      return state;
+  }
+};
+
+export default { currentMonth, currentYear, bookedDates };

@@ -20,6 +20,19 @@ ReactDOM.render(
       .then((listing) => {
         store.dispatch(appActions.changeListing(listing.data));
       })
+      .then(() => {
+        axios.get('/api/dbbookeddates', {
+          params: {
+            listing: document.URL.split('/').reverse()[1],
+          },
+        })
+          .then((bookedDates) => {
+            store.dispatch({
+              type: 'CHANGE_BOOKED_DATES',
+              bookedDates,
+            });
+          });
+      })
       .catch((error) => {
         console.log('error fetching listing data', error);
       });

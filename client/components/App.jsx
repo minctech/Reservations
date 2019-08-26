@@ -167,6 +167,7 @@ const App = ({ listing }) => {
 
 App.propTypes = {
   listing: PropTypes.shape({
+    id: PropTypes.number,
     maxGuests: PropTypes.number,
     maxInfants: PropTypes.number,
     chargePerNight: PropTypes.number,
@@ -180,6 +181,7 @@ App.propTypes = {
 
 App.defaultProps = {
   listing: {
+    id: 0,
     maxGuests: 5,
     maxInfants: 3,
     chargePerNight: 150,
