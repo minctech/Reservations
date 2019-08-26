@@ -65,8 +65,12 @@ describe('components', () => {
     });
 
     it('should change month and year when button is clicked', () => {
-      const { enzymeWrapper } = setup();
+      const { enzymeWrapper, props } = setup();
       expect(enzymeWrapper.find('button')).to.have.lengthOf(2);
+      enzymeWrapper.find('button').at(0).simulate('click');
+      expect(props.changeMonthHandler.mock.calls.length).to.equal(1);
+      enzymeWrapper.find('button').at(1).simulate('click');
+      expect(props.changeMonthHandler.mock.calls.length).to.equal(2);
     });
   });
 });
