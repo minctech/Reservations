@@ -40,6 +40,7 @@
     "babel-loader": "^8.0.6",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
+    "enzyme-redux": "^0.2.1",
     "eslint": "^6.2.1",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
@@ -49,6 +50,7 @@
     "eslint-plugin-react-hooks": "^1.7.0",
     "jest": "^24.9.0",
     "mysql": "^2.17.1",
+    "redux-test-utils": "^0.3.0",
     "webpack": "^4.39.2",
     "webpack-cli": "^3.3.7"
   }

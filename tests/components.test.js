@@ -5,7 +5,7 @@ import React from 'react';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import App from '../client/components/App';
-import CalendarContainer from '../client/containers/CalendarContainer';
+import Calendar from '../client/components/Calendar';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -48,7 +48,7 @@ describe('components', () => {
         currentYear: currentDate.getFullYear(),
         changeMonthHandler: jest.fn(),
       };
-      const enzymeWrapper = shallow(<CalendarContainer {...props} />);
+      const enzymeWrapper = shallow(<Calendar {...props} />);
       return {
         props,
         enzymeWrapper,
@@ -61,9 +61,5 @@ describe('components', () => {
       expect(enzymeWrapper.contains(month[currentDate.getMonth()])).toBe(true);
       expect(enzymeWrapper.contains(currentDate.getFullYear())).toBe(true);
     });
-
-    // it('should change month with button clicks', () => {
-
-    // });
   });
 });
