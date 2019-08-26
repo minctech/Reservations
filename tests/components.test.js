@@ -5,7 +5,7 @@ import React from 'react';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
 import App from '../client/components/App';
-import Calendar from '../client/components/Calendar';
+import CalendarContainer from '../client/containers/CalendarContainer';
 
 Enzyme.configure({ adapter: new Adapter() });
 
@@ -31,7 +31,7 @@ describe('components', () => {
       };
     };
 
-    it('should render self and subcomponents', () => {
+    it('should render self and store states', () => {
       const { enzymeWrapper } = setup();
 
       expect(enzymeWrapper.contains('$150')).toBe(true);
@@ -45,18 +45,25 @@ describe('components', () => {
     const setup = () => {
       const props = {
         currentMonth: currentDate.getMonth(),
+        currentYear: currentDate.getFullYear(),
+        changeMonthHandler: jest.fn(),
       };
-      const enzymeWrapper = shallow(<Calendar {...props} />);
+      const enzymeWrapper = shallow(<CalendarContainer {...props} />);
       return {
         props,
         enzymeWrapper,
       };
     };
 
-    it('should render self and subcomponents', () => {
+    it('should render self with store states', () => {
       const { enzymeWrapper } = setup();
 
       expect(enzymeWrapper.contains(month[currentDate.getMonth()])).toBe(true);
+      expect(enzymeWrapper.contains(currentDate.getFullYear())).toBe(true);
     });
+
+    // it('should change month with button clicks', () => {
+
+    // });
   });
 });
