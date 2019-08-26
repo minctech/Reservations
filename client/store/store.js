@@ -15,5 +15,6 @@ export default createStore(
       numberOfRatings: 300,
     },
     currentMonth: 0,
+    currentYear: 2019,
   },
 );

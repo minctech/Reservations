@@ -3,4 +3,9 @@ const changeCurrentMonth = (currentMonth) => ({
   currentMonth,
 });
 
-export default { changeCurrentMonth };
+const changeCurrentYear = (currentYear) => ({
+  type: 'CHANGE_CURRENT_YEAR',
+  currentYear,
+});
+
+export default { changeCurrentMonth, changeCurrentYear };

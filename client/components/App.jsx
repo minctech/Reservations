@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import Calendar from './Calendar';
+import CalendarContainer from '../containers/CalendarContainer';
 
 const Flex = styled.div`
   display: flex;
@@ -160,7 +160,7 @@ const App = ({ listing }) => {
           <Label>You won’t be charged yet</Label>
         </FlexJustifyCenter>
       </InnerContainer>
-      <Calendar />
+      <CalendarContainer />
     </OuterContainer>
   );
 };
