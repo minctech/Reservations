@@ -8,7 +8,11 @@ const CalendarBox = styled.div`
   border-radius: 3px;
   width: 333px;
   height: 381px;
-  margin: 10px auto;
+  z-index: 1000;
+  position: absolute;
+  background-color: white;
+  top: 285px;
+  left: 77px;
 `;
 
 const HeaderBox = styled.div`
