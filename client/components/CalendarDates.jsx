@@ -1,3 +1,5 @@
+/* eslint-disable react/no-array-index-key */
+/* eslint-disable no-plusplus */
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
@@ -8,11 +10,19 @@ const Day = styled.td`
   height: 40px;
   border: 1px double rgb(228, 231, 231);
   text-align: center;
+  :hover {
+    cursor: pointer;
+    background-color: lightgray;
+  }
 `;
 
 const BookedDay = styled(Day)`
   color: rgb(216, 216, 216);
   text-decoration: line-through;
+  :hover {
+    cursor: unset;
+    background-color: white;
+  }
 `;
 
 const Table = styled.table`
@@ -27,18 +37,21 @@ const CalendarDates = ({ currentMonth, currentYear, bookedDates }) => {
   const numberOfDays = lastDate.getDate();
   const firstDay = firstDate.getDay();
   const days = [[]];
-  console.log(bookedDates);
   const bookedDays = [];
+
+  // create array of booked days for current month
   for (let i = 0; i < bookedDates.length; i++) {
     if (bookedDates[i].year === currentYear && bookedDates[i].month === currentMonth) {
       bookedDays.push(bookedDates[i].date);
     }
   }
 
+  // push in null td for days not within this month
   for (let i = 0; i < firstDay; i++) {
-    days[0].push(<td key={`null${i}`}></td>);
+    days[0].push(<td key={`null${i}`} />);
   }
 
+  // map out the days over the calendar
   let week = 0;
   for (let day = 1; day <= numberOfDays; day++) {
     if (days[week].length === 7) {
@@ -54,9 +67,8 @@ const CalendarDates = ({ currentMonth, currentYear, bookedDates }) => {
     }
   }
 
-  let tableBody = days.map((row, index) => {
-    return <tr key={index}>{row}</tr>
-  });
+  // create table row per week
+  const tableBody = days.map((row, index) => <tr key={index}>{row}</tr>);
 
   return (
     <Table>
