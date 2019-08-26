@@ -1,9 +1,11 @@
+/* eslint-disable no-unused-expressions */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable no-undef */
 import React from 'react';
 import Enzyme, { shallow } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
+import { expect } from 'chai';
 import App from '../client/components/App';
 import Calendar from '../client/components/Calendar';
 
@@ -34,8 +36,8 @@ describe('components', () => {
     it('should render self and store states', () => {
       const { enzymeWrapper } = setup();
 
-      expect(enzymeWrapper.contains('$150')).toBe(true);
-      expect(enzymeWrapper.contains('300')).toBe(true);
+      expect(enzymeWrapper.contains('$150')).to.be.true;
+      expect(enzymeWrapper.contains('300')).to.be.true;
     });
   });
 
@@ -58,8 +60,13 @@ describe('components', () => {
     it('should render self with store states', () => {
       const { enzymeWrapper } = setup();
 
-      expect(enzymeWrapper.contains(month[currentDate.getMonth()])).toBe(true);
-      expect(enzymeWrapper.contains(currentDate.getFullYear())).toBe(true);
+      expect(enzymeWrapper.contains(month[currentDate.getMonth()])).to.be.true;
+      expect(enzymeWrapper.contains(currentDate.getFullYear())).to.be.true;
+    });
+
+    it('should change month and year when button is clicked', () => {
+      const { enzymeWrapper } = setup();
+      expect(enzymeWrapper.find('button')).to.have.lengthOf(2);
     });
   });
 });

@@ -18,6 +18,7 @@
     "axios": "^0.19.0",
     "babel-jest": "^24.9.0",
     "body-parser": "^1.19.0",
+    "chai": "^4.2.0",
     "express": "^4.17.1",
     "morgan": "^1.9.1",
     "mysql2": "^1.6.5",
