@@ -64,7 +64,7 @@ describe('components', () => {
       expect(enzymeWrapper.contains(currentDate.getFullYear())).to.be.true;
     });
 
-    it('should change month and year when button is clicked', () => {
+    it('should call changeMonthHandler when button is clicked', () => {
       const { enzymeWrapper, props } = setup();
       expect(enzymeWrapper.find('button')).to.have.lengthOf(2);
       enzymeWrapper.find('button').at(0).simulate('click');
