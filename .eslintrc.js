@@ -25,5 +25,6 @@ module.exports = {
   rules: {
     strict: 0,
     'no-console': 'off',
+    "allowForLoopAfterthoughts": true,
   },
 };
