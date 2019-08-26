@@ -6,6 +6,7 @@ import calendarActions from '../actions/Calendar';
 const mapStateToProps = (state) => ({
   currentMonth: state.currentMonth,
   currentYear: state.currentYear,
+  viewCalendar: state.viewCalendar,
 });
 
 const mapDispatchToProps = (dispatch) => ({

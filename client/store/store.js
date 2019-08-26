@@ -17,5 +17,8 @@ export default createStore(
     },
     currentMonth: 7,
     currentYear: 2019,
+    bookedDates: [],
+    selectedStartDate: 0,
+    selectedEndDate: 0,
   },
 );

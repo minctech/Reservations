@@ -38,3 +38,5 @@ ReactDOM.render(
       });
   },
 );
+
+document.addEventListener('click', (e) => console.log(e.target));

@@ -31,7 +31,14 @@ const Table = styled.table`
   margin: 0 auto;
 `;
 
-const CalendarDates = ({ currentMonth, currentYear, bookedDates }) => {
+const CalendarDates = ({
+  currentMonth,
+  currentYear,
+  bookedDates,
+  changeSelectedStartDate,
+  changeSelectedEndDate,
+  startDateView,
+}) => {
   const firstDate = new Date(currentYear, currentMonth, 1);
   const lastDate = new Date(currentYear, currentMonth + 1, 0);
   const numberOfDays = lastDate.getDate();
@@ -63,7 +70,20 @@ const CalendarDates = ({ currentMonth, currentYear, bookedDates }) => {
     if (bookedDays.includes(day)) {
       days[week].push(<BookedDay key={day}>{day}</BookedDay>);
     } else {
-      days[week].push(<Day key={day}>{day}</Day>);
+      days[week].push(
+        <Day
+          key={day}
+          onClick={() => {
+            if (CheckInView) {
+              changeSelectedStartDate(day, currentMonth, currentYear);
+            } else {
+              changeSelectedEndDate(day, currentMonth, currentYear);
+            }
+          }}
+        >
+          {day}
+        </Day>,
+      );
     }
   }
 
@@ -83,6 +103,8 @@ CalendarDates.propTypes = {
   currentMonth: PropTypes.number.isRequired,
   currentYear: PropTypes.number.isRequired,
   bookedDates: PropTypes.array.isRequired,
+  changeSelectedStartDate: PropTypes.func.isRequired,
+  changeSelectedEndDate: PropTypes.func.isRequired,
 };
 
 export default CalendarDates;
