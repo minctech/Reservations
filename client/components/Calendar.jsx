@@ -6,6 +6,9 @@ import CalendarDatesContainer from '../containers/CalendarDatesContainer';
 const CalendarBox = styled.div`
   border: 1px solid lightgray;
   border-radius: 3px;
+  width: 333px;
+  height: 381px;
+  margin: 10px auto;
 `;
 
 const HeaderBox = styled.div`
@@ -27,7 +30,7 @@ const MonthYearSpan = styled.span`
 `;
 
 const DayBox = styled(HeaderBox)`
-  margin: 10px 50px;
+  margin: 10px 25px;
 `;
 
 const Day = styled.small`

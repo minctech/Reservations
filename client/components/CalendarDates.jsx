@@ -7,6 +7,7 @@ const Day = styled.td`
   width: 41px;
   height: 40px;
   border: 1px double rgb(228, 231, 231);
+  text-align: center;
 `;
 
 const Table = styled.table`
