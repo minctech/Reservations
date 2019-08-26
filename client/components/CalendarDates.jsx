@@ -10,6 +10,11 @@ const Day = styled.td`
   text-align: center;
 `;
 
+const BookedDay = styled(Day)`
+  color: rgb(216, 216, 216);
+  text-decoration: line-through;
+`;
+
 const Table = styled.table`
   border-spacing: 0px;
   border-collapse: collapse;
@@ -21,9 +26,14 @@ const CalendarDates = ({ currentMonth, currentYear, bookedDates }) => {
   const lastDate = new Date(currentYear, currentMonth + 1, 0);
   const numberOfDays = lastDate.getDate();
   const firstDay = firstDate.getDay();
-  const numberOfWeeks = Math.ceil((numberOfDays - (7 - firstDay)) / 7) + 1;
   const days = [[]];
-
+  console.log(bookedDates);
+  const bookedDays = [];
+  for (let i = 0; i < bookedDates.length; i++) {
+    if (bookedDates[i].year === currentYear && bookedDates[i].month === currentMonth) {
+      bookedDays.push(bookedDates[i].date);
+    }
+  }
 
   for (let i = 0; i < firstDay; i++) {
     days[0].push(<td key={`null${i}`}></td>);
@@ -37,7 +47,11 @@ const CalendarDates = ({ currentMonth, currentYear, bookedDates }) => {
     if (!days[week]) {
       days[week] = [];
     }
-    days[week].push(<Day key={day}>{day}</Day>);
+    if (bookedDays.includes(day)) {
+      days[week].push(<BookedDay key={day}>{day}</BookedDay>);
+    } else {
+      days[week].push(<Day key={day}>{day}</Day>);
+    }
   }
 
   let tableBody = days.map((row, index) => {
