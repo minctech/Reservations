@@ -29,7 +29,7 @@ ReactDOM.render(
           .then((bookedDates) => {
             store.dispatch({
               type: 'CHANGE_BOOKED_DATES',
-              bookedDates,
+              bookedDates: bookedDates.data,
             });
           });
       })
