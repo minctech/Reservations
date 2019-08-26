@@ -3,6 +3,18 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+const Day = styled.td`
+  width: 41px;
+  height: 40px;
+  border: 1px double rgb(228, 231, 231);
+`;
+
+const Table = styled.table`
+  border-spacing: 0px;
+  border-collapse: collapse;
+  margin: 0 auto;
+`;
+
 const CalendarDates = ({ currentMonth, currentYear, bookedDates }) => {
   const firstDate = new Date(currentYear, currentMonth, 1);
   const lastDate = new Date(currentYear, currentMonth + 1, 0);
@@ -24,7 +36,7 @@ const CalendarDates = ({ currentMonth, currentYear, bookedDates }) => {
     if (!days[week]) {
       days[week] = [];
     }
-    days[week].push(<td key={day}>{day}</td>);
+    days[week].push(<Day key={day}>{day}</Day>);
   }
 
   let tableBody = days.map((row, index) => {
@@ -32,11 +44,11 @@ const CalendarDates = ({ currentMonth, currentYear, bookedDates }) => {
   });
 
   return (
-    <table>
+    <Table>
       <tbody>
         {tableBody}
       </tbody>
-    </table>
+    </Table>
   );
 };
 

@@ -27,7 +27,7 @@ const MonthYearSpan = styled.span`
 `;
 
 const DayBox = styled(HeaderBox)`
-  margin: 0 30px;
+  margin: 10px 50px;
 `;
 
 const Day = styled.small`

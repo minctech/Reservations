@@ -39,8 +39,8 @@ const BottomStars = styled(StarRatings)`
 `;
 
 // outercontainer top should be 75px
+// position should be: position: fixed;
 const OuterContainer = styled.div`
-  position: fixed;
   top: 150px;
   margin-left: 45px;
   width: 376px;
