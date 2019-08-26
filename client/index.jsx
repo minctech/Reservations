@@ -39,4 +39,8 @@ ReactDOM.render(
   },
 );
 
-document.addEventListener('click', (e) => console.log(e.target));
+document.addEventListener('click', (e) => {
+  if (!(e.target.id === 'checkin' || e.target.id === 'checkout')) {
+    store.dispatch(appActions.changeViewCalendar(false));
+  }
+});

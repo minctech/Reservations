@@ -117,10 +117,27 @@ const Dates = styled.div`
   display: inline-block;
 `;
 
-const App = ({ listing }) => {
+const App = ({
+  listing,
+  changeViewCalendar,
+  changeStartDateView,
+  viewCalendar,
+  startDateView,
+}) => {
   const chargePerNight = `$${listing.chargePerNight}`;
   const review = `${listing.numberOfRatings}`;
   const width = `${listing.rating * 10}%`;
+
+  let startCalendar;
+  let endCalendar;
+
+  if (viewCalendar) {
+    if (startDateView) {
+      startCalendar = <CalendarContainer />;
+    } else {
+      endCalendar = <CalendarContainer />;
+    }
+  }
 
   return (
     <OuterContainer>
@@ -143,11 +160,29 @@ const App = ({ listing }) => {
         <Seperator />
         <Label>Dates</Label>
         <InputBox>
-          <Dates>Check-in</Dates>
+          <Dates
+            id="checkin"
+            onClick={() => {
+              changeStartDateView(true);
+              changeViewCalendar(true);
+            }}
+          >
+          Check-in
+            {startCalendar}
+          </Dates>
           <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false" style={{ height: '25px', width: '25px', margin: '7px 0' }}>
             <path d="m0 12.5a.5.5 0 0 0 .5.5h21.79l-6.15 6.15a.5.5 0 1 0 .71.71l7-7v-.01a.5.5 0 0 0 .14-.35.5.5 0 0 0 -.14-.35v-.01l-7-7a .5.5 0 0 0 -.71.71l6.15 6.15h-21.79a.5.5 0 0 0 -.5.5z" fillRule="evenodd" />
           </svg>
-          <Dates>Checkout</Dates>
+          <Dates
+            id="checkout"
+            onClick={() => {
+              changeStartDateView(false);
+              changeViewCalendar(true);
+            }}
+          >
+          Checkout
+            {endCalendar}
+          </Dates>
         </InputBox>
         <Label>Guests</Label>
         <GuestsBox>
@@ -160,7 +195,6 @@ const App = ({ listing }) => {
           <Label>You won’t be charged yet</Label>
         </FlexJustifyCenter>
       </InnerContainer>
-      <CalendarContainer />
     </OuterContainer>
   );
 };
@@ -177,6 +211,10 @@ App.propTypes = {
     rating: PropTypes.number,
     numberOfRatings: PropTypes.number,
   }),
+  changeStartDateView: PropTypes.func.isRequired,
+  changeViewCalendar: PropTypes.func.isRequired,
+  viewCalendar: PropTypes.bool,
+  startDateView: PropTypes.bool,
 };
 
 App.defaultProps = {
@@ -191,6 +229,8 @@ App.defaultProps = {
     rating: 9,
     numberOfRatings: 300,
   },
+  viewCalendar: false,
+  startDateView: false,
 };
 
 export default App;
