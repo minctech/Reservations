@@ -3,6 +3,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import CalendarContainer from '../containers/CalendarContainer';
+import GuestsContainer from '../containers/GuestsContainer';
+
 
 const Flex = styled.div`
   display: flex;
@@ -213,6 +215,7 @@ const App = ({
         <Label>Guests</Label>
         <GuestsBox>
           <span style={{ fontSize: '17px', marginLeft: '8px' }}>1 guest</span>
+          <GuestsContainer />
         </GuestsBox>
         <ReserveButton>
           <ReserveWord>Reserve</ReserveWord>
