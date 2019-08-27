@@ -102,6 +102,11 @@ const Guests = ({
     color: ${selectedAdults > 1 ? 'rgba(0, 132, 137)' : 'rgba(0, 132, 137, 0.3)'};
   `;
 
+  const ChildrenMinusButton = styled(Button)`
+    border: ${selectedChildren > 0 ? 'rgba(0, 132, 137) solid 1px' : 'rgba(0, 132, 137, 0.3) solid 1px'};
+    color: ${selectedChildren > 0 ? 'rgba(0, 132, 137)' : 'rgba(0, 132, 137, 0.3)'};
+  `;
+
   return (
     <OuterContainer>
       <InnerContainer>
@@ -141,11 +146,30 @@ const Guests = ({
             <SmallLetters>Ages 2–12</SmallLetters>
           </FlexColumn>
           <FlexDiv>
-            <Button type="button">-</Button>
+            <ChildrenMinusButton
+              type="button"
+              onClick={() => {
+                if (selectedChildren > 0) {
+                  changeSelectedChildren(-1, selectedChildren);
+                }
+              }}
+            >
+            -
+
+            </ChildrenMinusButton>
             <NumberDiv>
               <BigNumbers>{selectedChildren}</BigNumbers>
             </NumberDiv>
-            <PlusButton type="button">+</PlusButton>
+            <PlusButton
+              type="button"
+              onClick={() => {
+                if (!maxGuestsReached) {
+                  changeSelectedChildren(1, selectedChildren);
+                }
+              }}
+            >
+            +
+            </PlusButton>
           </FlexDiv>
         </FlexSpaceBetweenDiv>
         <FlexSpaceBetweenDiv>
