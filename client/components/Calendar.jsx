@@ -20,6 +20,21 @@ const HeaderBox = styled.div`
   justify-content: space-between;
 `;
 
+const ClearDatesBox = styled(HeaderBox)`
+  justify-content: flex-end;
+`;
+
+const ClearDatesButton = styled.button`
+  border: none;
+  margin: 20px 10px;
+  font-weight: 500;
+  font-size: 13px;
+  color: teal;
+  :hover {
+    text-decoration: underline;
+  }
+`;
+
 const Button = styled.button`
   height: 35px;
   width: 40px;
@@ -44,7 +59,13 @@ const Day = styled.small`
 
 const month = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 
-const Calendar = ({ currentMonth, currentYear, changeMonthHandler }) => (
+const Calendar = ({
+  currentMonth,
+  currentYear,
+  changeMonthHandler,
+  changeSelectedStartDate,
+  changeSelectedEndDate,
+}) => (
   <CalendarBox className="calendar">
     <HeaderBox className="calendar">
       <Button className="calendar" type="button" onClick={() => changeMonthHandler(-1, currentMonth, currentYear)}>
@@ -73,6 +94,18 @@ const Calendar = ({ currentMonth, currentYear, changeMonthHandler }) => (
       <Day className="calendar">Sa</Day>
     </DayBox>
     <CalendarDatesContainer />
+    <ClearDatesBox>
+      <ClearDatesButton
+        className="calendar"
+        type="button"
+        onClick={() => {
+          changeSelectedStartDate();
+          changeSelectedEndDate();
+        }}
+      >
+        Clear dates
+      </ClearDatesButton>
+    </ClearDatesBox>
   </CalendarBox>
 );
 
@@ -80,6 +113,8 @@ Calendar.propTypes = {
   currentMonth: PropTypes.number,
   currentYear: PropTypes.number,
   changeMonthHandler: PropTypes.func.isRequired,
+  changeSelectedEndDate: PropTypes.func.isRequired,
+  changeSelectedStartDate: PropTypes.func.isRequired,
 };
 
 Calendar.defaultProps = {
