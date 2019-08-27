@@ -40,8 +40,9 @@ ReactDOM.render(
 );
 
 document.addEventListener('click', (e) => {
-  console.log(e.target);
-  if (!(e.target.id === 'checkin' || e.target.id === 'checkout' || e.target.className.includes('calendar'))) {
-    store.dispatch(appActions.changeViewCalendar(false));
+  if (e.target.tagName !== 'svg' && e.target.tagName !== 'path') {
+    if (!(e.target.id === 'checkin' || e.target.id === 'checkout' || e.target.className.includes('calendar'))) {
+      store.dispatch(appActions.changeViewCalendar(false));
+    }
   }
 });
