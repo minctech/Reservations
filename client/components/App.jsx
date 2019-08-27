@@ -128,6 +128,7 @@ const App = ({
   startDateView,
   selectedStartDate,
   selectedEndDate,
+  guestContainerView,
 }) => {
   const chargePerNight = `$${listing.chargePerNight}`;
   const review = `${listing.numberOfRatings}`;
@@ -142,6 +143,12 @@ const App = ({
     } else {
       endCalendar = <CalendarContainer />;
     }
+  }
+
+  let guestContainer;
+
+  if (guestContainerView) {
+    guestContainer = <GuestsContainer />;
   }
 
   let checkInDate;
@@ -169,7 +176,7 @@ const App = ({
 
   return (
     <OuterContainer>
-      <GuestsContainer />
+      {guestContainer}
       {startCalendar}
       {endCalendar}
       <InnerContainer>
@@ -246,6 +253,7 @@ App.propTypes = {
   startDateView: PropTypes.bool,
   selectedStartDate: PropTypes.any,
   selectedEndDate: PropTypes.any,
+  guestContainerView: PropTypes.bool,
 };
 
 App.defaultProps = {
@@ -264,6 +272,7 @@ App.defaultProps = {
   startDateView: false,
   selectedStartDate: null,
   selectedEndDate: null,
+  guestContainerView: false,
 };
 
 export default App;

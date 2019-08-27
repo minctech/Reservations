@@ -25,4 +25,15 @@ const viewCalendar = (state = null, action) => {
   }
 };
 
-export default { listing, viewCalendar, startDateView };
+const guestContainerView = (state = false, action) => {
+  switch (action.type) {
+    case 'CHANGE_GUEST_CONTAINER_VIEW':
+      return action.guestContainerView || false;
+    default:
+      return state;
+  }
+};
+
+export default {
+  listing, viewCalendar, startDateView, guestContainerView,
+};

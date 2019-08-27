@@ -4,7 +4,9 @@ import calendarReducers from './Calendar';
 import calendarDatesReducers from './CalendarDates';
 import guestsReducers from './Guests';
 
-const { listing, viewCalendar, startDateView } = appReducers;
+const {
+  listing, viewCalendar, startDateView, guestContainerView,
+} = appReducers;
 const { currentMonth, currentYear, bookedDates } = calendarReducers;
 const { selectedEndDate, selectedStartDate, selectedDates } = calendarDatesReducers;
 const {
@@ -28,6 +30,7 @@ const rootReducer = combineReducers({
   selectedChildren,
   selectedInfants,
   maxGuestsReached,
+  guestContainerView,
 });
 
 export default rootReducer;
