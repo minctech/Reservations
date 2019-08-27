@@ -20,7 +20,7 @@ const FlexEndDiv = styled(FlexDiv)`
 
 const ClearButton = styled.button`
   border: none;
-  margin: 20px 10px;
+  margin: 10px;
   font-weight: 500;
   font-size: 13px;
   color: teal;
@@ -44,14 +44,21 @@ const SmallLetters = styled.span`
 `;
 
 const OuterContainer = styled.div`
-  width: 312px;
+  width: 326px;
   box-shadow: rgba(0, 0, 0, 0.15) 0px 2px 6px, rgba(0, 0, 0, 0.07) 0px 0px 0px 1px;
   border: 1px lightgray solid;
   border-radius: 3px;
+  z-index: 1000;
+  position: absolute;
+  background-color: white;
+  top: 341px;
+  left: 78px;
 `;
 
 const InnerContainer = styled.div`
-  margin: 24px;
+  margin-left: 24px;
+  margin-right: 24px;
+  margin-top: 24px;
 `;
 
 // add 0.3 for a in colors below for unselectable buttons
@@ -103,10 +110,10 @@ const Guests = () => (
           2 guests maximum. Infants don’t count toward the number of guests.
         </SmallLetters>
       </div>
-      <FlexEndDiv>
-        <ClearButton type="button">Clear</ClearButton>
-      </FlexEndDiv>
     </InnerContainer>
+    <FlexEndDiv>
+      <ClearButton type="button">Close</ClearButton>
+    </FlexEndDiv>
   </OuterContainer>
 );
 
