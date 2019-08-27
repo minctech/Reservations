@@ -134,6 +134,7 @@ const App = ({
   selectedAdults,
   selectedChildren,
   selectedInfants,
+  selectedDates,
 }) => {
   const chargePerNight = `$${listing.chargePerNight}`;
   const review = `${listing.numberOfRatings}`;
@@ -169,6 +170,12 @@ const App = ({
     checkOutDate = `${selectedEndDate.month + 1}/${selectedEndDate.day}/${selectedEndDate.year}`;
   } else {
     checkOutDate = 'Checkout';
+  }
+
+  let totalContainer;
+
+  if (selectedDates.length > 0) {
+    totalContainer = <TotalContainer />;
   }
 
   const CheckInDate = styled(Dates)`
@@ -261,7 +268,7 @@ const App = ({
             {`${selectedInfants ? ', ' : ''}${selectedInfants || ''}${selectedInfants ? '  infant' : ''}${selectedInfants > 1 ? 's' : ''}`}
           </InfantCount>
         </GuestsBox>
-        <TotalContainer />
+        {totalContainer}
         <ReserveButton>
           <ReserveWord>Reserve</ReserveWord>
         </ReserveButton>
@@ -296,6 +303,7 @@ App.propTypes = {
   selectedAdults: PropTypes.number,
   selectedChildren: PropTypes.number,
   selectedInfants: PropTypes.number,
+  selectedDates: PropTypes.array,
 };
 
 App.defaultProps = {
@@ -318,6 +326,7 @@ App.defaultProps = {
   selectedAdults: 1,
   selectedChildren: 0,
   selectedInfants: 0,
+  selectedDates: [],
 };
 
 export default App;
