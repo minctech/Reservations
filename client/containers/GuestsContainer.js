@@ -3,7 +3,8 @@ import Guests from '../components/Guests';
 
 const mapStateToProps = (state) => ({
   listing: state.listing,
-  guestsSelected: state.guestsSelected,
+  adultsSelected: state.adultsSelected,
+  childrenSelected: state.childrenSelected,
   infantsSelected: state.infantsSelected,
 });
 
