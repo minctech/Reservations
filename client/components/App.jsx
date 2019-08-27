@@ -90,6 +90,8 @@ const GuestsBox = styled.button`
   display: flex;
   margin-bottom: 8px;
   font-size: 17px;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const ReserveButton = styled(GuestsBox)`
@@ -178,6 +180,14 @@ const App = ({
     totalContainer = <TotalContainer />;
   }
 
+  let arrow;
+
+  if (guestContainerView) {
+    arrow = <svg viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{ height: '16px', width: '16px', margin: '10px' }}><path d="m1.71 13.71a1 1 0 1 1 -1.42-1.42l8-8a1 1 0 0 1 1.41 0l8 8a1 1 0 1 1 -1.41 1.42l-7.29-7.29z" fillRule="evenodd" /></svg>;
+  } else {
+    arrow = <svg viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{ height: '16px', width: '16px', margin: '10px' }}><path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd" /></svg>;
+  }
+
   const CheckInDate = styled(Dates)`
     background-color: ${viewCalendar && startDateView ? 'paleturquoise' : 'white'};
   `;
@@ -251,22 +261,25 @@ const App = ({
             changeGuestContainerView(!guestContainerView);
           }}
         >
-          <GuestCount
-            className="guests"
-            onClick={() => {
-              changeGuestContainerView(!guestContainerView);
-            }}
-          >
-            {`${selectedAdults + selectedChildren} guest${(selectedAdults + selectedChildren) > 1 ? 's' : ''}`}
-          </GuestCount>
-          <InfantCount
-            className="guests"
-            onClick={() => {
-              changeGuestContainerView(!guestContainerView);
-            }}
-          >
-            {`${selectedInfants ? ', ' : ''}${selectedInfants || ''}${selectedInfants ? '  infant' : ''}${selectedInfants > 1 ? 's' : ''}`}
-          </InfantCount>
+          <div>
+            <GuestCount
+              className="guests"
+              onClick={() => {
+                changeGuestContainerView(!guestContainerView);
+              }}
+            >
+              {`${selectedAdults + selectedChildren} guest${(selectedAdults + selectedChildren) > 1 ? 's' : ''}`}
+            </GuestCount>
+            <InfantCount
+              className="guests"
+              onClick={() => {
+                changeGuestContainerView(!guestContainerView);
+              }}
+            >
+              {`${selectedInfants ? ', ' : ''}${selectedInfants || ''}${selectedInfants ? '  infant' : ''}${selectedInfants > 1 ? 's' : ''}`}
+            </InfantCount>
+          </div>
+          {arrow}
         </GuestsBox>
         {totalContainer}
         <ReserveButton>
