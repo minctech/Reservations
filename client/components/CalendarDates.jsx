@@ -25,6 +25,15 @@ const BookedDay = styled(Day)`
   }
 `;
 
+const SelectedDay = styled(Day)`
+  background-color: teal;
+  color: white;
+  :hover {
+    cursor: unset;
+    background-color: teal;
+  }
+`;
+
 const Table = styled.table`
   border-spacing: 0px;
   border-collapse: collapse;
@@ -50,6 +59,9 @@ const CalendarDates = ({
   const days = [[]];
   const bookedDays = [];
 
+
+  // update selectedDates state based on selected start date and selected end date.
+  // If statements are used to make sure there is not an infinite loop.
   if (selectedStartDate && selectedEndDate && selectedDates.length === 0) {
     if (selectedStartDate.year <= selectedEndDate.year) {
       if (selectedStartDate.month <= selectedEndDate.month) {
