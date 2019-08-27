@@ -67,6 +67,14 @@ const InnerContainer = styled.div`
   margin-top: 24px;
 `;
 
+const Button = styled.button`
+  border-radius: 50%;
+  color: rgba(0, 132, 137, 0.3);
+  border: rgba(0, 132, 137, 0.3) solid 1px
+  height: 32px;
+  width: 32px;
+`;
+
 const Guests = ({
   listing,
   selectedAdults,
@@ -84,14 +92,6 @@ const Guests = ({
     changeMaxGuestsReached(false);
   }
 
-  const Button = styled.button`
-    border-radius: 50%;
-    color: rgba(0, 132, 137, 0.3);
-    border: rgba(0, 132, 137, 0.3) solid 1px
-    height: 32px;
-    width: 32px;
-  `;
-
   const PlusButton = styled(Button)`
     border: ${maxGuestsReached ? 'rgba(0, 132, 137, 0.3) solid 1px' : 'rgba(0, 132, 137) solid 1px'};
     color: ${maxGuestsReached ? 'rgba(0, 132, 137, 0.3)' : 'rgba(0, 132, 137)'};
@@ -105,6 +105,16 @@ const Guests = ({
   const ChildrenMinusButton = styled(Button)`
     border: ${selectedChildren > 0 ? 'rgba(0, 132, 137) solid 1px' : 'rgba(0, 132, 137, 0.3) solid 1px'};
     color: ${selectedChildren > 0 ? 'rgba(0, 132, 137)' : 'rgba(0, 132, 137, 0.3)'};
+  `;
+
+  const InfantsMinusButton = styled(Button)`
+    border: ${selectedInfants > 0 ? 'rgba(0, 132, 137) solid 1px' : 'rgba(0, 132, 137, 0.3) solid 1px'};
+    color: ${selectedInfants > 0 ? 'rgba(0, 132, 137)' : 'rgba(0, 132, 137, 0.3)'};
+  `;
+
+  const InfantsPlusButton = styled(Button)`
+    border: ${selectedInfants === listing.maxInfants ? 'rgba(0, 132, 137, 0.3) solid 1px' : 'rgba(0, 132, 137) solid 1px'};
+    color: ${selectedInfants === listing.maxInfants ? 'rgba(0, 132, 137, 0.3)' : 'rgba(0, 132, 137)'};
   `;
 
   return (
@@ -155,7 +165,6 @@ const Guests = ({
               }}
             >
             -
-
             </ChildrenMinusButton>
             <NumberDiv>
               <BigNumbers>{selectedChildren}</BigNumbers>
@@ -178,11 +187,29 @@ const Guests = ({
             <SmallLetters>Under 2</SmallLetters>
           </FlexColumn>
           <FlexDiv>
-            <Button type="button">-</Button>
+            <InfantsMinusButton
+              type="button"
+              onClick={() => {
+                if (selectedInfants > 0) {
+                  changeSelectedInfants(-1, selectedInfants);
+                }
+              }}
+            >
+            -
+            </InfantsMinusButton>
             <NumberDiv>
               <BigNumbers>{selectedInfants}</BigNumbers>
             </NumberDiv>
-            <Button type="button">+</Button>
+            <InfantsPlusButton
+              type="button"
+              onClick={() => {
+                if (selectedInfants < listing.maxInfants) {
+                  changeSelectedInfants(1, selectedInfants);
+                }
+              }}
+            >
+            +
+            </InfantsPlusButton>
           </FlexDiv>
         </FlexSpaceBetweenDiv>
         <div>
@@ -219,6 +246,7 @@ Guests.propTypes = {
   changeSelectedChildren: PropTypes.func.isRequired,
   changeSelectedInfants: PropTypes.func.isRequired,
   maxGuestsReached: PropTypes.bool.isRequired,
+  changeMaxGuestsReached: PropTypes.func.isRequired,
 };
 
 Guests.defaultProps = {
