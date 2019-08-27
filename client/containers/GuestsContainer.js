@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
 import Guests from '../components/Guests';
+import actionCreators from '../actions/Guests';
 
 const mapStateToProps = (state) => ({
   listing: state.listing,
@@ -9,11 +10,17 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  changeSelectedAdults: (change) => {
-
+  changeSelectedAdults: (change, currentAdults) => {
+    dispatch(actionCreators.changeSelectedAdults(currentAdults + change));
+  },
+  changeSelectedChildren: (change, currentChildren) => {
+    dispatch(actionCreators.changeSelectedChildren(currentChildren + change));
+  },
+  changeSelectedInfants: (change, currentInfants) => {
+    dispatch(actionCreators.changeSelectedInfants(currentInfants + change));
   },
 });
 
-const GuestsContainer = connect(mapStateToProps, null)(Guests);
+const GuestsContainer = connect(mapStateToProps, mapDispatchToProps)(Guests);
 
 export default GuestsContainer;

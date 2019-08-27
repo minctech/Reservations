@@ -6,6 +6,11 @@ const FlexDiv = styled.div`
   display: flex;
 `;
 
+const NumberDiv = styled(FlexDiv)`
+  width: 53px;
+  align-items: center;
+`;
+
 const FlexColumn = styled(FlexDiv)`
   flex-direction: column;
 `;
@@ -76,6 +81,9 @@ const Guests = ({
   selectedAdults,
   selectedChildren,
   selectedInfants,
+  changeSelectedAdults,
+  changeSelectedChildren,
+  changeSelectedInfants,
 }) => (
   <OuterContainer>
     <InnerContainer>
@@ -83,33 +91,39 @@ const Guests = ({
         <div>
           <BigLetters>Adults</BigLetters>
         </div>
-        <div>
-          <Button type="button">-</Button>
-          <BigNumbers>{selectedAdults}</BigNumbers>
-          <Button type="button">+</Button>
-        </div>
+        <FlexDiv>
+          <Button type="button" onClick={() => changeSelectedAdults(-1, selectedAdults)}>-</Button>
+          <NumberDiv>
+            <BigNumbers>{selectedAdults}</BigNumbers>
+          </NumberDiv>
+          <Button type="button" onClick={() => changeSelectedAdults(1, selectedAdults)}>+</Button>
+        </FlexDiv>
       </FlexSpaceBetweenDiv>
       <FlexSpaceBetweenDiv>
         <FlexColumn>
           <BigLetters>Children</BigLetters>
           <SmallLetters>Ages 2–12</SmallLetters>
         </FlexColumn>
-        <div>
+        <FlexDiv>
           <Button type="button">-</Button>
-          <BigNumbers>{selectedChildren}</BigNumbers>
+          <NumberDiv>
+            <BigNumbers>{selectedChildren}</BigNumbers>
+          </NumberDiv>
           <Button type="button">+</Button>
-        </div>
+        </FlexDiv>
       </FlexSpaceBetweenDiv>
       <FlexSpaceBetweenDiv>
         <FlexColumn>
           <BigLetters>Infants</BigLetters>
           <SmallLetters>Under 2</SmallLetters>
         </FlexColumn>
-        <div>
+        <FlexDiv>
           <Button type="button">-</Button>
-          <BigNumbers>{selectedInfants}</BigNumbers>
+          <NumberDiv>
+            <BigNumbers>{selectedInfants}</BigNumbers>
+          </NumberDiv>
           <Button type="button">+</Button>
-        </div>
+        </FlexDiv>
       </FlexSpaceBetweenDiv>
       <div>
         <SmallLetters>
@@ -140,6 +154,9 @@ Guests.propTypes = {
   selectedAdults: PropTypes.number,
   selectedChildren: PropTypes.number,
   selectedInfants: PropTypes.number,
+  changeSelectedAdults: PropTypes.func.isRequired,
+  changeSelectedChildren: PropTypes.func.isRequired,
+  changeSelectedInfants: PropTypes.func.isRequired,
 };
 
 Guests.defaultProps = {
