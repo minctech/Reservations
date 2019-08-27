@@ -65,6 +65,7 @@ const Calendar = ({
   changeMonthHandler,
   changeSelectedStartDate,
   changeSelectedEndDate,
+  changeSelectedDates,
 }) => (
   <CalendarBox className="calendar">
     <HeaderBox className="calendar">
@@ -96,11 +97,11 @@ const Calendar = ({
     <CalendarDatesContainer />
     <ClearDatesBox>
       <ClearDatesButton
-        className="calendar"
         type="button"
         onClick={() => {
           changeSelectedStartDate();
           changeSelectedEndDate();
+          changeSelectedDates();
         }}
       >
         Clear dates
@@ -115,6 +116,8 @@ Calendar.propTypes = {
   changeMonthHandler: PropTypes.func.isRequired,
   changeSelectedEndDate: PropTypes.func.isRequired,
   changeSelectedStartDate: PropTypes.func.isRequired,
+  changeSelectedDates: PropTypes.func.isRequired,
+
 };
 
 Calendar.defaultProps = {

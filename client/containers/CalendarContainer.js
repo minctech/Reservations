@@ -36,6 +36,9 @@ const mapDispatchToProps = (dispatch) => ({
   changeSelectedEndDate: () => {
     dispatch(actionCreators.changeSelectedEndDate());
   },
+  changeSelectedDates: (dates) => {
+    dispatch(actionCreators.changeSelectedDates(dates));
+  },
 });
 
 const CalendarContainer = connect(mapStateToProps, mapDispatchToProps)(Calendar);
