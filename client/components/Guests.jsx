@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const FlexDiv = styled.div`
   display: flex;
@@ -70,7 +71,7 @@ const Button = styled.button`
   width: 32px;
 `;
 
-const Guests = () => (
+const Guests = ({ listing }) => (
   <OuterContainer>
     <InnerContainer>
       <FlexSpaceBetweenDiv>
@@ -90,7 +91,7 @@ const Guests = () => (
         </FlexColumn>
         <div>
           <Button type="button">-</Button>
-          <BigNumbers>1</BigNumbers>
+          <BigNumbers>0</BigNumbers>
           <Button type="button">+</Button>
         </div>
       </FlexSpaceBetweenDiv>
@@ -107,7 +108,9 @@ const Guests = () => (
       </FlexSpaceBetweenDiv>
       <div>
         <SmallLetters>
-          2 guests maximum. Infants don’t count toward the number of guests.
+          {listing.maxGuests}
+          {' '}
+          guests maximum. Infants don’t count toward the number of guests.
         </SmallLetters>
       </div>
     </InnerContainer>
@@ -117,4 +120,17 @@ const Guests = () => (
   </OuterContainer>
 );
 
+Guests.propTypes = {
+  listing: PropTypes.shape({
+    id: PropTypes.number,
+    maxGuests: PropTypes.number,
+    maxInfants: PropTypes.number,
+    chargePerNight: PropTypes.number,
+    cleaningFee: PropTypes.number,
+    serviceFee: PropTypes.number,
+    occupancyFee: PropTypes.number,
+    rating: PropTypes.number,
+    numberOfRatings: PropTypes.number,
+  }).isRequired,
+};
 export default Guests;
