@@ -87,16 +87,19 @@ const Guests = ({
   const Button = styled.button`
     border-radius: 50%;
     color: rgba(0, 132, 137, 0.3);
+    border: rgba(0, 132, 137, 0.3) solid 1px
     height: 32px;
     width: 32px;
   `;
 
   const PlusButton = styled(Button)`
     border: ${maxGuestsReached ? 'rgba(0, 132, 137, 0.3) solid 1px' : 'rgba(0, 132, 137) solid 1px'};
+    color: ${maxGuestsReached ? 'rgba(0, 132, 137, 0.3)' : 'rgba(0, 132, 137)'};
   `;
 
   const AdultsMinusButton = styled(Button)`
     border: ${selectedAdults > 1 ? 'rgba(0, 132, 137) solid 1px' : 'rgba(0, 132, 137, 0.3) solid 1px'};
+    color: ${selectedAdults > 1 ? 'rgba(0, 132, 137)' : 'rgba(0, 132, 137, 0.3)'};
   `;
 
   return (
@@ -142,7 +145,7 @@ const Guests = ({
             <NumberDiv>
               <BigNumbers>{selectedChildren}</BigNumbers>
             </NumberDiv>
-            <Button type="button">+</Button>
+            <PlusButton type="button">+</PlusButton>
           </FlexDiv>
         </FlexSpaceBetweenDiv>
         <FlexSpaceBetweenDiv>
