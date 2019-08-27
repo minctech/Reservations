@@ -169,6 +169,7 @@ const App = ({
 
   return (
     <OuterContainer>
+      <GuestsContainer />
       {startCalendar}
       {endCalendar}
       <InnerContainer>
@@ -215,7 +216,6 @@ const App = ({
         <Label>Guests</Label>
         <GuestsBox>
           <span style={{ fontSize: '17px', marginLeft: '8px' }}>1 guest</span>
-          <GuestsContainer />
         </GuestsBox>
         <ReserveButton>
           <ReserveWord>Reserve</ReserveWord>
