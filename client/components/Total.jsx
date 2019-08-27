@@ -9,7 +9,7 @@ const FlexDiv = styled.div`
 
 const FlexSpaceBetweenDiv = styled(FlexDiv)`
   justify-content: space-between;
-  margin: 24px 0px; 
+  margin-bottom: 24px; 
 `;
 
 const BottomMarginDiv = styled.div`
@@ -30,18 +30,81 @@ const SmallBoldLetters = styled(SmallLetters)`
   font-weight: 600;
 `;
 
-const Total = ({ listing, selectedDates }) => (
-  <div>
-    <BottomBorderDiv>
-      <BottomMarginDiv>
-        <SmallLetters>{`$${listing.chargePerNight} x ${selectedDates.length} nights`}</SmallLetters>
-      </BottomMarginDiv>
-      <BottomMarginDiv>
-        <SmallLetters>{`$${listing.chargePerNight * selectedDates.length}`}</SmallLetters>
-      </BottomMarginDiv>
-    </BottomBorderDiv>
-  </div>
-);
+const Total = ({ listing, selectedDates }) => {
+  let cleaningFee;
+
+  if (listing.cleaningFee) {
+    cleaningFee = (
+      <BottomBorderDiv>
+        <BottomMarginDiv>
+          <SmallLetters>Cleaning fee</SmallLetters>
+        </BottomMarginDiv>
+        <BottomMarginDiv>
+          <SmallLetters>{`$${listing.cleaningFee}`}</SmallLetters>
+        </BottomMarginDiv>
+      </BottomBorderDiv>
+    );
+  }
+
+  let serviceFee;
+
+  if (listing.serviceFee) {
+    serviceFee = (
+      <BottomBorderDiv>
+        <BottomMarginDiv>
+          <SmallLetters>Service fee</SmallLetters>
+        </BottomMarginDiv>
+        <BottomMarginDiv>
+          <SmallLetters>{`$${listing.serviceFee}`}</SmallLetters>
+        </BottomMarginDiv>
+      </BottomBorderDiv>
+    );
+  }
+
+  let occupancyFee;
+
+  if (listing.occupancyFee) {
+    occupancyFee = (
+      <BottomBorderDiv>
+        <BottomMarginDiv>
+          <SmallLetters>Occupancy taxes and fees</SmallLetters>
+        </BottomMarginDiv>
+        <BottomMarginDiv>
+          <SmallLetters>{`$${listing.occupancyFee}`}</SmallLetters>
+        </BottomMarginDiv>
+      </BottomBorderDiv>
+    );
+  }
+
+  const total = `$${((listing.chargePerNight * selectedDates.length)
+    + listing.cleaningFee + listing.serviceFee + listing.occupancyFee).toLocaleString()}`;
+
+  return (
+    <div>
+      <BottomBorderDiv style={{ marginTop: '24px' }}>
+        <BottomMarginDiv>
+          <SmallLetters>{`$${listing.chargePerNight} x ${selectedDates.length} nights`}</SmallLetters>
+        </BottomMarginDiv>
+        <BottomMarginDiv>
+          <SmallLetters>{`$${listing.chargePerNight * selectedDates.length}`}</SmallLetters>
+        </BottomMarginDiv>
+      </BottomBorderDiv>
+      {cleaningFee}
+      {serviceFee}
+      {occupancyFee}
+      <FlexSpaceBetweenDiv style={{ marginBottom: '0px' }}>
+        <BottomMarginDiv>
+          <SmallBoldLetters>Total</SmallBoldLetters>
+        </BottomMarginDiv>
+        <BottomMarginDiv>
+          <SmallBoldLetters>
+            {total}
+          </SmallBoldLetters>
+        </BottomMarginDiv>
+      </FlexSpaceBetweenDiv>
+    </div>
+  );
+};
 
 Total.propTypes = {
   listing: PropTypes.shape({
