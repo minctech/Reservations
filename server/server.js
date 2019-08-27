@@ -24,3 +24,15 @@ app.get('/api/dblistings', (req, res) => {
       res.send(listing);
     });
 });
+
+app.get('/api/dbbookeddates', (req, res) => {
+  db.BookedDate.findAll({
+    attributes: ['year', 'month', 'date'],
+    where: {
+      listingId: req.query.listing,
+    },
+  })
+    .then((bookedDates) => {
+      res.send(bookedDates);
+    });
+});

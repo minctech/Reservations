@@ -3,4 +3,14 @@ const changeListing = (listing) => ({
   listing,
 });
 
-export default changeListing;
+const changeViewCalendar = (viewCalendar) => ({
+  type: 'CHANGE_VIEW_CALENDAR',
+  viewCalendar,
+});
+
+const changeStartDateView = (startDateView) => ({
+  type: 'CHANGE_START_DATE_VIEW',
+  startDateView,
+});
+
+export default { changeListing, changeViewCalendar, changeStartDateView };

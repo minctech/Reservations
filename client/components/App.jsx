@@ -1,6 +1,8 @@
+/* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import CalendarContainer from '../containers/CalendarContainer';
 
 const Flex = styled.div`
   display: flex;
@@ -38,8 +40,8 @@ const BottomStars = styled(StarRatings)`
 `;
 
 // outercontainer top should be 75px
+// position should be: position: fixed;
 const OuterContainer = styled.div`
-  position: fixed;
   top: 150px;
   margin-left: 45px;
   width: 376px;
@@ -116,13 +118,57 @@ const Dates = styled.div`
   display: inline-block;
 `;
 
-const App = ({ listing }) => {
+const App = ({
+  listing,
+  changeViewCalendar,
+  changeStartDateView,
+  viewCalendar,
+  startDateView,
+  selectedStartDate,
+  selectedEndDate,
+}) => {
   const chargePerNight = `$${listing.chargePerNight}`;
   const review = `${listing.numberOfRatings}`;
   const width = `${listing.rating * 10}%`;
 
+  let startCalendar;
+  let endCalendar;
+
+  if (viewCalendar) {
+    if (startDateView) {
+      startCalendar = <CalendarContainer />;
+    } else {
+      endCalendar = <CalendarContainer />;
+    }
+  }
+
+  let checkInDate;
+  let checkOutDate;
+
+  if (selectedStartDate) {
+    checkInDate = `${selectedStartDate.month + 1}/${selectedStartDate.day}/${selectedStartDate.year}`;
+  } else {
+    checkInDate = 'Check-in';
+  }
+
+  if (selectedEndDate) {
+    checkOutDate = `${selectedEndDate.month + 1}/${selectedEndDate.day}/${selectedEndDate.year}`;
+  } else {
+    checkOutDate = 'Checkout';
+  }
+
+  const CheckInDate = styled(Dates)`
+  background-color: ${viewCalendar && startDateView ? 'paleturquoise' : 'white'};
+  `;
+
+  const CheckOutDate = styled(Dates)`
+  background-color: ${viewCalendar && !startDateView ? 'paleturquoise' : 'white'};
+  `;
+
   return (
     <OuterContainer>
+      {startCalendar}
+      {endCalendar}
       <InnerContainer>
         <div>
           <Cost>{chargePerNight}</Cost>
@@ -142,11 +188,27 @@ const App = ({ listing }) => {
         <Seperator />
         <Label>Dates</Label>
         <InputBox>
-          <Dates>Check-in</Dates>
+          <CheckInDate
+            id="checkin"
+            onClick={() => {
+              changeStartDateView(true);
+              changeViewCalendar(true);
+            }}
+          >
+            {checkInDate}
+          </CheckInDate>
           <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false" style={{ height: '25px', width: '25px', margin: '7px 0' }}>
             <path d="m0 12.5a.5.5 0 0 0 .5.5h21.79l-6.15 6.15a.5.5 0 1 0 .71.71l7-7v-.01a.5.5 0 0 0 .14-.35.5.5 0 0 0 -.14-.35v-.01l-7-7a .5.5 0 0 0 -.71.71l6.15 6.15h-21.79a.5.5 0 0 0 -.5.5z" fillRule="evenodd" />
           </svg>
-          <Dates>Checkout</Dates>
+          <CheckOutDate
+            id="checkout"
+            onClick={() => {
+              changeStartDateView(false);
+              changeViewCalendar(true);
+            }}
+          >
+            {checkOutDate}
+          </CheckOutDate>
         </InputBox>
         <Label>Guests</Label>
         <GuestsBox>
@@ -165,6 +227,7 @@ const App = ({ listing }) => {
 
 App.propTypes = {
   listing: PropTypes.shape({
+    id: PropTypes.number,
     maxGuests: PropTypes.number,
     maxInfants: PropTypes.number,
     chargePerNight: PropTypes.number,
@@ -174,10 +237,17 @@ App.propTypes = {
     rating: PropTypes.number,
     numberOfRatings: PropTypes.number,
   }),
+  changeStartDateView: PropTypes.func.isRequired,
+  changeViewCalendar: PropTypes.func.isRequired,
+  viewCalendar: PropTypes.bool,
+  startDateView: PropTypes.bool,
+  selectedStartDate: PropTypes.any,
+  selectedEndDate: PropTypes.any,
 };
 
 App.defaultProps = {
   listing: {
+    id: 0,
     maxGuests: 5,
     maxInfants: 3,
     chargePerNight: 150,
@@ -187,6 +257,10 @@ App.defaultProps = {
     rating: 9,
     numberOfRatings: 300,
   },
+  viewCalendar: false,
+  startDateView: false,
+  selectedStartDate: null,
+  selectedEndDate: null,
 };
 
 export default App;

@@ -18,6 +18,7 @@
     "axios": "^0.19.0",
     "babel-jest": "^24.9.0",
     "body-parser": "^1.19.0",
+    "chai": "^4.2.0",
     "express": "^4.17.1",
     "morgan": "^1.9.1",
     "mysql2": "^1.6.5",
@@ -36,9 +37,11 @@
     "@babel/core": "^7.5.5",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
+    "babel-eslint": "^10.0.3",
     "babel-loader": "^8.0.6",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
+    "enzyme-redux": "^0.2.1",
     "eslint": "^6.2.1",
     "eslint-config-airbnb": "^18.0.1",
     "eslint-config-hackreactor": "git://github.com/reactorcore/eslint-config-hackreactor",
@@ -48,6 +51,7 @@
     "eslint-plugin-react-hooks": "^1.7.0",
     "jest": "^24.9.0",
     "mysql": "^2.17.1",
+    "redux-test-utils": "^0.3.0",
     "webpack": "^4.39.2",
     "webpack-cli": "^3.3.7"
   }

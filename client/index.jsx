@@ -4,7 +4,7 @@ import axios from 'axios';
 import { Provider } from 'react-redux';
 import AppContainer from './containers/AppContainer';
 import store from './store/store';
-import changeListing from './actions/App';
+import appActions from './actions/App';
 
 ReactDOM.render(
   <Provider store={store}>
@@ -18,10 +18,31 @@ ReactDOM.render(
       },
     })
       .then((listing) => {
-        store.dispatch(changeListing(listing.data));
+        store.dispatch(appActions.changeListing(listing.data));
+      })
+      .then(() => {
+        axios.get('/api/dbbookeddates', {
+          params: {
+            listing: document.URL.split('/').reverse()[1],
+          },
+        })
+          .then((bookedDates) => {
+            store.dispatch({
+              type: 'CHANGE_BOOKED_DATES',
+              bookedDates: bookedDates.data,
+            });
+          });
       })
       .catch((error) => {
         console.log('error fetching listing data', error);
       });
   },
 );
+
+document.addEventListener('click', (e) => {
+  if (e.target.tagName !== 'svg' && e.target.tagName !== 'path') {
+    if (!(e.target.id === 'checkin' || e.target.id === 'checkout' || e.target.className.includes('calendar'))) {
+      store.dispatch(appActions.changeViewCalendar(false));
+    }
+  }
+});
