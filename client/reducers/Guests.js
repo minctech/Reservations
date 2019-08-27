@@ -25,4 +25,15 @@ const selectedInfants = (state = 0, action) => {
   }
 };
 
-export default { selectedAdults, selectedChildren, selectedInfants };
+const maxGuestsReached = (state = false, action) => {
+  switch (action.type) {
+    case 'CHANGE_MAX_GUESTS_REACHED':
+      return action.maxGuestsReached || false;
+    default:
+      return state;
+  }
+};
+
+export default {
+  selectedAdults, selectedChildren, selectedInfants, maxGuestsReached,
+};

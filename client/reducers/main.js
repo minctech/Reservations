@@ -7,7 +7,12 @@ import guestsReducers from './Guests';
 const { listing, viewCalendar, startDateView } = appReducers;
 const { currentMonth, currentYear, bookedDates } = calendarReducers;
 const { selectedEndDate, selectedStartDate, selectedDates } = calendarDatesReducers;
-const { selectedAdults, selectedChildren, selectedInfants } = guestsReducers;
+const {
+  selectedAdults,
+  selectedChildren,
+  selectedInfants,
+  maxGuestsReached,
+} = guestsReducers;
 
 const rootReducer = combineReducers({
   listing,
@@ -22,6 +27,7 @@ const rootReducer = combineReducers({
   selectedAdults,
   selectedChildren,
   selectedInfants,
+  maxGuestsReached,
 });
 
 export default rootReducer;

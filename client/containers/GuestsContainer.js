@@ -7,6 +7,7 @@ const mapStateToProps = (state) => ({
   selectedAdults: state.selectedAdults,
   selectedChildren: state.selectedChildren,
   selectedInfants: state.selectedInfants,
+  maxGuestsReached: state.maxGuestsReached,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -18,6 +19,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   changeSelectedInfants: (change, currentInfants) => {
     dispatch(actionCreators.changeSelectedInfants(currentInfants + change));
+  },
+  changeMaxGuestsReached: (boolean) => {
+    dispatch(actionCreators.changeMaxGuestsReached(boolean));
   },
 });
 

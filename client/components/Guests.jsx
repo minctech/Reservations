@@ -84,60 +84,88 @@ const Guests = ({
   changeSelectedAdults,
   changeSelectedChildren,
   changeSelectedInfants,
-}) => (
-  <OuterContainer>
-    <InnerContainer>
-      <FlexSpaceBetweenDiv>
+  maxGuestsReached,
+  changeMaxGuestsReached,
+}) => {
+  if (selectedAdults + selectedChildren === listing.maxGuests) {
+    changeMaxGuestsReached(true);
+  } else {
+    changeMaxGuestsReached(false);
+  }
+
+  return (
+    <OuterContainer>
+      <InnerContainer>
+        <FlexSpaceBetweenDiv>
+          <div>
+            <BigLetters>Adults</BigLetters>
+          </div>
+          <FlexDiv>
+            <Button
+              type="button"
+              onClick={() => {
+                if (selectedAdults > 1) {
+                  changeSelectedAdults(-1, selectedAdults);
+                }
+              }}
+            >
+            -
+            </Button>
+            <NumberDiv>
+              <BigNumbers>{selectedAdults}</BigNumbers>
+            </NumberDiv>
+            <Button
+              type="button"
+              onClick={() => {
+                if (!maxGuestsReached) {
+                  changeSelectedAdults(1, selectedAdults);
+                }
+              }}
+            >
+            +
+            </Button>
+          </FlexDiv>
+        </FlexSpaceBetweenDiv>
+        <FlexSpaceBetweenDiv>
+          <FlexColumn>
+            <BigLetters>Children</BigLetters>
+            <SmallLetters>Ages 2–12</SmallLetters>
+          </FlexColumn>
+          <FlexDiv>
+            <Button type="button">-</Button>
+            <NumberDiv>
+              <BigNumbers>{selectedChildren}</BigNumbers>
+            </NumberDiv>
+            <Button type="button">+</Button>
+          </FlexDiv>
+        </FlexSpaceBetweenDiv>
+        <FlexSpaceBetweenDiv>
+          <FlexColumn>
+            <BigLetters>Infants</BigLetters>
+            <SmallLetters>Under 2</SmallLetters>
+          </FlexColumn>
+          <FlexDiv>
+            <Button type="button">-</Button>
+            <NumberDiv>
+              <BigNumbers>{selectedInfants}</BigNumbers>
+            </NumberDiv>
+            <Button type="button">+</Button>
+          </FlexDiv>
+        </FlexSpaceBetweenDiv>
         <div>
-          <BigLetters>Adults</BigLetters>
+          <SmallLetters>
+            {listing.maxGuests}
+            {' '}
+            guests maximum. Infants don’t count toward the number of guests.
+          </SmallLetters>
         </div>
-        <FlexDiv>
-          <Button type="button" onClick={() => changeSelectedAdults(-1, selectedAdults)}>-</Button>
-          <NumberDiv>
-            <BigNumbers>{selectedAdults}</BigNumbers>
-          </NumberDiv>
-          <Button type="button" onClick={() => changeSelectedAdults(1, selectedAdults)}>+</Button>
-        </FlexDiv>
-      </FlexSpaceBetweenDiv>
-      <FlexSpaceBetweenDiv>
-        <FlexColumn>
-          <BigLetters>Children</BigLetters>
-          <SmallLetters>Ages 2–12</SmallLetters>
-        </FlexColumn>
-        <FlexDiv>
-          <Button type="button">-</Button>
-          <NumberDiv>
-            <BigNumbers>{selectedChildren}</BigNumbers>
-          </NumberDiv>
-          <Button type="button">+</Button>
-        </FlexDiv>
-      </FlexSpaceBetweenDiv>
-      <FlexSpaceBetweenDiv>
-        <FlexColumn>
-          <BigLetters>Infants</BigLetters>
-          <SmallLetters>Under 2</SmallLetters>
-        </FlexColumn>
-        <FlexDiv>
-          <Button type="button">-</Button>
-          <NumberDiv>
-            <BigNumbers>{selectedInfants}</BigNumbers>
-          </NumberDiv>
-          <Button type="button">+</Button>
-        </FlexDiv>
-      </FlexSpaceBetweenDiv>
-      <div>
-        <SmallLetters>
-          {listing.maxGuests}
-          {' '}
-          guests maximum. Infants don’t count toward the number of guests.
-        </SmallLetters>
-      </div>
-    </InnerContainer>
-    <FlexEndDiv>
-      <ClearButton type="button">Close</ClearButton>
-    </FlexEndDiv>
-  </OuterContainer>
-);
+      </InnerContainer>
+      <FlexEndDiv>
+        <ClearButton type="button">Close</ClearButton>
+      </FlexEndDiv>
+    </OuterContainer>
+  );
+};
 
 Guests.propTypes = {
   listing: PropTypes.shape({
@@ -157,6 +185,7 @@ Guests.propTypes = {
   changeSelectedAdults: PropTypes.func.isRequired,
   changeSelectedChildren: PropTypes.func.isRequired,
   changeSelectedInfants: PropTypes.func.isRequired,
+  maxGuestsReached: PropTypes.bool.isRequired,
 };
 
 Guests.defaultProps = {

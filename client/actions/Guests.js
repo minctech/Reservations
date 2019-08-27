@@ -13,4 +13,11 @@ const changeSelectedInfants = (selectedInfants) => ({
   selectedInfants,
 });
 
-export default { changeSelectedAdults, changeSelectedChildren, changeSelectedInfants };
+const changeMaxGuestsReached = (maxGuestsReached) => ({
+  type: 'CHANGE_MAX_GUESTS_REACHED',
+  maxGuestsReached,
+});
+
+export default {
+  changeSelectedAdults, changeSelectedChildren, changeSelectedInfants, changeMaxGuestsReached,
+};
