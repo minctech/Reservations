@@ -129,6 +129,7 @@ const App = ({
   selectedStartDate,
   selectedEndDate,
   guestContainerView,
+  changeGuestContainerView,
 }) => {
   const chargePerNight = `$${listing.chargePerNight}`;
   const review = `${listing.numberOfRatings}`;
@@ -221,7 +222,12 @@ const App = ({
           </CheckOutDate>
         </InputBox>
         <Label>Guests</Label>
-        <GuestsBox>
+        <GuestsBox
+          className="guests"
+          onClick={() => {
+            changeGuestContainerView(true);
+          }}
+        >
           <span style={{ fontSize: '17px', marginLeft: '8px' }}>1 guest</span>
         </GuestsBox>
         <ReserveButton>
@@ -254,6 +260,7 @@ App.propTypes = {
   selectedStartDate: PropTypes.any,
   selectedEndDate: PropTypes.any,
   guestContainerView: PropTypes.bool,
+  changeGuestContainerView: PropTypes.func.isRequired,
 };
 
 App.defaultProps = {

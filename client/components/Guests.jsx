@@ -118,14 +118,15 @@ const Guests = ({
   `;
 
   return (
-    <OuterContainer>
-      <InnerContainer>
-        <FlexSpaceBetweenDiv>
-          <div>
-            <BigLetters>Adults</BigLetters>
+    <OuterContainer className="guests">
+      <InnerContainer className="guests">
+        <FlexSpaceBetweenDiv className="guests">
+          <div className="guests">
+            <BigLetters className="guests">Adults</BigLetters>
           </div>
-          <FlexDiv>
+          <FlexDiv className="guests">
             <AdultsMinusButton
+              className="guests"
               type="button"
               onClick={() => {
                 if (selectedAdults > 1) {
@@ -135,10 +136,11 @@ const Guests = ({
             >
             -
             </AdultsMinusButton>
-            <NumberDiv>
+            <NumberDiv className="guests">
               <BigNumbers>{selectedAdults}</BigNumbers>
             </NumberDiv>
             <PlusButton
+              className="guests"
               type="button"
               onClick={() => {
                 if (!maxGuestsReached) {
@@ -150,13 +152,14 @@ const Guests = ({
             </PlusButton>
           </FlexDiv>
         </FlexSpaceBetweenDiv>
-        <FlexSpaceBetweenDiv>
-          <FlexColumn>
-            <BigLetters>Children</BigLetters>
-            <SmallLetters>Ages 2–12</SmallLetters>
+        <FlexSpaceBetweenDiv className="guests">
+          <FlexColumn className="guests">
+            <BigLetters className="guests">Children</BigLetters>
+            <SmallLetters className="guests">Ages 2–12</SmallLetters>
           </FlexColumn>
-          <FlexDiv>
+          <FlexDiv className="guests">
             <ChildrenMinusButton
+              className="guests"
               type="button"
               onClick={() => {
                 if (selectedChildren > 0) {
@@ -166,10 +169,11 @@ const Guests = ({
             >
             -
             </ChildrenMinusButton>
-            <NumberDiv>
-              <BigNumbers>{selectedChildren}</BigNumbers>
+            <NumberDiv className="guests">
+              <BigNumbers className="guests">{selectedChildren}</BigNumbers>
             </NumberDiv>
             <PlusButton
+              className="guests"
               type="button"
               onClick={() => {
                 if (!maxGuestsReached) {
@@ -181,13 +185,14 @@ const Guests = ({
             </PlusButton>
           </FlexDiv>
         </FlexSpaceBetweenDiv>
-        <FlexSpaceBetweenDiv>
-          <FlexColumn>
-            <BigLetters>Infants</BigLetters>
-            <SmallLetters>Under 2</SmallLetters>
+        <FlexSpaceBetweenDiv className="guests">
+          <FlexColumn className="guests">
+            <BigLetters className="guests">Infants</BigLetters>
+            <SmallLetters className="guests">Under 2</SmallLetters>
           </FlexColumn>
-          <FlexDiv>
+          <FlexDiv className="guests">
             <InfantsMinusButton
+              className="guests"
               type="button"
               onClick={() => {
                 if (selectedInfants > 0) {
@@ -197,10 +202,11 @@ const Guests = ({
             >
             -
             </InfantsMinusButton>
-            <NumberDiv>
-              <BigNumbers>{selectedInfants}</BigNumbers>
+            <NumberDiv className="guests">
+              <BigNumbers className="guests">{selectedInfants}</BigNumbers>
             </NumberDiv>
             <InfantsPlusButton
+              className="guests"
               type="button"
               onClick={() => {
                 if (selectedInfants < listing.maxInfants) {
@@ -212,15 +218,15 @@ const Guests = ({
             </InfantsPlusButton>
           </FlexDiv>
         </FlexSpaceBetweenDiv>
-        <div>
-          <SmallLetters>
+        <div className="guests">
+          <SmallLetters className="guests">
             {listing.maxGuests}
             {' '}
             guests maximum. Infants don’t count toward the number of guests.
           </SmallLetters>
         </div>
       </InnerContainer>
-      <FlexEndDiv>
+      <FlexEndDiv className="guests">
         <ClearButton type="button">Close</ClearButton>
       </FlexEndDiv>
     </OuterContainer>

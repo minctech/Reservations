@@ -18,6 +18,9 @@ const mapDispatchToProps = (dispatch) => ({
   changeViewCalendar: (boolean) => {
     dispatch(actionCreators.changeViewCalendar(boolean));
   },
+  changeGuestContainerView: (boolean) => {
+    dispatch(actionCreators.changeGuestContainerView(boolean));
+  },
 });
 
 const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);
