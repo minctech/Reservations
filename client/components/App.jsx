@@ -130,6 +130,9 @@ const App = ({
   selectedEndDate,
   guestContainerView,
   changeGuestContainerView,
+  selectedAdults,
+  selectedChildren,
+  selectedInfants,
 }) => {
   const chargePerNight = `$${listing.chargePerNight}`;
   const review = `${listing.numberOfRatings}`;
@@ -173,6 +176,18 @@ const App = ({
 
   const CheckOutDate = styled(Dates)`
     background-color: ${viewCalendar && !startDateView ? 'paleturquoise' : 'white'};
+  `;
+
+  const GuestCount = styled.span`
+    fontSize: 17px;
+    margin-left: 8px;
+    padding: 5px;
+    background-color: ${guestContainerView ? 'paleturquoise' : 'white'};
+  `;
+
+  const InfantCount = styled(GuestCount)`
+    background-color: white;
+    margin-left: 0px;
   `;
 
   return (
@@ -225,10 +240,25 @@ const App = ({
         <GuestsBox
           className="guests"
           onClick={() => {
-            changeGuestContainerView(true);
+            changeGuestContainerView(!guestContainerView);
           }}
         >
-          <span style={{ fontSize: '17px', marginLeft: '8px' }}>1 guest</span>
+          <GuestCount
+            className="guests"
+            onClick={() => {
+              changeGuestContainerView(!guestContainerView);
+            }}
+          >
+            {`${selectedAdults + selectedChildren} guest${(selectedAdults + selectedChildren) > 1 ? 's' : ''}`}
+          </GuestCount>
+          <InfantCount
+            className="guests"
+            onClick={() => {
+              changeGuestContainerView(!guestContainerView);
+            }}
+          >
+            {`${selectedInfants ? ', ' : ''}${selectedInfants || ''}${selectedInfants ? '  infant' : ''}${selectedInfants > 1 ? 's' : ''}`}
+          </InfantCount>
         </GuestsBox>
         <ReserveButton>
           <ReserveWord>Reserve</ReserveWord>
@@ -261,6 +291,9 @@ App.propTypes = {
   selectedEndDate: PropTypes.any,
   guestContainerView: PropTypes.bool,
   changeGuestContainerView: PropTypes.func.isRequired,
+  selectedAdults: PropTypes.number,
+  selectedChildren: PropTypes.number,
+  selectedInfants: PropTypes.number,
 };
 
 App.defaultProps = {
@@ -280,6 +313,9 @@ App.defaultProps = {
   selectedStartDate: null,
   selectedEndDate: null,
   guestContainerView: false,
+  selectedAdults: 1,
+  selectedChildren: 0,
+  selectedInfants: 0,
 };
 
 export default App;
