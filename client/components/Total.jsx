@@ -1,5 +1,7 @@
+/* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import styled from 'styled-components';
+import PropTypes from 'prop-types';
 
 const FlexDiv = styled.div`
   display: flex;
@@ -28,17 +30,32 @@ const SmallBoldLetters = styled(SmallLetters)`
   font-weight: 600;
 `;
 
-const Total = () => (
+const Total = ({ listing, selectedDates }) => (
   <div>
     <BottomBorderDiv>
       <BottomMarginDiv>
-        <SmallLetters>$111 x 5 nights</SmallLetters>
+        <SmallLetters>{`$${listing.chargePerNight} x ${selectedDates.length} nights`}</SmallLetters>
       </BottomMarginDiv>
       <BottomMarginDiv>
-        <SmallLetters>$556</SmallLetters>
+        <SmallLetters>{`$${listing.chargePerNight * selectedDates.length}`}</SmallLetters>
       </BottomMarginDiv>
     </BottomBorderDiv>
   </div>
 );
+
+Total.propTypes = {
+  listing: PropTypes.shape({
+    id: PropTypes.number,
+    maxGuests: PropTypes.number,
+    maxInfants: PropTypes.number,
+    chargePerNight: PropTypes.number,
+    cleaningFee: PropTypes.number,
+    serviceFee: PropTypes.number,
+    occupancyFee: PropTypes.number,
+    rating: PropTypes.number,
+    numberOfRatings: PropTypes.number,
+  }).isRequired,
+  selectedDates: PropTypes.array.isRequired,
+};
 
 export default Total;
