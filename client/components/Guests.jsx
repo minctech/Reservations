@@ -67,15 +67,6 @@ const InnerContainer = styled.div`
   margin-top: 24px;
 `;
 
-// add 0.3 for a in colors below for unselectable buttons
-const Button = styled.button`
-  border-radius: 50%;
-  border: rgba(0, 132, 137) solid 1px;
-  color: rgba(0, 132, 137);
-  height: 32px;
-  width: 32px;
-`;
-
 const Guests = ({
   listing,
   selectedAdults,
@@ -93,6 +84,21 @@ const Guests = ({
     changeMaxGuestsReached(false);
   }
 
+  const Button = styled.button`
+    border-radius: 50%;
+    color: rgba(0, 132, 137, 0.3);
+    height: 32px;
+    width: 32px;
+  `;
+
+  const PlusButton = styled(Button)`
+    border: ${maxGuestsReached ? 'rgba(0, 132, 137, 0.3) solid 1px' : 'rgba(0, 132, 137) solid 1px'};
+  `;
+
+  const AdultsMinusButton = styled(Button)`
+    border: ${selectedAdults > 1 ? 'rgba(0, 132, 137) solid 1px' : 'rgba(0, 132, 137, 0.3) solid 1px'};
+  `;
+
   return (
     <OuterContainer>
       <InnerContainer>
@@ -101,7 +107,7 @@ const Guests = ({
             <BigLetters>Adults</BigLetters>
           </div>
           <FlexDiv>
-            <Button
+            <AdultsMinusButton
               type="button"
               onClick={() => {
                 if (selectedAdults > 1) {
@@ -110,11 +116,11 @@ const Guests = ({
               }}
             >
             -
-            </Button>
+            </AdultsMinusButton>
             <NumberDiv>
               <BigNumbers>{selectedAdults}</BigNumbers>
             </NumberDiv>
-            <Button
+            <PlusButton
               type="button"
               onClick={() => {
                 if (!maxGuestsReached) {
@@ -123,7 +129,7 @@ const Guests = ({
               }}
             >
             +
-            </Button>
+            </PlusButton>
           </FlexDiv>
         </FlexSpaceBetweenDiv>
         <FlexSpaceBetweenDiv>

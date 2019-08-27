@@ -160,11 +160,11 @@ const App = ({
   }
 
   const CheckInDate = styled(Dates)`
-  background-color: ${viewCalendar && startDateView ? 'paleturquoise' : 'white'};
+    background-color: ${viewCalendar && startDateView ? 'paleturquoise' : 'white'};
   `;
 
   const CheckOutDate = styled(Dates)`
-  background-color: ${viewCalendar && !startDateView ? 'paleturquoise' : 'white'};
+    background-color: ${viewCalendar && !startDateView ? 'paleturquoise' : 'white'};
   `;
 
   return (
