@@ -157,6 +157,14 @@ const App = ({
     checkOutDate = 'Checkout';
   }
 
+  const CheckInDate = styled(Dates)`
+  background-color: ${viewCalendar && startDateView ? 'paleturquoise' : 'white'};
+  `;
+
+  const CheckOutDate = styled(Dates)`
+  background-color: ${viewCalendar && !startDateView ? 'paleturquoise' : 'white'};
+  `;
+
   return (
     <OuterContainer>
       {startCalendar}
@@ -180,7 +188,7 @@ const App = ({
         <Seperator />
         <Label>Dates</Label>
         <InputBox>
-          <Dates
+          <CheckInDate
             id="checkin"
             onClick={() => {
               changeStartDateView(true);
@@ -188,11 +196,11 @@ const App = ({
             }}
           >
             {checkInDate}
-          </Dates>
+          </CheckInDate>
           <svg viewBox="0 0 24 24" role="presentation" aria-hidden="true" focusable="false" style={{ height: '25px', width: '25px', margin: '7px 0' }}>
             <path d="m0 12.5a.5.5 0 0 0 .5.5h21.79l-6.15 6.15a.5.5 0 1 0 .71.71l7-7v-.01a.5.5 0 0 0 .14-.35.5.5 0 0 0 -.14-.35v-.01l-7-7a .5.5 0 0 0 -.71.71l6.15 6.15h-21.79a.5.5 0 0 0 -.5.5z" fillRule="evenodd" />
           </svg>
-          <Dates
+          <CheckOutDate
             id="checkout"
             onClick={() => {
               changeStartDateView(false);
@@ -200,7 +208,7 @@ const App = ({
             }}
           >
             {checkOutDate}
-          </Dates>
+          </CheckOutDate>
         </InputBox>
         <Label>Guests</Label>
         <GuestsBox>
