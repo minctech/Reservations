@@ -46,3 +46,11 @@ document.addEventListener('click', (e) => {
     }
   }
 });
+
+document.addEventListener('click', (e) => {
+  if (e.target.tagName !== 'svg' && e.target.tagName !== 'path') {
+    if (!e.target.className.includes('guests')) {
+      store.dispatch(appActions.changeGuestContainerView(false));
+    }
+  }
+});

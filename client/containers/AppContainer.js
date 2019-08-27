@@ -8,6 +8,10 @@ const mapStateToProps = (state) => ({
   startDateView: state.startDateView,
   selectedStartDate: state.selectedStartDate,
   selectedEndDate: state.selectedEndDate,
+  guestContainerView: state.guestContainerView,
+  selectedAdults: state.selectedAdults,
+  selectedChildren: state.selectedChildren,
+  selectedInfants: state.selectedInfants,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -16,6 +20,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   changeViewCalendar: (boolean) => {
     dispatch(actionCreators.changeViewCalendar(boolean));
+  },
+  changeGuestContainerView: (boolean) => {
+    dispatch(actionCreators.changeGuestContainerView(boolean));
   },
 });
 

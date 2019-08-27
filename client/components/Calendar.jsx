@@ -117,7 +117,6 @@ Calendar.propTypes = {
   changeSelectedEndDate: PropTypes.func.isRequired,
   changeSelectedStartDate: PropTypes.func.isRequired,
   changeSelectedDates: PropTypes.func.isRequired,
-
 };
 
 Calendar.defaultProps = {

@@ -20,5 +20,7 @@ export default createStore(
     bookedDates: [],
     selectedStartDate: 0,
     selectedEndDate: 0,
+    selectedAdults: 1,
+    maxGuestsReached: false,
   },
 );

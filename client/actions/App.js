@@ -13,4 +13,11 @@ const changeStartDateView = (startDateView) => ({
   startDateView,
 });
 
-export default { changeListing, changeViewCalendar, changeStartDateView };
+const changeGuestContainerView = (guestContainerView) => ({
+  type: 'CHANGE_GUEST_CONTAINER_VIEW',
+  guestContainerView,
+});
+
+export default {
+  changeListing, changeViewCalendar, changeStartDateView, changeGuestContainerView,
+};

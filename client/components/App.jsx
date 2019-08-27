@@ -3,6 +3,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import CalendarContainer from '../containers/CalendarContainer';
+import GuestsContainer from '../containers/GuestsContainer';
+
 
 const Flex = styled.div`
   display: flex;
@@ -126,6 +128,11 @@ const App = ({
   startDateView,
   selectedStartDate,
   selectedEndDate,
+  guestContainerView,
+  changeGuestContainerView,
+  selectedAdults,
+  selectedChildren,
+  selectedInfants,
 }) => {
   const chargePerNight = `$${listing.chargePerNight}`;
   const review = `${listing.numberOfRatings}`;
@@ -140,6 +147,12 @@ const App = ({
     } else {
       endCalendar = <CalendarContainer />;
     }
+  }
+
+  let guestContainer;
+
+  if (guestContainerView) {
+    guestContainer = <GuestsContainer />;
   }
 
   let checkInDate;
@@ -158,15 +171,28 @@ const App = ({
   }
 
   const CheckInDate = styled(Dates)`
-  background-color: ${viewCalendar && startDateView ? 'paleturquoise' : 'white'};
+    background-color: ${viewCalendar && startDateView ? 'paleturquoise' : 'white'};
   `;
 
   const CheckOutDate = styled(Dates)`
-  background-color: ${viewCalendar && !startDateView ? 'paleturquoise' : 'white'};
+    background-color: ${viewCalendar && !startDateView ? 'paleturquoise' : 'white'};
+  `;
+
+  const GuestCount = styled.span`
+    fontSize: 17px;
+    margin-left: 8px;
+    padding: ${guestContainerView ? '5px' : '0px'};
+    background-color: ${guestContainerView ? 'paleturquoise' : 'white'};
+  `;
+
+  const InfantCount = styled(GuestCount)`
+    background-color: white;
+    margin-left: 0px;
   `;
 
   return (
     <OuterContainer>
+      {guestContainer}
       {startCalendar}
       {endCalendar}
       <InnerContainer>
@@ -211,8 +237,28 @@ const App = ({
           </CheckOutDate>
         </InputBox>
         <Label>Guests</Label>
-        <GuestsBox>
-          <span style={{ fontSize: '17px', marginLeft: '8px' }}>1 guest</span>
+        <GuestsBox
+          className="guests"
+          onClick={() => {
+            changeGuestContainerView(!guestContainerView);
+          }}
+        >
+          <GuestCount
+            className="guests"
+            onClick={() => {
+              changeGuestContainerView(!guestContainerView);
+            }}
+          >
+            {`${selectedAdults + selectedChildren} guest${(selectedAdults + selectedChildren) > 1 ? 's' : ''}`}
+          </GuestCount>
+          <InfantCount
+            className="guests"
+            onClick={() => {
+              changeGuestContainerView(!guestContainerView);
+            }}
+          >
+            {`${selectedInfants ? ', ' : ''}${selectedInfants || ''}${selectedInfants ? '  infant' : ''}${selectedInfants > 1 ? 's' : ''}`}
+          </InfantCount>
         </GuestsBox>
         <ReserveButton>
           <ReserveWord>Reserve</ReserveWord>
@@ -243,6 +289,11 @@ App.propTypes = {
   startDateView: PropTypes.bool,
   selectedStartDate: PropTypes.any,
   selectedEndDate: PropTypes.any,
+  guestContainerView: PropTypes.bool,
+  changeGuestContainerView: PropTypes.func.isRequired,
+  selectedAdults: PropTypes.number,
+  selectedChildren: PropTypes.number,
+  selectedInfants: PropTypes.number,
 };
 
 App.defaultProps = {
@@ -261,6 +312,10 @@ App.defaultProps = {
   startDateView: false,
   selectedStartDate: null,
   selectedEndDate: null,
+  guestContainerView: false,
+  selectedAdults: 1,
+  selectedChildren: 0,
+  selectedInfants: 0,
 };
 
 export default App;
