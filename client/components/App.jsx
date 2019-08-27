@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import CalendarContainer from '../containers/CalendarContainer';
 import GuestsContainer from '../containers/GuestsContainer';
+import TotalContainer from '../containers/TotalContainer';
 
 
 const Flex = styled.div`
@@ -260,6 +261,7 @@ const App = ({
             {`${selectedInfants ? ', ' : ''}${selectedInfants || ''}${selectedInfants ? '  infant' : ''}${selectedInfants > 1 ? 's' : ''}`}
           </InfantCount>
         </GuestsBox>
+        <TotalContainer />
         <ReserveButton>
           <ReserveWord>Reserve</ReserveWord>
         </ReserveButton>
