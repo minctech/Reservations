@@ -6,6 +6,8 @@ const mapStateToProps = (state) => ({
   listing: state.listing,
   viewCalendar: state.viewCalendar,
   startDateView: state.startDateView,
+  selectedStartDate: state.selectedStartDate,
+  selectedEndDate: state.selectedEndDate,
 });
 
 const mapDispatchToProps = (dispatch) => ({

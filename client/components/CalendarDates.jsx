@@ -75,7 +75,7 @@ const CalendarDates = ({
           className="calendar"
           key={day}
           onClick={() => {
-            if (CheckInView) {
+            if (startDateView) {
               changeSelectedStartDate(day, currentMonth, currentYear);
             } else {
               changeSelectedEndDate(day, currentMonth, currentYear);
@@ -106,6 +106,7 @@ CalendarDates.propTypes = {
   bookedDates: PropTypes.array.isRequired,
   changeSelectedStartDate: PropTypes.func.isRequired,
   changeSelectedEndDate: PropTypes.func.isRequired,
+  startDateView: PropTypes.bool.isRequired,
 };
 
 export default CalendarDates;
