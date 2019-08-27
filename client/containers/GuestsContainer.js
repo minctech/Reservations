@@ -3,9 +3,15 @@ import Guests from '../components/Guests';
 
 const mapStateToProps = (state) => ({
   listing: state.listing,
-  adultsSelected: state.adultsSelected,
-  childrenSelected: state.childrenSelected,
-  infantsSelected: state.infantsSelected,
+  selectedAdults: state.selectedAdults,
+  selectedChildren: state.selectedChildren,
+  selectedInfants: state.selectedInfants,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  changeSelectedAdults: (change) => {
+
+  },
 });
 
 const GuestsContainer = connect(mapStateToProps, null)(Guests);

@@ -73,9 +73,9 @@ const Button = styled.button`
 
 const Guests = ({
   listing,
-  adultsSelected,
-  childrenSelected,
-  infantsSelected,
+  selectedAdults,
+  selectedChildren,
+  selectedInfants,
 }) => (
   <OuterContainer>
     <InnerContainer>
@@ -85,7 +85,7 @@ const Guests = ({
         </div>
         <div>
           <Button type="button">-</Button>
-          <BigNumbers>{adultsSelected}</BigNumbers>
+          <BigNumbers>{selectedAdults}</BigNumbers>
           <Button type="button">+</Button>
         </div>
       </FlexSpaceBetweenDiv>
@@ -96,7 +96,7 @@ const Guests = ({
         </FlexColumn>
         <div>
           <Button type="button">-</Button>
-          <BigNumbers>{childrenSelected}</BigNumbers>
+          <BigNumbers>{selectedChildren}</BigNumbers>
           <Button type="button">+</Button>
         </div>
       </FlexSpaceBetweenDiv>
@@ -107,7 +107,7 @@ const Guests = ({
         </FlexColumn>
         <div>
           <Button type="button">-</Button>
-          <BigNumbers>{infantsSelected}</BigNumbers>
+          <BigNumbers>{selectedInfants}</BigNumbers>
           <Button type="button">+</Button>
         </div>
       </FlexSpaceBetweenDiv>
@@ -137,15 +137,15 @@ Guests.propTypes = {
     rating: PropTypes.number,
     numberOfRatings: PropTypes.number,
   }).isRequired,
-  adultsSelected: PropTypes.number,
-  childrenSelected: PropTypes.number,
-  infantsSelected: PropTypes.number,
+  selectedAdults: PropTypes.number,
+  selectedChildren: PropTypes.number,
+  selectedInfants: PropTypes.number,
 };
 
 Guests.defaultProps = {
-  adultsSelected: 1,
-  childrenSelected: 0,
-  infantsSelected: 0,
+  selectedAdults: 1,
+  selectedChildren: 0,
+  selectedInfants: 0,
 };
 
 export default Guests;
