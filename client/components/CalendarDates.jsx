@@ -38,6 +38,10 @@ const CalendarDates = ({
   changeSelectedStartDate,
   changeSelectedEndDate,
   startDateView,
+  selectedDates,
+  selectedStartDate,
+  selectedEndDate,
+  changeSelectedDates,
 }) => {
   const firstDate = new Date(currentYear, currentMonth, 1);
   const lastDate = new Date(currentYear, currentMonth + 1, 0);
@@ -45,6 +49,40 @@ const CalendarDates = ({
   const firstDay = firstDate.getDay();
   const days = [[]];
   const bookedDays = [];
+
+  if (selectedStartDate && selectedEndDate && selectedDates.length === 0) {
+    if (selectedStartDate.year <= selectedEndDate.year) {
+      if (selectedStartDate.month <= selectedEndDate.month) {
+        if (selectedStartDate.day < selectedEndDate.day) {
+          const startDate = new Date(
+            selectedStartDate.year,
+            selectedStartDate.month,
+            selectedStartDate.day,
+          );
+          const endDate = new Date(
+            selectedEndDate.year,
+            selectedEndDate.month,
+            selectedEndDate.day,
+          );
+          const selectedDays = [];
+          while (startDate.toDateString() !== endDate.toDateString()) {
+            selectedDays.push({
+              year: startDate.getFullYear(),
+              month: startDate.getMonth(),
+              day: startDate.getDate(),
+            });
+            startDate.setDate(startDate.getDate() + 1);
+          }
+          selectedDays.push({
+            year: endDate.getFullYear(),
+            month: endDate.getMonth(),
+            day: endDate.getDate(),
+          });
+          changeSelectedDates(selectedDays);
+        }
+      }
+    }
+  }
 
   // create array of booked days for current month
   for (let i = 0; i < bookedDates.length; i++) {
@@ -80,6 +118,7 @@ const CalendarDates = ({
             } else {
               changeSelectedEndDate(day, currentMonth, currentYear);
             }
+            changeSelectedDates();
           }}
         >
           {day}
@@ -107,6 +146,10 @@ CalendarDates.propTypes = {
   changeSelectedStartDate: PropTypes.func.isRequired,
   changeSelectedEndDate: PropTypes.func.isRequired,
   startDateView: PropTypes.bool.isRequired,
+  selectedDates: PropTypes.array.isRequired,
+  selectedStartDate: PropTypes.any.isRequired,
+  selectedEndDate: PropTypes.any.isRequired,
+  changeSelectedDates: PropTypes.func.isRequired,
 };
 
 export default CalendarDates;

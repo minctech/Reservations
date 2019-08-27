@@ -9,6 +9,7 @@ const mapStateToProps = (state) => ({
   selectedStartDate: state.selectedStartDate,
   selectedEndDate: state.selectedEndDate,
   startDateView: state.startDateView,
+  selectedDates: state.selectedDates,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -17,6 +18,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   changeSelectedEndDate: (day, month, year) => {
     dispatch(actionCreators.changeSelectedEndDate({ day, month, year }));
+  },
+  changeSelectedDates: (dates) => {
+    dispatch(actionCreators.changeSelectedDates(dates));
   },
 });
 

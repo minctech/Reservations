@@ -8,4 +8,9 @@ const changeSelectedEndDate = (selectedEndDate) => ({
   selectedEndDate,
 });
 
-export default { changeSelectedEndDate, changeSelectedStartDate };
+const changeSelectedDates = (selectedDates) => ({
+  type: 'CHANGE_SELECTED_DATES',
+  selectedDates,
+});
+
+export default { changeSelectedEndDate, changeSelectedStartDate, changeSelectedDates };

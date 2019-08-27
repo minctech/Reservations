@@ -16,4 +16,13 @@ const selectedEndDate = (state = null, action) => {
   }
 };
 
-export default { selectedStartDate, selectedEndDate };
+const selectedDates = (state = [], action) => {
+  switch (action.type) {
+    case 'CHANGE_SELECTED_DATES':
+      return action.selectedDates || [];
+    default:
+      return state;
+  }
+};
+
+export default { selectedStartDate, selectedEndDate, selectedDates };

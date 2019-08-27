@@ -5,7 +5,7 @@ import calendarDatesReducers from './CalendarDates';
 
 const { listing, viewCalendar, startDateView } = appReducers;
 const { currentMonth, currentYear, bookedDates } = calendarReducers;
-const { selectedEndDate, selectedStartDate } = calendarDatesReducers;
+const { selectedEndDate, selectedStartDate, selectedDates } = calendarDatesReducers;
 
 const rootReducer = combineReducers({
   listing,
@@ -16,6 +16,7 @@ const rootReducer = combineReducers({
   selectedStartDate,
   viewCalendar,
   startDateView,
+  selectedDates,
 });
 
 export default rootReducer;
