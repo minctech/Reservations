@@ -181,7 +181,7 @@ const App = ({
   const GuestCount = styled.span`
     fontSize: 17px;
     margin-left: 8px;
-    padding: 5px;
+    padding: ${guestContainerView ? '5px' : '0px'};
     background-color: ${guestContainerView ? 'paleturquoise' : 'white'};
   `;
 
