@@ -55,7 +55,7 @@ const CalendarDates = ({
 
   // push in null td for days not within this month
   for (let i = 0; i < firstDay; i++) {
-    days[0].push(<td key={`null${i}`} />);
+    days[0].push(<td className="calendar" key={`null${i}`} />);
   }
 
   // map out the days over the calendar
@@ -68,10 +68,11 @@ const CalendarDates = ({
       days[week] = [];
     }
     if (bookedDays.includes(day)) {
-      days[week].push(<BookedDay key={day}>{day}</BookedDay>);
+      days[week].push(<BookedDay className="calendar" key={day}>{day}</BookedDay>);
     } else {
       days[week].push(
         <Day
+          className="calendar"
           key={day}
           onClick={() => {
             if (CheckInView) {
@@ -91,8 +92,8 @@ const CalendarDates = ({
   const tableBody = days.map((row, index) => <tr key={index}>{row}</tr>);
 
   return (
-    <Table>
-      <tbody>
+    <Table className="calendar">
+      <tbody className="calendar">
         {tableBody}
       </tbody>
     </Table>

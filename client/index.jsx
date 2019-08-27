@@ -40,7 +40,8 @@ ReactDOM.render(
 );
 
 document.addEventListener('click', (e) => {
-  if (!(e.target.id === 'checkin' || e.target.id === 'checkout')) {
+  console.log(e.target);
+  if (!(e.target.id === 'checkin' || e.target.id === 'checkout' || e.target.className.includes('calendar'))) {
     store.dispatch(appActions.changeViewCalendar(false));
   }
 });
