@@ -58,6 +58,7 @@ const CalendarDates = ({
   const firstDay = firstDate.getDay();
   const days = [[]];
   const bookedDays = [];
+  const highlightedSelectedDays = [];
 
 
   // update selectedDates state based on selected start date and selected end date.
@@ -103,6 +104,13 @@ const CalendarDates = ({
     }
   }
 
+  // create array of selected days for current month
+  for (let i = 0; i < selectedDates.length; i++) {
+    if (selectedDates[i].year === currentYear && selectedDates[i].month === currentMonth) {
+      highlightedSelectedDays.push(selectedDates[i].day);
+    }
+  }
+
   // push in null td for days not within this month
   for (let i = 0; i < firstDay; i++) {
     days[0].push(<td className="calendar" key={`null${i}`} />);
@@ -119,6 +127,23 @@ const CalendarDates = ({
     }
     if (bookedDays.includes(day)) {
       days[week].push(<BookedDay className="calendar" key={day}>{day}</BookedDay>);
+    } else if (highlightedSelectedDays.includes(day)) {
+      days[week].push(
+        <SelectedDay
+          className="calendar"
+          key={day}
+          onClick={() => {
+            if (startDateView) {
+              changeSelectedStartDate(day, currentMonth, currentYear);
+            } else {
+              changeSelectedEndDate(day, currentMonth, currentYear);
+            }
+            changeSelectedDates();
+          }}
+        >
+          {day}
+        </SelectedDay>,
+      );
     } else {
       days[week].push(
         <Day
