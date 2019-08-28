@@ -10,6 +10,7 @@ import { expect } from 'chai';
 import App from '../client/components/App';
 import Calendar from '../client/components/Calendar';
 import CalendarDates from '../client/components/CalendarDates';
+import Guests from '../client/components/Guests';
 
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -300,6 +301,105 @@ describe('components', () => {
       expect(props.changeSelectedEndDate.mock.calls.length).to.equal(1);
       expect(props.changeViewCalendar.mock.calls.length).to.equal(1);
       expect(props.changeSelectedDates.mock.calls.length).to.equal(1);
+    });
+  });
+
+  describe('Guests', () => {
+    const setup = () => {
+      const props = {
+        listing: {
+          maxGuests: 5,
+          maxInfants: 3,
+          chargePerNight: 150,
+          cleaningFee: 10,
+          serviceFee: 10,
+          occupancyFee: 10,
+          rating: 9,
+          numberOfRatings: 300,
+        },
+        selectedAdults: 1,
+        selectedChildren: 0,
+        selectedInfants: 0,
+        changeSelectedAdults: jest.fn(),
+        changeSelectedChildren: jest.fn(),
+        changeSelectedInfants: jest.fn(),
+        maxGuestsReached: false,
+        changeMaxGuestsReached: jest.fn(),
+      };
+      const enzymeWrapper = shallow(<Guests {...props} />);
+      return {
+        props,
+        enzymeWrapper,
+      };
+    };
+
+    const { enzymeWrapper, props } = setup();
+
+    it('should render self with store states', () => {
+      expect(enzymeWrapper.contains('Adults')).to.be.true;
+      expect(enzymeWrapper.find('BigNumbers').at(0).text()).to.equal(props.selectedAdults.toString());
+      expect(enzymeWrapper.contains('Children')).to.be.true;
+      expect(enzymeWrapper.find('BigNumbers').at(1).text()).to.equal(props.selectedChildren.toString());
+      expect(enzymeWrapper.contains('Infants')).to.be.true;
+      expect(enzymeWrapper.find('BigNumbers').at(2).text()).to.equal(props.selectedInfants.toString());
+      expect(enzymeWrapper.find('SmallLetters').at(2).text()).to.include(props.listing.maxGuests.toString());
+    });
+
+    it('should call changeSelectedAdults when AdultsMinusButton is clicked and adults is more than 1', () => {
+      expect(props.changeSelectedAdults.mock.calls.length).to.equal(0);
+      enzymeWrapper.find('AdultsMinusButton').simulate('click');
+      expect(props.changeSelectedAdults.mock.calls.length).to.equal(0);
+      enzymeWrapper.setProps({ selectedAdults: 2 });
+      enzymeWrapper.find('AdultsMinusButton').simulate('click');
+      expect(props.changeSelectedAdults.mock.calls.length).to.equal(1);
+    });
+
+    it('should call changeSelectedAdults when PlusButton is clicked and adults + children is less than maxGuests', () => {
+      expect(props.changeSelectedAdults.mock.calls.length).to.equal(0);
+      enzymeWrapper.find('PlusButton').at(0).simulate('click');
+      expect(props.changeSelectedAdults.mock.calls.length).to.equal(1);
+      enzymeWrapper.setProps({ maxGuestsReached: true });
+      enzymeWrapper.find('PlusButton').at(0).simulate('click');
+      expect(props.changeSelectedAdults.mock.calls.length).to.equal(1);
+    });
+
+    it('should call changeSelectedChildren when ChildrenMinusButton is clicked and children is more than 0', () => {
+      expect(props.changeSelectedChildren.mock.calls.length).to.equal(0);
+      enzymeWrapper.find('ChildrenMinusButton').simulate('click');
+      expect(props.changeSelectedChildren.mock.calls.length).to.equal(0);
+      enzymeWrapper.setProps({ selectedChildren: 1 });
+      enzymeWrapper.find('ChildrenMinusButton').simulate('click');
+      expect(props.changeSelectedChildren.mock.calls.length).to.equal(1);
+    });
+
+    it('should call changeSelectedChildren when 2nd PlusButton is clicked and maxGuests is not true', () => {
+      enzymeWrapper.setProps({ maxGuestsReached: false });
+      expect(props.changeSelectedChildren.mock.calls.length).to.equal(0);
+      enzymeWrapper.find('PlusButton').at(1).simulate('click');
+      expect(props.changeSelectedChildren.mock.calls.length).to.equal(1);
+      enzymeWrapper.setProps({ maxGuestsReached: true });
+      enzymeWrapper.find('PlusButton').at(1).simulate('click');
+      expect(props.changeSelectedChildren.mock.calls.length).to.equal(1);
+    });
+
+    it('should call changeSelectedInfants when InfantsMinusButton is clicked and selectedInfants is more than 0', () => {
+      enzymeWrapper.setProps({ selectedInfants: 0 });
+      expect(props.changeSelectedInfants.mock.calls.length).to.equal(0);
+      enzymeWrapper.find('InfantsMinusButton').simulate('click');
+      expect(props.changeSelectedInfants.mock.calls.length).to.equal(0);
+      enzymeWrapper.setProps({ selectedInfants: 1 });
+      enzymeWrapper.find('InfantsMinusButton').simulate('click');
+      expect(props.changeSelectedInfants.mock.calls.length).to.equal(1);
+    });
+
+    it('should call changeSelectedInfants when InfantsPlusButton is clicked and selectedInfants less than maxInfants', () => {
+      enzymeWrapper.setProps({ selectedInfants: 0 });
+      expect(props.changeSelectedInfants.mock.calls.length).to.equal(0);
+      enzymeWrapper.find('InfantsPlusButton').simulate('click');
+      expect(props.changeSelectedInfants.mock.calls.length).to.equal(1);
+      enzymeWrapper.setProps({ selectedInfants: props.listing.maxInfants });
+      enzymeWrapper.find('InfantsPlusButton').simulate('click');
+      expect(props.changeSelectedInfants.mock.calls.length).to.equal(1);
     });
   });
 });
