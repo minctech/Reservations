@@ -32,6 +32,7 @@ const ClearDatesButton = styled.button`
   color: teal;
   :hover {
     text-decoration: underline;
+    cursor: pointer;
   }
 `;
 
