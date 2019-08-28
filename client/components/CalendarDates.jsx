@@ -16,6 +16,8 @@ const Day = styled.td`
   }
 `;
 
+Day.displayName = 'Day';
+
 const BookedDay = styled(Day)`
   color: rgb(216, 216, 216);
   text-decoration: line-through;
@@ -33,6 +35,8 @@ const SelectedDay = styled(Day)`
     background-color: teal;
   }
 `;
+
+SelectedDay.displayName = 'SelectedDay';
 
 const Table = styled.table`
   border-spacing: 0px;

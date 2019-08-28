@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable react/jsx-props-no-spreading */
 /* eslint-disable react/jsx-filename-extension */
@@ -8,6 +9,7 @@ import Adapter from 'enzyme-adapter-react-16';
 import { expect } from 'chai';
 import App from '../client/components/App';
 import Calendar from '../client/components/Calendar';
+import CalendarDates from '../client/components/CalendarDates';
 
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -195,6 +197,108 @@ describe('components', () => {
       enzymeWrapper.find('ClearDatesButton').simulate('click');
       expect(props.changeSelectedEndDate.mock.calls.length).to.equal(1);
       expect(props.changeSelectedStartDate.mock.calls.length).to.equal(1);
+      expect(props.changeSelectedDates.mock.calls.length).to.equal(1);
+    });
+  });
+
+  describe('CalendarDates', () => {
+    const currentDate = new Date();
+    const setup = () => {
+      const props = {
+        currentMonth: currentDate.getMonth(),
+        currentYear: currentDate.getFullYear(),
+        changeMonthHandler: jest.fn(),
+        changeSelectedEndDate: jest.fn(),
+        changeSelectedStartDate: jest.fn(),
+        changeSelectedDates: jest.fn(),
+        changeStartDateView: jest.fn(),
+        changeViewCalendar: jest.fn(),
+        bookedDates: [],
+        startDateView: false,
+        selectedDates: [],
+        selectedStartDate: null,
+      };
+      const enzymeWrapper = shallow(<CalendarDates {...props} />);
+      return {
+        props,
+        enzymeWrapper,
+      };
+    };
+
+    const { enzymeWrapper, props } = setup();
+
+    it('should render self with store states', () => {
+      const lastDate = new Date(props.currentYear, props.currentMonth + 1, 0);
+      expect(enzymeWrapper.find('Day')).to.have.lengthOf(lastDate.getDate());
+    });
+
+    it('should call changeStartDateView, changeSelectedStartedDate and changeSelectedDates when a day is clicked on startView', () => {
+      expect(props.changeStartDateView.mock.calls.length).to.equal(0);
+      expect(props.changeSelectedStartDate.mock.calls.length).to.equal(0);
+      expect(props.changeSelectedDates.mock.calls.length).to.equal(0);
+      enzymeWrapper.setProps({ startDateView: true });
+      enzymeWrapper.find('Day').at(0).simulate('click');
+      expect(props.changeStartDateView.mock.calls.length).to.equal(1);
+      expect(props.changeSelectedStartDate.mock.calls.length).to.equal(1);
+      expect(props.changeSelectedDates.mock.calls.length).to.equal(1);
+    });
+
+    it('should call changeSelectedEndDate, changeViewCalendar and changeSelectedDates when a day is clicked off of startView', () => {
+      expect(props.changeSelectedEndDate.mock.calls.length).to.equal(0);
+      expect(props.changeViewCalendar.mock.calls.length).to.equal(0);
+      expect(props.changeSelectedDates.mock.calls.length).to.equal(0);
+      enzymeWrapper.setProps({ startDateView: false });
+      enzymeWrapper.find('Day').at(0).simulate('click');
+      expect(props.changeSelectedEndDate.mock.calls.length).to.equal(1);
+      expect(props.changeViewCalendar.mock.calls.length).to.equal(1);
+      expect(props.changeSelectedDates.mock.calls.length).to.equal(1);
+    });
+
+    it('should call changeStartDateView, changeSelectedStartedDate and changeSelectedDates when a SelectedDay is clicked on startView', () => {
+      expect(props.changeSelectedStartDate.mock.calls.length).to.equal(0);
+      expect(props.changeStartDateView.mock.calls.length).to.equal(0);
+      expect(props.changeSelectedDates.mock.calls.length).to.equal(0);
+
+      const selectedDates = [];
+      for (let i = 0; i < 2; i++) {
+        selectedDates.push({
+          year: currentDate.getFullYear(),
+          month: currentDate.getMonth(),
+          day: currentDate.getDate() + i,
+        });
+      }
+
+      enzymeWrapper.setProps({
+        startDateView: true,
+        selectedDates,
+      });
+      enzymeWrapper.find('SelectedDay').at(0).simulate('click');
+      expect(props.changeSelectedStartDate.mock.calls.length).to.equal(1);
+      expect(props.changeStartDateView.mock.calls.length).to.equal(1);
+      expect(props.changeSelectedDates.mock.calls.length).to.equal(1);
+    });
+
+    it('should call changeSelectedEndDate, changeViewCalendar and changeSelectedDates when a SelectedDay is clicked off of startView', () => {
+      expect(props.changeSelectedEndDate.mock.calls.length).to.equal(0);
+      expect(props.changeViewCalendar.mock.calls.length).to.equal(0);
+      expect(props.changeSelectedDates.mock.calls.length).to.equal(0);
+
+      const selectedDates = [];
+      for (let i = 0; i < 2; i++) {
+        selectedDates.push({
+          year: currentDate.getFullYear(),
+          month: currentDate.getMonth(),
+          day: currentDate.getDate() + i,
+        });
+      }
+
+      enzymeWrapper.setProps({
+        startDateView: false,
+        selectedDates,
+      });
+      enzymeWrapper.find('SelectedDay').at(0).simulate('click');
+      expect(props.changeSelectedEndDate.mock.calls.length).to.equal(1);
+      expect(props.changeViewCalendar.mock.calls.length).to.equal(1);
       expect(props.changeSelectedDates.mock.calls.length).to.equal(1);
     });
   });
