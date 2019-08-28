@@ -12,6 +12,7 @@ const mapStateToProps = (state) => ({
   selectedAdults: state.selectedAdults,
   selectedChildren: state.selectedChildren,
   selectedInfants: state.selectedInfants,
+  selectedDates: state.selectedDates,
 });
 
 const mapDispatchToProps = (dispatch) => ({

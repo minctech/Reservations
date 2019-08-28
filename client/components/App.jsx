@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import CalendarContainer from '../containers/CalendarContainer';
 import GuestsContainer from '../containers/GuestsContainer';
+import TotalContainer from '../containers/TotalContainer';
 
 
 const Flex = styled.div`
@@ -89,6 +90,8 @@ const GuestsBox = styled.button`
   display: flex;
   margin-bottom: 8px;
   font-size: 17px;
+  justify-content: space-between;
+  align-items: center;
 `;
 
 const ReserveButton = styled(GuestsBox)`
@@ -133,6 +136,7 @@ const App = ({
   selectedAdults,
   selectedChildren,
   selectedInfants,
+  selectedDates,
 }) => {
   const chargePerNight = `$${listing.chargePerNight}`;
   const review = `${listing.numberOfRatings}`;
@@ -168,6 +172,20 @@ const App = ({
     checkOutDate = `${selectedEndDate.month + 1}/${selectedEndDate.day}/${selectedEndDate.year}`;
   } else {
     checkOutDate = 'Checkout';
+  }
+
+  let totalContainer;
+
+  if (selectedDates.length > 0) {
+    totalContainer = <TotalContainer />;
+  }
+
+  let arrow;
+
+  if (guestContainerView) {
+    arrow = <svg viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{ height: '16px', width: '16px', margin: '10px' }}><path d="m1.71 13.71a1 1 0 1 1 -1.42-1.42l8-8a1 1 0 0 1 1.41 0l8 8a1 1 0 1 1 -1.41 1.42l-7.29-7.29z" fillRule="evenodd" /></svg>;
+  } else {
+    arrow = <svg viewBox="0 0 18 18" role="presentation" aria-hidden="true" focusable="false" style={{ height: '16px', width: '16px', margin: '10px' }}><path d="m16.29 4.3a1 1 0 1 1 1.41 1.42l-8 8a1 1 0 0 1 -1.41 0l-8-8a1 1 0 1 1 1.41-1.42l7.29 7.29z" fillRule="evenodd" /></svg>;
   }
 
   const CheckInDate = styled(Dates)`
@@ -243,23 +261,27 @@ const App = ({
             changeGuestContainerView(!guestContainerView);
           }}
         >
-          <GuestCount
-            className="guests"
-            onClick={() => {
-              changeGuestContainerView(!guestContainerView);
-            }}
-          >
-            {`${selectedAdults + selectedChildren} guest${(selectedAdults + selectedChildren) > 1 ? 's' : ''}`}
-          </GuestCount>
-          <InfantCount
-            className="guests"
-            onClick={() => {
-              changeGuestContainerView(!guestContainerView);
-            }}
-          >
-            {`${selectedInfants ? ', ' : ''}${selectedInfants || ''}${selectedInfants ? '  infant' : ''}${selectedInfants > 1 ? 's' : ''}`}
-          </InfantCount>
+          <div>
+            <GuestCount
+              className="guests"
+              onClick={() => {
+                changeGuestContainerView(!guestContainerView);
+              }}
+            >
+              {`${selectedAdults + selectedChildren} guest${(selectedAdults + selectedChildren) > 1 ? 's' : ''}`}
+            </GuestCount>
+            <InfantCount
+              className="guests"
+              onClick={() => {
+                changeGuestContainerView(!guestContainerView);
+              }}
+            >
+              {`${selectedInfants ? ', ' : ''}${selectedInfants || ''}${selectedInfants ? '  infant' : ''}${selectedInfants > 1 ? 's' : ''}`}
+            </InfantCount>
+          </div>
+          {arrow}
         </GuestsBox>
+        {totalContainer}
         <ReserveButton>
           <ReserveWord>Reserve</ReserveWord>
         </ReserveButton>
@@ -294,6 +316,7 @@ App.propTypes = {
   selectedAdults: PropTypes.number,
   selectedChildren: PropTypes.number,
   selectedInfants: PropTypes.number,
+  selectedDates: PropTypes.array,
 };
 
 App.defaultProps = {
@@ -316,6 +339,7 @@ App.defaultProps = {
   selectedAdults: 1,
   selectedChildren: 0,
   selectedInfants: 0,
+  selectedDates: [],
 };
 
 export default App;
