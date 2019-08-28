@@ -36,6 +36,8 @@ const ClearDatesButton = styled.button`
   }
 `;
 
+ClearDatesButton.displayName = 'ClearDatesButton';
+
 const Button = styled.button`
   height: 35px;
   width: 40px;
@@ -43,6 +45,8 @@ const Button = styled.button`
   border: 1px solid lightgray;
   border-radius: 3px;
 `;
+
+Button.displayName = 'Button';
 
 const MonthYearSpan = styled.span`
   font-weight: bold;

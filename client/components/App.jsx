@@ -94,6 +94,8 @@ const GuestsBox = styled.button`
   align-items: center;
 `;
 
+GuestsBox.displayName = 'GuestsBox';
+
 const ReserveButton = styled(GuestsBox)`
   background-color: rgb(255, 90, 95);
   margin-top: 24px;
