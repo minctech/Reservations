@@ -11,6 +11,7 @@ import App from '../client/components/App';
 import Calendar from '../client/components/Calendar';
 import CalendarDates from '../client/components/CalendarDates';
 import Guests from '../client/components/Guests';
+import Total from '../client/components/Total';
 
 
 Enzyme.configure({ adapter: new Adapter() });
@@ -400,6 +401,46 @@ describe('components', () => {
       enzymeWrapper.setProps({ selectedInfants: props.listing.maxInfants });
       enzymeWrapper.find('InfantsPlusButton').simulate('click');
       expect(props.changeSelectedInfants.mock.calls.length).to.equal(1);
+    });
+  });
+
+  describe('Total', () => {
+    const setup = () => {
+      const props = {
+        listing: {
+          maxGuests: 5,
+          maxInfants: 3,
+          chargePerNight: 150,
+          cleaningFee: 10,
+          serviceFee: 10,
+          occupancyFee: 10,
+          rating: 9,
+          numberOfRatings: 300,
+        },
+        selectedDates: [],
+      };
+      const enzymeWrapper = shallow(<Total {...props} />);
+      return {
+        props,
+        enzymeWrapper,
+      };
+    };
+
+    const { enzymeWrapper, props } = setup();
+
+    it('should render self with store states', () => {
+      expect(enzymeWrapper.contains('Cleaning fee')).to.be.true;
+      expect(enzymeWrapper.contains(`$${props.listing.cleaningFee}`)).to.be.true;
+      expect(enzymeWrapper.contains('Service fee')).to.be.true;
+      expect(enzymeWrapper.contains(`$${props.listing.serviceFee}`)).to.be.true;
+      expect(enzymeWrapper.contains('Occupancy taxes and fees')).to.be.true;
+      expect(enzymeWrapper.contains(`$${props.listing.occupancyFee}`)).to.be.true;
+    });
+
+    it('should handle changes to selectedDates by correctly displaying cost and number of nights', () => {
+      expect(enzymeWrapper.contains(`$${props.listing.chargePerNight} x ${props.selectedDates.length} nights`)).to.be.true;
+      enzymeWrapper.setProps({ selectedDates: [{}, {}] });
+      expect(enzymeWrapper.contains(`$${props.listing.chargePerNight} x 2 nights`)).to.be.true;
     });
   });
 });
