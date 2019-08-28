@@ -51,6 +51,7 @@ const CalendarDates = ({
   selectedStartDate,
   selectedEndDate,
   changeSelectedDates,
+  changeStartDateView,
 }) => {
   const firstDate = new Date(currentYear, currentMonth, 1);
   const lastDate = new Date(currentYear, currentMonth + 1, 0);
@@ -134,6 +135,7 @@ const CalendarDates = ({
           key={day}
           onClick={() => {
             if (startDateView) {
+              changeStartDateView(false);
               changeSelectedStartDate(day, currentMonth, currentYear);
             } else {
               changeSelectedEndDate(day, currentMonth, currentYear);
@@ -151,6 +153,7 @@ const CalendarDates = ({
           key={day}
           onClick={() => {
             if (startDateView) {
+              changeStartDateView(false);
               changeSelectedStartDate(day, currentMonth, currentYear);
             } else {
               changeSelectedEndDate(day, currentMonth, currentYear);
@@ -187,6 +190,7 @@ CalendarDates.propTypes = {
   selectedStartDate: PropTypes.any,
   selectedEndDate: PropTypes.any,
   changeSelectedDates: PropTypes.func.isRequired,
+  changeStartDateView: PropTypes.func.isRequired,
 };
 
 CalendarDates.defaultProps = {

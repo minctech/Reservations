@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import CalendarDates from '../components/CalendarDates';
 import actionCreators from '../actions/CalendarDates';
+import appActionCreators from '../actions/App';
 
 const mapStateToProps = (state) => ({
   currentMonth: state.currentMonth,
@@ -21,6 +22,10 @@ const mapDispatchToProps = (dispatch) => ({
   },
   changeSelectedDates: (dates) => {
     dispatch(actionCreators.changeSelectedDates(dates));
+  },
+  changeStartDateView: (boolean) => {
+    console.log('firing');
+    dispatch(appActionCreators.changeStartDateView(boolean));
   },
 });
 
