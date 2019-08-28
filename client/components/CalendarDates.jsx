@@ -48,8 +48,8 @@ const CalendarDates = ({
   changeSelectedEndDate,
   startDateView,
   selectedDates,
-  selectedStartDate,
-  selectedEndDate,
+  // selectedStartDate,
+  // selectedEndDate,
   changeSelectedDates,
   changeStartDateView,
   changeViewCalendar,
@@ -190,16 +190,16 @@ CalendarDates.propTypes = {
   changeSelectedEndDate: PropTypes.func.isRequired,
   startDateView: PropTypes.bool.isRequired,
   selectedDates: PropTypes.array.isRequired,
-  selectedStartDate: PropTypes.any,
-  selectedEndDate: PropTypes.any,
+  // selectedStartDate: PropTypes.any,
+  // selectedEndDate: PropTypes.any,
   changeSelectedDates: PropTypes.func.isRequired,
   changeStartDateView: PropTypes.func.isRequired,
   changeViewCalendar: PropTypes.func.isRequired,
 };
 
-CalendarDates.defaultProps = {
-  selectedStartDate: null,
-  selectedEndDate: null,
-};
+// CalendarDates.defaultProps = {
+//   selectedStartDate: null,
+//   selectedEndDate: null,
+// };
 
 export default CalendarDates;
