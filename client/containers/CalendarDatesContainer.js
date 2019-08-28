@@ -24,8 +24,10 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(actionCreators.changeSelectedDates(dates));
   },
   changeStartDateView: (boolean) => {
-    console.log('firing');
     dispatch(appActionCreators.changeStartDateView(boolean));
+  },
+  changeViewCalendar: (boolean) => {
+    dispatch(appActionCreators.changeViewCalendar(boolean));
   },
 });
 

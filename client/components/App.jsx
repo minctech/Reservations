@@ -137,6 +137,7 @@ const App = ({
   selectedChildren,
   selectedInfants,
   selectedDates,
+  changeSelectedDates,
 }) => {
   const chargePerNight = `$${listing.chargePerNight}`;
   const review = `${listing.numberOfRatings}`;
@@ -144,6 +145,40 @@ const App = ({
 
   let startCalendar;
   let endCalendar;
+
+  if (selectedStartDate && selectedEndDate && selectedDates.length === 0) {
+    if (selectedStartDate.year <= selectedEndDate.year) {
+      if (selectedStartDate.month <= selectedEndDate.month) {
+        if (selectedStartDate.day < selectedEndDate.day) {
+          const startDate = new Date(
+            selectedStartDate.year,
+            selectedStartDate.month,
+            selectedStartDate.day,
+          );
+          const endDate = new Date(
+            selectedEndDate.year,
+            selectedEndDate.month,
+            selectedEndDate.day,
+          );
+          const selectedDays = [];
+          while (startDate.toDateString() !== endDate.toDateString()) {
+            selectedDays.push({
+              year: startDate.getFullYear(),
+              month: startDate.getMonth(),
+              day: startDate.getDate(),
+            });
+            startDate.setDate(startDate.getDate() + 1);
+          }
+          selectedDays.push({
+            year: endDate.getFullYear(),
+            month: endDate.getMonth(),
+            day: endDate.getDate(),
+          });
+          changeSelectedDates(selectedDays);
+        }
+      }
+    }
+  }
 
   if (viewCalendar) {
     if (startDateView) {
@@ -317,6 +352,7 @@ App.propTypes = {
   selectedChildren: PropTypes.number,
   selectedInfants: PropTypes.number,
   selectedDates: PropTypes.array,
+  changeSelectedDates: PropTypes.func.isRequired,
 };
 
 App.defaultProps = {
