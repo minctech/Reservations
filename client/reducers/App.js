@@ -7,7 +7,7 @@ const listing = (state = null, action) => {
   }
 };
 
-const startDateView = (state = null, action) => {
+const startDateView = (state = false, action) => {
   switch (action.type) {
     case 'CHANGE_START_DATE_VIEW':
       return action.startDateView || false;
@@ -16,7 +16,7 @@ const startDateView = (state = null, action) => {
   }
 };
 
-const viewCalendar = (state = null, action) => {
+const viewCalendar = (state = false, action) => {
   switch (action.type) {
     case 'CHANGE_VIEW_CALENDAR':
       return action.viewCalendar || false;
