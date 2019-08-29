@@ -7,7 +7,7 @@ const CalendarBox = styled.div`
   border: 1px solid lightgray;
   border-radius: 3px;
   width: 333px;
-  height: 381px;
+  height: auto;
   z-index: 1000;
   position: absolute;
   background-color: white;
