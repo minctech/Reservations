@@ -170,24 +170,7 @@ const CalendarDates = ({
       days[week].push(<BookedDay className="calendar" key={day}>{day}</BookedDay>);
     } else if (startDate.day === day
       && currentMonth === startDate.month && currentYear === startDate.year) {
-      days[week].push(
-        <SelectedDay
-          className="calendar"
-          key={day}
-          onClick={() => {
-            if (startDateView) {
-              changeStartDateView(false);
-              changeSelectedStartDate(day, currentMonth, currentYear);
-            } else {
-              changeSelectedEndDate(day, currentMonth, currentYear);
-              changeViewCalendar(false);
-            }
-            changeSelectedDates();
-          }}
-        >
-          {day}
-        </SelectedDay>,
-      );
+      days[week].push(<SelectedDay className="calendar" key={day}>{day}</SelectedDay>);
     } else if (highlightedSelectedDays.includes(day)) {
       days[week].push(
         <SelectedDay
