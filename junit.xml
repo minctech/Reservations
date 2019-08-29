@@ -1,7 +1,73 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuites name="jest tests" tests="67" failures="0" time="3.076">
-  <testsuite name="App Actions" errors="0" failures="0" skipped="0" timestamp="2019-08-29T19:23:14" time="1.897" tests="13">
-    <testcase classname="App Actions should create an action to change listing" name="App Actions should create an action to change listing" time="0.004">
+<testsuites name="jest tests" tests="67" failures="0" time="2.43">
+  <testsuite name="components" errors="0" failures="0" skipped="0" timestamp="2019-08-29T21:22:21" time="1.972" tests="26">
+    <testcase classname="components App should render self and store states" name="components App should render self and store states" time="0.005">
+    </testcase>
+    <testcase classname="components App should toggle render Guests according to guestContainerView" name="components App should toggle render Guests according to guestContainerView" time="0.009">
+    </testcase>
+    <testcase classname="components App should toggle render Calendar according to calendarview and startdateview" name="components App should toggle render Calendar according to calendarview and startdateview" time="0.013">
+    </testcase>
+    <testcase classname="components App should call changeStartDateView and changeViewCalendar when checkin or checkout is clicked" name="components App should call changeStartDateView and changeViewCalendar when checkin or checkout is clicked" time="0.003">
+    </testcase>
+    <testcase classname="components App should call changeGuestContainerView when GuestsBox is clicked" name="components App should call changeGuestContainerView when GuestsBox is clicked" time="0.002">
+    </testcase>
+    <testcase classname="components App should toggle render Total Container if there are selectedDates" name="components App should toggle render Total Container if there are selectedDates" time="0.006">
+    </testcase>
+    <testcase classname="components App should change checkInDate display according to selectedStartDate" name="components App should change checkInDate display according to selectedStartDate" time="0.004">
+    </testcase>
+    <testcase classname="components App should change checkOutDate display according to selectedEndDate" name="components App should change checkOutDate display according to selectedEndDate" time="0.004">
+    </testcase>
+    <testcase classname="components App should call changeSelectedDates when there is a selectedStartDate and selectedEndDate" name="components App should call changeSelectedDates when there is a selectedStartDate and selectedEndDate" time="0.001">
+    </testcase>
+    <testcase classname="components Calendar should render self with store states" name="components Calendar should render self with store states" time="0.004">
+    </testcase>
+    <testcase classname="components Calendar should call changeMonthHandler when button is clicked" name="components Calendar should call changeMonthHandler when button is clicked" time="0.003">
+    </testcase>
+    <testcase classname="components Calendar should call changeSelectedStartDate, changeSelectedEndDate and changeSelectedDates when clear button is clicked" name="components Calendar should call changeSelectedStartDate, changeSelectedEndDate and changeSelectedDates when clear button is clicked" time="0.001">
+    </testcase>
+    <testcase classname="components CalendarDates should render self with store states" name="components CalendarDates should render self with store states" time="0.001">
+    </testcase>
+    <testcase classname="components CalendarDates should call changeStartDateView, changeSelectedStartedDate and changeSelectedDates when a day is clicked on startView" name="components CalendarDates should call changeStartDateView, changeSelectedStartedDate and changeSelectedDates when a day is clicked on startView" time="0.002">
+    </testcase>
+    <testcase classname="components CalendarDates should call changeSelectedEndDate, changeViewCalendar and changeSelectedDates when a day is clicked off of startView" name="components CalendarDates should call changeSelectedEndDate, changeViewCalendar and changeSelectedDates when a day is clicked off of startView" time="0.001">
+    </testcase>
+    <testcase classname="components CalendarDates should call changeStartDateView, changeSelectedStartedDate and changeSelectedDates when a SelectedDay is clicked on startView" name="components CalendarDates should call changeStartDateView, changeSelectedStartedDate and changeSelectedDates when a SelectedDay is clicked on startView" time="0.002">
+    </testcase>
+    <testcase classname="components CalendarDates should call changeSelectedEndDate, changeViewCalendar and changeSelectedDates when a SelectedDay is clicked off of startView" name="components CalendarDates should call changeSelectedEndDate, changeViewCalendar and changeSelectedDates when a SelectedDay is clicked off of startView" time="0.001">
+    </testcase>
+    <testcase classname="components Guests should render self with store states" name="components Guests should render self with store states" time="0.004">
+    </testcase>
+    <testcase classname="components Guests should call changeSelectedAdults when AdultsMinusButton is clicked and adults is more than 1" name="components Guests should call changeSelectedAdults when AdultsMinusButton is clicked and adults is more than 1" time="0.004">
+    </testcase>
+    <testcase classname="components Guests should call changeSelectedAdults when PlusButton is clicked and adults + children is less than maxGuests" name="components Guests should call changeSelectedAdults when PlusButton is clicked and adults + children is less than maxGuests" time="0.003">
+    </testcase>
+    <testcase classname="components Guests should call changeSelectedChildren when ChildrenMinusButton is clicked and children is more than 0" name="components Guests should call changeSelectedChildren when ChildrenMinusButton is clicked and children is more than 0" time="0.003">
+    </testcase>
+    <testcase classname="components Guests should call changeSelectedChildren when 2nd PlusButton is clicked and maxGuests is not true" name="components Guests should call changeSelectedChildren when 2nd PlusButton is clicked and maxGuests is not true" time="0.003">
+    </testcase>
+    <testcase classname="components Guests should call changeSelectedInfants when InfantsMinusButton is clicked and selectedInfants is more than 0" name="components Guests should call changeSelectedInfants when InfantsMinusButton is clicked and selectedInfants is more than 0" time="0.005">
+    </testcase>
+    <testcase classname="components Guests should call changeSelectedInfants when InfantsPlusButton is clicked and selectedInfants less than maxInfants" name="components Guests should call changeSelectedInfants when InfantsPlusButton is clicked and selectedInfants less than maxInfants" time="0.006">
+    </testcase>
+    <testcase classname="components Total should render self with store states" name="components Total should render self with store states" time="0.002">
+    </testcase>
+    <testcase classname="components Total should handle changes to selectedDates by correctly displaying cost and number of nights" name="components Total should handle changes to selectedDates by correctly displaying cost and number of nights" time="0.004">
+    </testcase>
+  </testsuite>
+  <testsuite name="containers" errors="0" failures="0" skipped="0" timestamp="2019-08-29T21:22:23" time="0.145" tests="5">
+    <testcase classname="containers AppContainer should render self, store states and map dispactch functions to props" name="containers AppContainer should render self, store states and map dispactch functions to props" time="0.004">
+    </testcase>
+    <testcase classname="containers CalendarContainer should render self, store states and map dispactch functions to props" name="containers CalendarContainer should render self, store states and map dispactch functions to props" time="0.001">
+    </testcase>
+    <testcase classname="containers CalendarDatesContainer should render self, store states and map dispactch functions to props" name="containers CalendarDatesContainer should render self, store states and map dispactch functions to props" time="0.002">
+    </testcase>
+    <testcase classname="containers GuestsContainer should render self, store states and map dispactch functions to props" name="containers GuestsContainer should render self, store states and map dispactch functions to props" time="0.002">
+    </testcase>
+    <testcase classname="containers TotalContainer should render self, store states and map dispactch functions to props" name="containers TotalContainer should render self, store states and map dispactch functions to props" time="0.001">
+    </testcase>
+  </testsuite>
+  <testsuite name="App Actions" errors="0" failures="0" skipped="0" timestamp="2019-08-29T21:22:23" time="0.106" tests="13">
+    <testcase classname="App Actions should create an action to change listing" name="App Actions should create an action to change listing" time="0.003">
     </testcase>
     <testcase classname="App Actions should create an action to change viewCalendar" name="App Actions should create an action to change viewCalendar" time="0">
     </testcase>
@@ -19,31 +85,19 @@
     </testcase>
     <testcase classname="CalendarDates Actions should create an action to change selectedDates" name="CalendarDates Actions should create an action to change selectedDates" time="0">
     </testcase>
-    <testcase classname="Guests Actions should create an action to change selectedAdults" name="Guests Actions should create an action to change selectedAdults" time="0.001">
+    <testcase classname="Guests Actions should create an action to change selectedAdults" name="Guests Actions should create an action to change selectedAdults" time="0">
     </testcase>
-    <testcase classname="Guests Actions should create an action to change selectedChildren" name="Guests Actions should create an action to change selectedChildren" time="0">
+    <testcase classname="Guests Actions should create an action to change selectedChildren" name="Guests Actions should create an action to change selectedChildren" time="0.001">
     </testcase>
     <testcase classname="Guests Actions should create an action to change selectedInfants" name="Guests Actions should create an action to change selectedInfants" time="0">
     </testcase>
     <testcase classname="Guests Actions should create an action to change maxGuestsReached" name="Guests Actions should create an action to change maxGuestsReached" time="0">
     </testcase>
   </testsuite>
-  <testsuite name="containers" errors="0" failures="0" skipped="0" timestamp="2019-08-29T19:23:14" time="2.137" tests="5">
-    <testcase classname="containers AppContainer should render self, store states and map dispactch functions to props" name="containers AppContainer should render self, store states and map dispactch functions to props" time="0.013">
+  <testsuite name="App Reducers" errors="0" failures="0" skipped="0" timestamp="2019-08-29T21:22:23" time="0.131" tests="23">
+    <testcase classname="App Reducers should return the initial state" name="App Reducers should return the initial state" time="0">
     </testcase>
-    <testcase classname="containers CalendarContainer should render self, store states and map dispactch functions to props" name="containers CalendarContainer should render self, store states and map dispactch functions to props" time="0.002">
-    </testcase>
-    <testcase classname="containers CalendarDatesContainer should render self, store states and map dispactch functions to props" name="containers CalendarDatesContainer should render self, store states and map dispactch functions to props" time="0.002">
-    </testcase>
-    <testcase classname="containers GuestsContainer should render self, store states and map dispactch functions to props" name="containers GuestsContainer should render self, store states and map dispactch functions to props" time="0.002">
-    </testcase>
-    <testcase classname="containers TotalContainer should render self, store states and map dispactch functions to props" name="containers TotalContainer should render self, store states and map dispactch functions to props" time="0.001">
-    </testcase>
-  </testsuite>
-  <testsuite name="App Reducers" errors="0" failures="0" skipped="0" timestamp="2019-08-29T19:23:16" time="0.338" tests="23">
-    <testcase classname="App Reducers should return the initial state" name="App Reducers should return the initial state" time="0.001">
-    </testcase>
-    <testcase classname="App Reducers should return the initial state" name="App Reducers should return the initial state" time="0.001">
+    <testcase classname="App Reducers should return the initial state" name="App Reducers should return the initial state" time="0">
     </testcase>
     <testcase classname="App Reducers should handle CHANGE_LISTING" name="App Reducers should handle CHANGE_LISTING" time="0">
     </testcase>
@@ -55,91 +109,37 @@
     </testcase>
     <testcase classname="Calendar Reducers should return the initial state" name="Calendar Reducers should return the initial state" time="0.001">
     </testcase>
-    <testcase classname="Calendar Reducers should handle CHANGE_CURRENT_MONTH" name="Calendar Reducers should handle CHANGE_CURRENT_MONTH" time="0.001">
+    <testcase classname="Calendar Reducers should handle CHANGE_CURRENT_MONTH" name="Calendar Reducers should handle CHANGE_CURRENT_MONTH" time="0">
     </testcase>
     <testcase classname="Calendar Reducers should handle CHANGE_CURRENT_YEAR" name="Calendar Reducers should handle CHANGE_CURRENT_YEAR" time="0">
     </testcase>
     <testcase classname="Calendar Reducers should handle CHANGE_BOOKED_DATES" name="Calendar Reducers should handle CHANGE_BOOKED_DATES" time="0">
     </testcase>
-    <testcase classname="CalendarDate Reducers should return the initial state" name="CalendarDate Reducers should return the initial state" time="0.001">
+    <testcase classname="CalendarDate Reducers should return the initial state" name="CalendarDate Reducers should return the initial state" time="0">
     </testcase>
     <testcase classname="CalendarDate Reducers should handle CHANGE_START_DATE" name="CalendarDate Reducers should handle CHANGE_START_DATE" time="0">
     </testcase>
     <testcase classname="CalendarDate Reducers should handle CHANGE_END_DATE" name="CalendarDate Reducers should handle CHANGE_END_DATE" time="0">
     </testcase>
-    <testcase classname="CalendarDate Reducers should handle CHANGE_SELECTED_DATES" name="CalendarDate Reducers should handle CHANGE_SELECTED_DATES" time="0.001">
+    <testcase classname="CalendarDate Reducers should handle CHANGE_SELECTED_DATES" name="CalendarDate Reducers should handle CHANGE_SELECTED_DATES" time="0">
     </testcase>
-    <testcase classname="Calendar Reducers should return the initial state" name="Calendar Reducers should return the initial state" time="0">
+    <testcase classname="Calendar Reducers should return the initial state" name="Calendar Reducers should return the initial state" time="0.001">
     </testcase>
     <testcase classname="Calendar Reducers should handle CHANGE_CURRENT_MONTH" name="Calendar Reducers should handle CHANGE_CURRENT_MONTH" time="0">
     </testcase>
     <testcase classname="Calendar Reducers should handle CHANGE_CURRENT_YEAR" name="Calendar Reducers should handle CHANGE_CURRENT_YEAR" time="0">
     </testcase>
-    <testcase classname="Calendar Reducers should handle CHANGE_BOOKED_DATES" name="Calendar Reducers should handle CHANGE_BOOKED_DATES" time="0.001">
+    <testcase classname="Calendar Reducers should handle CHANGE_BOOKED_DATES" name="Calendar Reducers should handle CHANGE_BOOKED_DATES" time="0">
     </testcase>
     <testcase classname="Guests Reducers should return the initial state" name="Guests Reducers should return the initial state" time="0">
     </testcase>
-    <testcase classname="Guests Reducers should handle CHANGE_SELECTED_ADULTS" name="Guests Reducers should handle CHANGE_SELECTED_ADULTS" time="0.001">
+    <testcase classname="Guests Reducers should handle CHANGE_SELECTED_ADULTS" name="Guests Reducers should handle CHANGE_SELECTED_ADULTS" time="0">
     </testcase>
     <testcase classname="Guests Reducers should handle CHANGE_SELECTED_CHILDREN" name="Guests Reducers should handle CHANGE_SELECTED_CHILDREN" time="0">
     </testcase>
     <testcase classname="Guests Reducers should handle CHANGE_SELECTED_INFANTS" name="Guests Reducers should handle CHANGE_SELECTED_INFANTS" time="0">
     </testcase>
-    <testcase classname="Guests Reducers should handle CHANGE_MAX_GUESTS_REACHED" name="Guests Reducers should handle CHANGE_MAX_GUESTS_REACHED" time="0">
-    </testcase>
-  </testsuite>
-  <testsuite name="components" errors="0" failures="0" skipped="0" timestamp="2019-08-29T19:23:14" time="2.313" tests="26">
-    <testcase classname="components App should render self and store states" name="components App should render self and store states" time="0.005">
-    </testcase>
-    <testcase classname="components App should toggle render Guests according to guestContainerView" name="components App should toggle render Guests according to guestContainerView" time="0.011">
-    </testcase>
-    <testcase classname="components App should toggle render Calendar according to calendarview and startdateview" name="components App should toggle render Calendar according to calendarview and startdateview" time="0.018">
-    </testcase>
-    <testcase classname="components App should call changeStartDateView and changeViewCalendar when checkin or checkout is clicked" name="components App should call changeStartDateView and changeViewCalendar when checkin or checkout is clicked" time="0.006">
-    </testcase>
-    <testcase classname="components App should call changeGuestContainerView when GuestsBox is clicked" name="components App should call changeGuestContainerView when GuestsBox is clicked" time="0.002">
-    </testcase>
-    <testcase classname="components App should toggle render Total Container if there are selectedDates" name="components App should toggle render Total Container if there are selectedDates" time="0.01">
-    </testcase>
-    <testcase classname="components App should change checkInDate display according to selectedStartDate" name="components App should change checkInDate display according to selectedStartDate" time="0.005">
-    </testcase>
-    <testcase classname="components App should change checkOutDate display according to selectedEndDate" name="components App should change checkOutDate display according to selectedEndDate" time="0.004">
-    </testcase>
-    <testcase classname="components App should call changeSelectedDates when there is a selectedStartDate and selectedEndDate" name="components App should call changeSelectedDates when there is a selectedStartDate and selectedEndDate" time="0.002">
-    </testcase>
-    <testcase classname="components Calendar should render self with store states" name="components Calendar should render self with store states" time="0.013">
-    </testcase>
-    <testcase classname="components Calendar should call changeMonthHandler when button is clicked" name="components Calendar should call changeMonthHandler when button is clicked" time="0.003">
-    </testcase>
-    <testcase classname="components Calendar should call changeSelectedStartDate, changeSelectedEndDate and changeSelectedDates when clear button is clicked" name="components Calendar should call changeSelectedStartDate, changeSelectedEndDate and changeSelectedDates when clear button is clicked" time="0.002">
-    </testcase>
-    <testcase classname="components CalendarDates should render self with store states" name="components CalendarDates should render self with store states" time="0.001">
-    </testcase>
-    <testcase classname="components CalendarDates should call changeStartDateView, changeSelectedStartedDate and changeSelectedDates when a day is clicked on startView" name="components CalendarDates should call changeStartDateView, changeSelectedStartedDate and changeSelectedDates when a day is clicked on startView" time="0.003">
-    </testcase>
-    <testcase classname="components CalendarDates should call changeSelectedEndDate, changeViewCalendar and changeSelectedDates when a day is clicked off of startView" name="components CalendarDates should call changeSelectedEndDate, changeViewCalendar and changeSelectedDates when a day is clicked off of startView" time="0.003">
-    </testcase>
-    <testcase classname="components CalendarDates should call changeStartDateView, changeSelectedStartedDate and changeSelectedDates when a SelectedDay is clicked on startView" name="components CalendarDates should call changeStartDateView, changeSelectedStartedDate and changeSelectedDates when a SelectedDay is clicked on startView" time="0.002">
-    </testcase>
-    <testcase classname="components CalendarDates should call changeSelectedEndDate, changeViewCalendar and changeSelectedDates when a SelectedDay is clicked off of startView" name="components CalendarDates should call changeSelectedEndDate, changeViewCalendar and changeSelectedDates when a SelectedDay is clicked off of startView" time="0.002">
-    </testcase>
-    <testcase classname="components Guests should render self with store states" name="components Guests should render self with store states" time="0.004">
-    </testcase>
-    <testcase classname="components Guests should call changeSelectedAdults when AdultsMinusButton is clicked and adults is more than 1" name="components Guests should call changeSelectedAdults when AdultsMinusButton is clicked and adults is more than 1" time="0.004">
-    </testcase>
-    <testcase classname="components Guests should call changeSelectedAdults when PlusButton is clicked and adults + children is less than maxGuests" name="components Guests should call changeSelectedAdults when PlusButton is clicked and adults + children is less than maxGuests" time="0.003">
-    </testcase>
-    <testcase classname="components Guests should call changeSelectedChildren when ChildrenMinusButton is clicked and children is more than 0" name="components Guests should call changeSelectedChildren when ChildrenMinusButton is clicked and children is more than 0" time="0.005">
-    </testcase>
-    <testcase classname="components Guests should call changeSelectedChildren when 2nd PlusButton is clicked and maxGuests is not true" name="components Guests should call changeSelectedChildren when 2nd PlusButton is clicked and maxGuests is not true" time="0.006">
-    </testcase>
-    <testcase classname="components Guests should call changeSelectedInfants when InfantsMinusButton is clicked and selectedInfants is more than 0" name="components Guests should call changeSelectedInfants when InfantsMinusButton is clicked and selectedInfants is more than 0" time="0.005">
-    </testcase>
-    <testcase classname="components Guests should call changeSelectedInfants when InfantsPlusButton is clicked and selectedInfants less than maxInfants" name="components Guests should call changeSelectedInfants when InfantsPlusButton is clicked and selectedInfants less than maxInfants" time="0.006">
-    </testcase>
-    <testcase classname="components Total should render self with store states" name="components Total should render self with store states" time="0.003">
-    </testcase>
-    <testcase classname="components Total should handle changes to selectedDates by correctly displaying cost and number of nights" name="components Total should handle changes to selectedDates by correctly displaying cost and number of nights" time="0.001">
+    <testcase classname="Guests Reducers should handle CHANGE_MAX_GUESTS_REACHED" name="Guests Reducers should handle CHANGE_MAX_GUESTS_REACHED" time="0.001">
     </testcase>
   </testsuite>
 </testsuites>
