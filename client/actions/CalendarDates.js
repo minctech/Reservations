@@ -13,4 +13,11 @@ const changeSelectedDates = (selectedDates) => ({
   selectedDates,
 });
 
-export default { changeSelectedEndDate, changeSelectedStartDate, changeSelectedDates };
+const changeHoverHighlightedDates = (hoverHighlightedDates) => ({
+  type: 'CHANGE_HOVER_HIGHLIGHTED_DATES',
+  hoverHighlightedDates,
+});
+
+export default {
+  changeSelectedEndDate, changeSelectedStartDate, changeSelectedDates, changeHoverHighlightedDates,
+};

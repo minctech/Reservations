@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/mouse-events-have-key-events */
 /* eslint-disable no-lonely-if */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable no-plusplus */
@@ -37,6 +38,15 @@ const SelectedDay = styled(Day)`
   }
 `;
 
+const HoveredDay = styled(Day)`
+  background-color: rgb(178, 241, 236);
+  color: white;
+  :hover {
+    cursor: pointer;
+    background-color: rgb(178, 241, 236);
+  }
+`;
+
 SelectedDay.displayName = 'SelectedDay';
 
 const Table = styled.table`
@@ -54,9 +64,12 @@ const CalendarDates = ({
   startDateView,
   selectedDates,
   selectedStartDate,
+  selectedEndDate,
   changeSelectedDates,
   changeStartDateView,
   changeViewCalendar,
+  changeHoverHighlightedDates,
+  hoverHighlightedDates,
 }) => {
   const firstDate = new Date(currentYear, currentMonth, 1);
   const lastDate = new Date(currentYear, currentMonth + 1, 0);
@@ -167,10 +180,30 @@ const CalendarDates = ({
     // which are normal,
     // and which are highlighted.
     if (bookedDays.includes(day)) {
-      days[week].push(<BookedDay className="calendar" key={day}>{day}</BookedDay>);
+      days[week].push(
+        <BookedDay
+          className="calendar"
+          key={day}
+          onMouseOut={() => {
+            changeHoverHighlightedDates(0, 0);
+          }}
+        >
+          {day}
+        </BookedDay>,
+      );
     } else if (startDate.day === day
       && currentMonth === startDate.month && currentYear === startDate.year) {
-      days[week].push(<SelectedDay className="calendar" key={day}>{day}</SelectedDay>);
+      days[week].push(
+        <SelectedDay
+          className="calendar"
+          key={day}
+          onMouseOut={() => {
+            changeHoverHighlightedDates(0, 0);
+          }}
+        >
+          {day}
+        </SelectedDay>,
+      );
     } else if (highlightedSelectedDays.includes(day)) {
       days[week].push(
         <SelectedDay
@@ -183,12 +216,40 @@ const CalendarDates = ({
             } else {
               changeSelectedEndDate(day, currentMonth, currentYear);
               changeViewCalendar(false);
+              changeHoverHighlightedDates(0, 0);
             }
             changeSelectedDates();
+          }}
+          onMouseOut={() => {
+            changeHoverHighlightedDates(0, 0);
           }}
         >
           {day}
         </SelectedDay>,
+      );
+    } else if (hoverHighlightedDates.includes(day)) {
+      days[week].push(
+        <HoveredDay // fix this
+          className="calendar"
+          key={day}
+          onClick={() => {
+            if (startDateView) {
+              changeStartDateView(false);
+              changeSelectedStartDate(day, currentMonth, currentYear);
+            } else {
+              changeSelectedEndDate(day, currentMonth, currentYear);
+              changeViewCalendar(false);
+              changeHoverHighlightedDates(0, 0);
+            }
+            changeSelectedDates();
+          }}
+
+          onMouseOut={() => {
+            changeHoverHighlightedDates(0, 0);
+          }}
+        >
+          {day}
+        </HoveredDay>,
       );
     } else {
       days[week].push(
@@ -202,8 +263,32 @@ const CalendarDates = ({
             } else {
               changeSelectedEndDate(day, currentMonth, currentYear);
               changeViewCalendar(false);
+              changeHoverHighlightedDates(0, 0);
             }
             changeSelectedDates();
+          }}
+
+          onMouseOver={() => {
+            if (!(selectedStartDate && selectedEndDate)) {
+              if (selectedStartDate) {
+                if (currentYear > selectedStartDate.year) {
+                  changeHoverHighlightedDates(1, numberOfDays);
+                } else if (currentYear === selectedStartDate.year) {
+                  if (currentMonth > selectedStartDate.month) {
+                    changeHoverHighlightedDates(1, numberOfDays);
+                  } else if (currentMonth === selectedStartDate.month
+                    && day > selectedStartDate.day) {
+                    changeHoverHighlightedDates(selectedStartDate.day + 1, day);
+                  }
+                }
+              } else {
+                console.log('hi');
+              }
+            }
+          }}
+
+          onMouseOut={() => {
+            changeHoverHighlightedDates(0, 0);
           }}
         >
           {day}
@@ -233,13 +318,17 @@ CalendarDates.propTypes = {
   startDateView: PropTypes.bool.isRequired,
   selectedDates: PropTypes.array.isRequired,
   selectedStartDate: PropTypes.any,
+  selectedEndDate: PropTypes.any,
   changeSelectedDates: PropTypes.func.isRequired,
   changeStartDateView: PropTypes.func.isRequired,
   changeViewCalendar: PropTypes.func.isRequired,
+  changeHoverHighlightedDates: PropTypes.func.isRequired,
+  hoverHighlightedDates: PropTypes.array.isRequired,
 };
 
 CalendarDates.defaultProps = {
   selectedStartDate: null,
+  selectedEndDate: null,
 };
 
 export default CalendarDates;
