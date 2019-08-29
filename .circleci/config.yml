@@ -18,15 +18,12 @@ jobs: # a collection of steps
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - ./node_modules
-      - run: # run tests
-          name: test
-          command: "npm test"
       - run:
           name: Install JUnit coverage reporter
           command: "npm install jest-junit --dev"
       - run:
           name: Run tests with JUnit as reporter
-          command: "npm circleci"
+          command: "npm test"
           environment:
             JEST_JUNIT_OUTPUT: "reports/junit/js-test-r"
       - store_artifacts: # special step to save test results as as artifact

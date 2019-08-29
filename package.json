@@ -11,8 +11,7 @@
     "databuild": "node ./database-sequelize/seed.js",
     "start": "nodemon ./server/server.js",
     "build": "npx webpack --watch",
-    "test": "jest",
-    "circleci": "jest --ci --runInBand --reporters=default --reporters=jest-junit"
+    "test": "jest --ci --runInBand --reporters=default --reporters=jest-junit"
   },
   "dependencies": {
     "@babel/polyfill": "^7.4.4",
