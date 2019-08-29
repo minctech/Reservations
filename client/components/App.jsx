@@ -6,7 +6,6 @@ import CalendarContainer from '../containers/CalendarContainer';
 import GuestsContainer from '../containers/GuestsContainer';
 import TotalContainer from '../containers/TotalContainer';
 
-
 const Flex = styled.div`
   display: flex;
 `;
