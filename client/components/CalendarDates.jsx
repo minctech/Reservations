@@ -1,3 +1,4 @@
+/* eslint-disable no-lonely-if */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable no-plusplus */
 /* eslint-disable react/forbid-prop-types */
@@ -65,16 +66,78 @@ const CalendarDates = ({
   const bookedDays = [];
   const highlightedSelectedDays = [];
   const startDate = {};
+  let firstBookedDayAfterSelectedStartDate = {};
 
   // assign startdate to local variable for later rendering
   if (selectedStartDate) {
     Object.assign(startDate, selectedStartDate);
   }
 
+  // logic to find first booked date after selecting a start date
+  if (!startDateView && selectedStartDate) {
+    const bookedDaysAfterSelectedStartDate = [];
+    const dateObjectCreator = (date) => new Date(date.year, date.month, date.date);
+
+    for (let i = 0; i < bookedDates.length; i++) {
+      if (bookedDates[i].year > selectedStartDate.year) {
+        bookedDaysAfterSelectedStartDate.push(dateObjectCreator(bookedDates[i]));
+      } else if (bookedDates[i].year === selectedStartDate.year) {
+        if (bookedDates[i].month > selectedStartDate.month) {
+          bookedDaysAfterSelectedStartDate.push(dateObjectCreator(bookedDates[i]));
+        } else if (bookedDates[i].month === selectedStartDate.month
+          && bookedDates[i].date > selectedStartDate.day) {
+          bookedDaysAfterSelectedStartDate.push(dateObjectCreator(bookedDates[i]));
+        }
+      }
+    }
+
+    // check if there is any booked days after selected start date
+    if (bookedDaysAfterSelectedStartDate.length > 0) {
+      bookedDaysAfterSelectedStartDate.sort((a, b) => (a < b ? -1 : 1));
+      firstBookedDayAfterSelectedStartDate = {
+        year: bookedDaysAfterSelectedStartDate[0].getFullYear(),
+        month: bookedDaysAfterSelectedStartDate[0].getMonth(),
+        day: bookedDaysAfterSelectedStartDate[0].getDate(),
+      };
+    }
+  }
+
+  // helper function to gray out days
+  const grayDaysFromStartToEnd = (start, end) => {
+    for (let i = start; i <= end; i++) {
+      bookedDays.push(i);
+    }
+  };
+
   // create array of booked days for current month
-  for (let i = 0; i < bookedDates.length; i++) {
-    if (bookedDates[i].year === currentYear && bookedDates[i].month === currentMonth) {
-      bookedDays.push(bookedDates[i].date);
+  if (startDateView) {
+    for (let i = 0; i < bookedDates.length; i++) {
+      if (bookedDates[i].year === currentYear && bookedDates[i].month === currentMonth) {
+        bookedDays.push(bookedDates[i].date);
+      }
+    }
+  } else if (selectedStartDate) { // selecting end date
+    if (currentYear < startDate.year) {
+      grayDaysFromStartToEnd(1, numberOfDays);
+    } else if (currentYear === startDate.year) {
+      if (currentMonth < startDate.month) {
+        grayDaysFromStartToEnd(1, numberOfDays);
+      } else if (currentMonth === startDate.month) {
+        grayDaysFromStartToEnd(1, startDate.day - 1);
+      }
+    }
+
+    // gray out days after first booked day only if there is a booked day after selected start date
+    if (firstBookedDayAfterSelectedStartDate.day) {
+      if (currentYear > firstBookedDayAfterSelectedStartDate.year) {
+        grayDaysFromStartToEnd(1, numberOfDays);
+      } else if (currentYear === firstBookedDayAfterSelectedStartDate.year) {
+        if (currentMonth > firstBookedDayAfterSelectedStartDate.month) {
+          grayDaysFromStartToEnd(1, numberOfDays);
+        } else if (currentMonth === firstBookedDayAfterSelectedStartDate.month) {
+          grayDaysFromStartToEnd(firstBookedDayAfterSelectedStartDate.day, numberOfDays);
+        }
+      }
     }
   }
 
@@ -99,28 +162,15 @@ const CalendarDates = ({
     if (!days[week]) {
       days[week] = [];
     }
+
+    // logic to decide which days are greyed out,
+    // which are normal,
+    // and which are highlighted.
     if (bookedDays.includes(day)) {
       days[week].push(<BookedDay className="calendar" key={day}>{day}</BookedDay>);
     } else if (startDate.day === day
       && currentMonth === startDate.month && currentYear === startDate.year) {
-      days[week].push(
-        <SelectedDay
-          className="calendar"
-          key={day}
-          onClick={() => {
-            if (startDateView) {
-              changeStartDateView(false);
-              changeSelectedStartDate(day, currentMonth, currentYear);
-            } else {
-              changeSelectedEndDate(day, currentMonth, currentYear);
-              changeViewCalendar(false);
-            }
-            changeSelectedDates();
-          }}
-        >
-          {day}
-        </SelectedDay>,
-      );
+      days[week].push(<SelectedDay className="calendar" key={day}>{day}</SelectedDay>);
     } else if (highlightedSelectedDays.includes(day)) {
       days[week].push(
         <SelectedDay

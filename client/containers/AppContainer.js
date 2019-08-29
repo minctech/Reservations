@@ -26,8 +26,32 @@ const mapDispatchToProps = (dispatch) => ({
   changeGuestContainerView: (boolean) => {
     dispatch(actionCreators.changeGuestContainerView(boolean));
   },
-  changeSelectedDates: (dates) => {
-    dispatch(calendarDatesActionCreators.changeSelectedDates(dates));
+  changeSelectedDates: (selectedStartDate, selectedEndDate) => {
+    const startDate = new Date(
+      selectedStartDate.year,
+      selectedStartDate.month,
+      selectedStartDate.day,
+    );
+    const endDate = new Date(
+      selectedEndDate.year,
+      selectedEndDate.month,
+      selectedEndDate.day,
+    );
+    const selectedDays = [];
+    while (startDate.toDateString() !== endDate.toDateString()) {
+      selectedDays.push({
+        year: startDate.getFullYear(),
+        month: startDate.getMonth(),
+        day: startDate.getDate(),
+      });
+      startDate.setDate(startDate.getDate() + 1);
+    }
+    selectedDays.push({
+      year: endDate.getFullYear(),
+      month: endDate.getMonth(),
+      day: endDate.getDate(),
+    });
+    dispatch(calendarDatesActionCreators.changeSelectedDates(selectedDays));
   },
 });
 
