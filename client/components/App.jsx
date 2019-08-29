@@ -154,13 +154,15 @@ const App = ({
   // create an array of all days between start date and end date
   // including both
   if (selectedStartDate && selectedEndDate && selectedDates.length === 0) {
-    if (selectedStartDate.year <= selectedEndDate.year) {
-      if (selectedStartDate.month === selectedEndDate.month) {
+    if (selectedStartDate.year < selectedEndDate.year) {
+      changeSelectedDates(selectedStartDate, selectedEndDate);
+    } else if (selectedStartDate.year === selectedEndDate.year) {
+      if (selectedStartDate.month < selectedEndDate.month) {
+        changeSelectedDates(selectedStartDate, selectedEndDate);
+      } else if (selectedStartDate.month === selectedEndDate.month) {
         if (selectedStartDate.day < selectedEndDate.day) {
           changeSelectedDates(selectedStartDate, selectedEndDate);
         }
-      } else if (selectedStartDate.month < selectedEndDate.month) {
-        changeSelectedDates(selectedStartDate, selectedEndDate);
       }
     }
   }
