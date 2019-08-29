@@ -44,10 +44,14 @@ const BigNumbers = styled(BigLetters)`
   margin: 0px 22px;
 `;
 
+BigNumbers.displayName = 'BigNumbers';
+
 const SmallLetters = styled.span`
   font-size: 14px;
   color: darkslategray;
 `;
+
+SmallLetters.displayName = 'SmallLetters';
 
 const OuterContainer = styled.div`
   width: 326px;
@@ -97,25 +101,35 @@ const Guests = ({
     color: ${maxGuestsReached ? 'rgba(0, 132, 137, 0.3)' : 'rgba(0, 132, 137)'};
   `;
 
+  PlusButton.displayName = 'PlusButton';
+
   const AdultsMinusButton = styled(Button)`
     border: ${selectedAdults > 1 ? 'rgba(0, 132, 137) solid 1px' : 'rgba(0, 132, 137, 0.3) solid 1px'};
     color: ${selectedAdults > 1 ? 'rgba(0, 132, 137)' : 'rgba(0, 132, 137, 0.3)'};
   `;
+
+  AdultsMinusButton.displayName = 'AdultsMinusButton';
 
   const ChildrenMinusButton = styled(Button)`
     border: ${selectedChildren > 0 ? 'rgba(0, 132, 137) solid 1px' : 'rgba(0, 132, 137, 0.3) solid 1px'};
     color: ${selectedChildren > 0 ? 'rgba(0, 132, 137)' : 'rgba(0, 132, 137, 0.3)'};
   `;
 
+  ChildrenMinusButton.displayName = 'ChildrenMinusButton';
+
   const InfantsMinusButton = styled(Button)`
     border: ${selectedInfants > 0 ? 'rgba(0, 132, 137) solid 1px' : 'rgba(0, 132, 137, 0.3) solid 1px'};
     color: ${selectedInfants > 0 ? 'rgba(0, 132, 137)' : 'rgba(0, 132, 137, 0.3)'};
   `;
 
+  InfantsMinusButton.displayName = 'InfantsMinusButton';
+
   const InfantsPlusButton = styled(Button)`
     border: ${selectedInfants === listing.maxInfants ? 'rgba(0, 132, 137, 0.3) solid 1px' : 'rgba(0, 132, 137) solid 1px'};
     color: ${selectedInfants === listing.maxInfants ? 'rgba(0, 132, 137, 0.3)' : 'rgba(0, 132, 137)'};
   `;
+
+  InfantsPlusButton.displayName = 'InfantsPlusButton';
 
   return (
     <OuterContainer className="guests">

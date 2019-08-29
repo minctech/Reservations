@@ -32,8 +32,11 @@ const ClearDatesButton = styled.button`
   color: teal;
   :hover {
     text-decoration: underline;
+    cursor: pointer;
   }
 `;
+
+ClearDatesButton.displayName = 'ClearDatesButton';
 
 const Button = styled.button`
   height: 35px;
@@ -42,6 +45,8 @@ const Button = styled.button`
   border: 1px solid lightgray;
   border-radius: 3px;
 `;
+
+Button.displayName = 'Button';
 
 const MonthYearSpan = styled.span`
   font-weight: bold;

@@ -16,6 +16,8 @@ const Day = styled.td`
   }
 `;
 
+Day.displayName = 'Day';
+
 const BookedDay = styled(Day)`
   color: rgb(216, 216, 216);
   text-decoration: line-through;
@@ -34,6 +36,8 @@ const SelectedDay = styled(Day)`
   }
 `;
 
+SelectedDay.displayName = 'SelectedDay';
+
 const Table = styled.table`
   border-spacing: 0px;
   border-collapse: collapse;
@@ -49,8 +53,9 @@ const CalendarDates = ({
   startDateView,
   selectedDates,
   selectedStartDate,
-  selectedEndDate,
   changeSelectedDates,
+  changeStartDateView,
+  changeViewCalendar,
 }) => {
   const firstDate = new Date(currentYear, currentMonth, 1);
   const lastDate = new Date(currentYear, currentMonth + 1, 0);
@@ -59,42 +64,11 @@ const CalendarDates = ({
   const days = [[]];
   const bookedDays = [];
   const highlightedSelectedDays = [];
+  const startDate = {};
 
-
-  // update selectedDates state based on selected start date and selected end date.
-  // If statements are used to make sure there is not an infinite loop.
-  if (selectedStartDate && selectedEndDate && selectedDates.length === 0) {
-    if (selectedStartDate.year <= selectedEndDate.year) {
-      if (selectedStartDate.month <= selectedEndDate.month) {
-        if (selectedStartDate.day < selectedEndDate.day) {
-          const startDate = new Date(
-            selectedStartDate.year,
-            selectedStartDate.month,
-            selectedStartDate.day,
-          );
-          const endDate = new Date(
-            selectedEndDate.year,
-            selectedEndDate.month,
-            selectedEndDate.day,
-          );
-          const selectedDays = [];
-          while (startDate.toDateString() !== endDate.toDateString()) {
-            selectedDays.push({
-              year: startDate.getFullYear(),
-              month: startDate.getMonth(),
-              day: startDate.getDate(),
-            });
-            startDate.setDate(startDate.getDate() + 1);
-          }
-          selectedDays.push({
-            year: endDate.getFullYear(),
-            month: endDate.getMonth(),
-            day: endDate.getDate(),
-          });
-          changeSelectedDates(selectedDays);
-        }
-      }
-    }
+  // assign startdate to local variable for later rendering
+  if (selectedStartDate) {
+    Object.assign(startDate, selectedStartDate);
   }
 
   // create array of booked days for current month
@@ -127,6 +101,26 @@ const CalendarDates = ({
     }
     if (bookedDays.includes(day)) {
       days[week].push(<BookedDay className="calendar" key={day}>{day}</BookedDay>);
+    } else if (startDate.day === day
+      && currentMonth === startDate.month && currentYear === startDate.year) {
+      days[week].push(
+        <SelectedDay
+          className="calendar"
+          key={day}
+          onClick={() => {
+            if (startDateView) {
+              changeStartDateView(false);
+              changeSelectedStartDate(day, currentMonth, currentYear);
+            } else {
+              changeSelectedEndDate(day, currentMonth, currentYear);
+              changeViewCalendar(false);
+            }
+            changeSelectedDates();
+          }}
+        >
+          {day}
+        </SelectedDay>,
+      );
     } else if (highlightedSelectedDays.includes(day)) {
       days[week].push(
         <SelectedDay
@@ -134,9 +128,11 @@ const CalendarDates = ({
           key={day}
           onClick={() => {
             if (startDateView) {
+              changeStartDateView(false);
               changeSelectedStartDate(day, currentMonth, currentYear);
             } else {
               changeSelectedEndDate(day, currentMonth, currentYear);
+              changeViewCalendar(false);
             }
             changeSelectedDates();
           }}
@@ -151,9 +147,11 @@ const CalendarDates = ({
           key={day}
           onClick={() => {
             if (startDateView) {
+              changeStartDateView(false);
               changeSelectedStartDate(day, currentMonth, currentYear);
             } else {
               changeSelectedEndDate(day, currentMonth, currentYear);
+              changeViewCalendar(false);
             }
             changeSelectedDates();
           }}
@@ -185,13 +183,13 @@ CalendarDates.propTypes = {
   startDateView: PropTypes.bool.isRequired,
   selectedDates: PropTypes.array.isRequired,
   selectedStartDate: PropTypes.any,
-  selectedEndDate: PropTypes.any,
   changeSelectedDates: PropTypes.func.isRequired,
+  changeStartDateView: PropTypes.func.isRequired,
+  changeViewCalendar: PropTypes.func.isRequired,
 };
 
 CalendarDates.defaultProps = {
   selectedStartDate: null,
-  selectedEndDate: null,
 };
 
 export default CalendarDates;

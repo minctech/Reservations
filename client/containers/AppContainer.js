@@ -1,6 +1,7 @@
 import { connect } from 'react-redux';
 import App from '../components/App';
 import actionCreators from '../actions/App';
+import calendarDatesActionCreators from '../actions/CalendarDates';
 
 const mapStateToProps = (state) => ({
   listing: state.listing,
@@ -24,6 +25,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   changeGuestContainerView: (boolean) => {
     dispatch(actionCreators.changeGuestContainerView(boolean));
+  },
+  changeSelectedDates: (dates) => {
+    dispatch(calendarDatesActionCreators.changeSelectedDates(dates));
   },
 });
 
