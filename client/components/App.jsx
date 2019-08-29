@@ -148,36 +148,19 @@ const App = ({
   let startCalendar;
   let endCalendar;
 
+  // if user selected a startdate and enddate
+  // and there is no current selected length of stay
+  // and if end date is after start date
+  // create an array of all days between start date and end date
+  // including both
   if (selectedStartDate && selectedEndDate && selectedDates.length === 0) {
     if (selectedStartDate.year <= selectedEndDate.year) {
-      if (selectedStartDate.month <= selectedEndDate.month) {
+      if (selectedStartDate.month === selectedEndDate.month) {
         if (selectedStartDate.day < selectedEndDate.day) {
-          const startDate = new Date(
-            selectedStartDate.year,
-            selectedStartDate.month,
-            selectedStartDate.day,
-          );
-          const endDate = new Date(
-            selectedEndDate.year,
-            selectedEndDate.month,
-            selectedEndDate.day,
-          );
-          const selectedDays = [];
-          while (startDate.toDateString() !== endDate.toDateString()) {
-            selectedDays.push({
-              year: startDate.getFullYear(),
-              month: startDate.getMonth(),
-              day: startDate.getDate(),
-            });
-            startDate.setDate(startDate.getDate() + 1);
-          }
-          selectedDays.push({
-            year: endDate.getFullYear(),
-            month: endDate.getMonth(),
-            day: endDate.getDate(),
-          });
-          changeSelectedDates(selectedDays);
+          changeSelectedDates(selectedStartDate, selectedEndDate);
         }
+      } else if (selectedStartDate.month < selectedEndDate.month) {
+        changeSelectedDates(selectedStartDate, selectedEndDate);
       }
     }
   }
