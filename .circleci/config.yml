@@ -13,10 +13,6 @@ jobs: # a collection of steps
       - run:
           name: install-npm-wee
           command: "npm install"
-      - save_cache: # special step to save the dependency cache
-          key: dependency-cache-{{ checksum "package.json" }}
-          paths:
-            - ./node_modules
       - run: # run tests
           name: test
           command: "npm test"
@@ -28,6 +24,10 @@ jobs: # a collection of steps
             command: "jest --ci --runInBand --reporters=default --reporters=jest-junit"
             environment:
               JEST_JUNIT_OUTPUT: "reports/junit/js-test-r"
+      - save_cache: # special step to save the dependency cache
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
       - store_artifacts: # special step to save test results as as artifact
           # Upload test summary for display in Artifacts: https://circleci.com/docs/2.0/artifacts/ 
           path: test-results.xml
