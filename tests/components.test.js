@@ -15,7 +15,7 @@ import Total from '../client/components/Total';
 
 Enzyme.configure({ adapter: new Adapter() });
 
-describe.skip('components', () => {
+describe('components', () => {
   describe('App', () => {
     const setup = () => {
       const props = {
