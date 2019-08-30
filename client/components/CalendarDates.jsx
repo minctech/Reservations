@@ -81,6 +81,8 @@ const CalendarDates = ({
   const startDate = {};
   const endDate = {};
   let firstBookedDayAfterSelectedStartDate = {};
+  let lastBookedDayBeforeSelectedEndDate = {};
+
 
   // assign startdate to local variable for later rendering
   if (selectedStartDate) {
@@ -121,6 +123,34 @@ const CalendarDates = ({
     }
   }
 
+  if (startDateView && selectedEndDate) {
+    const bookedDaysBeforeSelectedEndDate = [];
+    const dateObjectCreator = (date) => new Date(date.year, date.month, date.date);
+
+    for (let i = 0; i < bookedDates.length; i++) {
+      if (bookedDates[i].year < selectedEndDate.year) {
+        bookedDaysBeforeSelectedEndDate.push(dateObjectCreator(bookedDates[i]));
+      } else if (bookedDates[i].year === selectedEndDate.year) {
+        if (bookedDates[i].month < selectedEndDate.month) {
+          bookedDaysBeforeSelectedEndDate.push(dateObjectCreator(bookedDates[i]));
+        } else if (bookedDates[i].month === selectedEndDate.month
+          && bookedDates[i].date < selectedEndDate.day) {
+          bookedDaysBeforeSelectedEndDate.push(dateObjectCreator(bookedDates[i]));
+        }
+      }
+    }
+
+    // check if there is any booked days after selected start date
+    if (bookedDaysBeforeSelectedEndDate.length > 0) {
+      bookedDaysBeforeSelectedEndDate.sort((a, b) => (a > b ? -1 : 1));
+      lastBookedDayBeforeSelectedEndDate = {
+        year: bookedDaysBeforeSelectedEndDate[0].getFullYear(),
+        month: bookedDaysBeforeSelectedEndDate[0].getMonth(),
+        day: bookedDaysBeforeSelectedEndDate[0].getDate(),
+      };
+    }
+  }
+
   // helper function to gray out days
   const grayDaysFromStartToEnd = (start, end) => {
     for (let i = start; i <= end; i++) {
@@ -130,9 +160,23 @@ const CalendarDates = ({
 
   // create array of booked days for current month
   if (startDateView) {
-    for (let i = 0; i < bookedDates.length; i++) {
-      if (bookedDates[i].year === currentYear && bookedDates[i].month === currentMonth) {
-        bookedDays.push(bookedDates[i].date);
+    if (selectedEndDate) {
+      if (lastBookedDayBeforeSelectedEndDate.day) {
+        if (currentYear < lastBookedDayBeforeSelectedEndDate.year) {
+          grayDaysFromStartToEnd(1, numberOfDays);
+        } else if (currentYear === lastBookedDayBeforeSelectedEndDate.year) {
+          if (currentMonth < lastBookedDayBeforeSelectedEndDate.month) {
+            grayDaysFromStartToEnd(1, numberOfDays);
+          } else if (currentMonth === lastBookedDayBeforeSelectedEndDate.month) {
+            grayDaysFromStartToEnd(1, lastBookedDayBeforeSelectedEndDate.day);
+          }
+        }
+      }
+    } else {
+      for (let i = 0; i < bookedDates.length; i++) {
+        if (bookedDates[i].year === currentYear && bookedDates[i].month === currentMonth) {
+          bookedDays.push(bookedDates[i].date);
+        }
       }
     }
   } else if (selectedStartDate) { // selecting end date
