@@ -34,8 +34,8 @@ From within the root directory:
 ```sh
 npm install
 npm run databuild
-npm run start
-npm test
+npm run build
+npm run start (in a seperate bash window)
 ```
 
 wes is the best
