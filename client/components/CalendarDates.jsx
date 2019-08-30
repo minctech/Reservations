@@ -206,6 +206,8 @@ const CalendarDates = ({
     for (let i = 0; i < bookedDates.length; i++) {
       if (bookedDates[i].year === currentYear && bookedDates[i].month === currentMonth) {
         bookedDays.push(bookedDates[i].date);
+        // this leads to duplicate dates in the bookeddays array.
+        // Should not have any effect but keep in mind.
         bookedDays.push(bookedDates[i].date + 1);
       }
     }
