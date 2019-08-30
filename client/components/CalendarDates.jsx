@@ -123,6 +123,7 @@ const CalendarDates = ({
     }
   }
 
+  // logic to find last booked date after selecting an end date
   if (startDateView && selectedEndDate) {
     const bookedDaysBeforeSelectedEndDate = [];
     const dateObjectCreator = (date) => new Date(date.year, date.month, date.date);
@@ -140,7 +141,7 @@ const CalendarDates = ({
       }
     }
 
-    // check if there is any booked days after selected start date
+    // check if there is any booked days before selected end date
     if (bookedDaysBeforeSelectedEndDate.length > 0) {
       bookedDaysBeforeSelectedEndDate.sort((a, b) => (a > b ? -1 : 1));
       lastBookedDayBeforeSelectedEndDate = {
@@ -205,6 +206,7 @@ const CalendarDates = ({
     for (let i = 0; i < bookedDates.length; i++) {
       if (bookedDates[i].year === currentYear && bookedDates[i].month === currentMonth) {
         bookedDays.push(bookedDates[i].date);
+        bookedDays.push(bookedDates[i].date + 1);
       }
     }
   }
