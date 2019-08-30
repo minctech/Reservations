@@ -172,11 +172,10 @@ const CalendarDates = ({
           }
         }
       }
-    } else {
-      for (let i = 0; i < bookedDates.length; i++) {
-        if (bookedDates[i].year === currentYear && bookedDates[i].month === currentMonth) {
-          bookedDays.push(bookedDates[i].date);
-        }
+    }
+    for (let i = 0; i < bookedDates.length; i++) {
+      if (bookedDates[i].year === currentYear && bookedDates[i].month === currentMonth) {
+        bookedDays.push(bookedDates[i].date);
       }
     }
   } else if (selectedStartDate) { // selecting end date
@@ -284,7 +283,11 @@ const CalendarDates = ({
               changeSelectedStartDate(day, currentMonth, currentYear);
             } else {
               changeSelectedEndDate(day, currentMonth, currentYear);
-              changeViewCalendar(false);
+              if (selectedStartDate) {
+                changeViewCalendar(false);
+              } else {
+                changeStartDateView(true);
+              }
               changeHoverHighlightedDates(0, 0);
             }
             changeSelectedDates();
@@ -298,7 +301,7 @@ const CalendarDates = ({
       );
     } else if (hoverHighlightedDates.includes(day)) {
       days[week].push(
-        <HoveredDay // fix this
+        <HoveredDay
           className="calendar"
           key={day}
           onClick={() => {
@@ -307,7 +310,11 @@ const CalendarDates = ({
               changeSelectedStartDate(day, currentMonth, currentYear);
             } else {
               changeSelectedEndDate(day, currentMonth, currentYear);
-              changeViewCalendar(false);
+              if (selectedStartDate) {
+                changeViewCalendar(false);
+              } else {
+                changeStartDateView(true);
+              }
               changeHoverHighlightedDates(0, 0);
             }
             changeSelectedDates();
@@ -331,7 +338,11 @@ const CalendarDates = ({
               changeSelectedStartDate(day, currentMonth, currentYear);
             } else {
               changeSelectedEndDate(day, currentMonth, currentYear);
-              changeViewCalendar(false);
+              if (selectedStartDate) {
+                changeViewCalendar(false);
+              } else {
+                changeStartDateView(true);
+              }
               changeHoverHighlightedDates(0, 0);
             }
             changeSelectedDates();
