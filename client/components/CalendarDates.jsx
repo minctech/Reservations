@@ -79,11 +79,17 @@ const CalendarDates = ({
   const bookedDays = [];
   const highlightedSelectedDays = [];
   const startDate = {};
+  const endDate = {};
   let firstBookedDayAfterSelectedStartDate = {};
 
   // assign startdate to local variable for later rendering
   if (selectedStartDate) {
     Object.assign(startDate, selectedStartDate);
+  }
+
+  // assign startdate to local variable for later rendering
+  if (selectedEndDate) {
+    Object.assign(endDate, selectedEndDate);
   }
 
   // logic to find first booked date after selecting a start date
@@ -204,6 +210,19 @@ const CalendarDates = ({
           {day}
         </SelectedDay>,
       );
+    } else if (endDate.day === day
+      && currentMonth === endDate.month && currentYear === endDate.year) {
+      days[week].push(
+        <SelectedDay
+          className="calendar"
+          key={day}
+          onMouseOut={() => {
+            changeHoverHighlightedDates(0, 0);
+          }}
+        >
+          {day}
+        </SelectedDay>,
+      );
     } else if (highlightedSelectedDays.includes(day)) {
       days[week].push(
         <SelectedDay
@@ -281,8 +300,17 @@ const CalendarDates = ({
                     changeHoverHighlightedDates(selectedStartDate.day + 1, day);
                   }
                 }
-              } else {
-                console.log('hi');
+              } else if (selectedEndDate) {
+                if (currentYear < selectedEndDate.year) {
+                  changeHoverHighlightedDates(1, numberOfDays);
+                } else if (currentYear === selectedEndDate.year) {
+                  if (currentMonth < selectedEndDate.month) {
+                    changeHoverHighlightedDates(1, numberOfDays);
+                  } else if (currentMonth === selectedEndDate.month
+                    && day < selectedEndDate.day) {
+                    changeHoverHighlightedDates(day, selectedEndDate.day - 1);
+                  }
+                }
               }
             }
           }}
