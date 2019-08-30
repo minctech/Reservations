@@ -213,7 +213,7 @@ const CalendarDates = ({
     }
   }
 
-  // create array of selected days for current month
+  // create array of highlighted selected days for current month
   for (let i = 0; i < selectedDates.length; i++) {
     if (selectedDates[i].year === currentYear && selectedDates[i].month === currentMonth) {
       highlightedSelectedDays.push(selectedDates[i].day);
@@ -356,10 +356,10 @@ const CalendarDates = ({
             if (!(selectedStartDate && selectedEndDate)) {
               if (selectedStartDate) {
                 if (currentYear > selectedStartDate.year) {
-                  changeHoverHighlightedDates(1, numberOfDays);
+                  changeHoverHighlightedDates(1, day);
                 } else if (currentYear === selectedStartDate.year) {
                   if (currentMonth > selectedStartDate.month) {
-                    changeHoverHighlightedDates(1, numberOfDays);
+                    changeHoverHighlightedDates(1, day);
                   } else if (currentMonth === selectedStartDate.month
                     && day > selectedStartDate.day) {
                     changeHoverHighlightedDates(selectedStartDate.day + 1, day);
@@ -367,10 +367,10 @@ const CalendarDates = ({
                 }
               } else if (selectedEndDate) {
                 if (currentYear < selectedEndDate.year) {
-                  changeHoverHighlightedDates(1, numberOfDays);
+                  changeHoverHighlightedDates(1, day);
                 } else if (currentYear === selectedEndDate.year) {
                   if (currentMonth < selectedEndDate.month) {
-                    changeHoverHighlightedDates(1, numberOfDays);
+                    changeHoverHighlightedDates(1, day);
                   } else if (currentMonth === selectedEndDate.month
                     && day < selectedEndDate.day) {
                     changeHoverHighlightedDates(day, selectedEndDate.day - 1);
