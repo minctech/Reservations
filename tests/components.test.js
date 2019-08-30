@@ -218,6 +218,8 @@ describe('components', () => {
         startDateView: false,
         selectedDates: [],
         selectedStartDate: null,
+        hoverHighlightedDates: [],
+        changeHoverHighlightedDates: jest.fn(),
       };
       const enzymeWrapper = shallow(<CalendarDates {...props} />);
       return {
