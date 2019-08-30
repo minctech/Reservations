@@ -139,6 +139,7 @@ const App = ({
   selectedInfants,
   selectedDates,
   changeSelectedDates,
+  changeSelectedEndDate,
 }) => {
   const chargePerNight = `$${listing.chargePerNight}`;
   const review = `${listing.numberOfRatings}`;
@@ -153,17 +154,30 @@ const App = ({
   // create an array of all days between start date and end date
   // including both
   if (selectedStartDate && selectedEndDate && selectedDates.length === 0) {
-    if (selectedStartDate.year < selectedEndDate.year) {
+    const startDateObject = new Date(
+      selectedStartDate.year, selectedStartDate.month, selectedStartDate.day,
+    );
+    const endDateObject = new Date(
+      selectedEndDate.year, selectedEndDate.month, selectedEndDate.day,
+    );
+
+    if (startDateObject < endDateObject) {
       changeSelectedDates(selectedStartDate, selectedEndDate);
-    } else if (selectedStartDate.year === selectedEndDate.year) {
-      if (selectedStartDate.month < selectedEndDate.month) {
-        changeSelectedDates(selectedStartDate, selectedEndDate);
-      } else if (selectedStartDate.month === selectedEndDate.month) {
-        if (selectedStartDate.day < selectedEndDate.day) {
-          changeSelectedDates(selectedStartDate, selectedEndDate);
-        }
-      }
+    } else if (startDateObject > endDateObject) {
+      changeSelectedEndDate();
     }
+
+    // if (selectedStartDate.year < selectedEndDate.year) {
+    //   changeSelectedDates(selectedStartDate, selectedEndDate);
+    // } else if (selectedStartDate.year === selectedEndDate.year) {
+    //   if (selectedStartDate.month < selectedEndDate.month) {
+    //     changeSelectedDates(selectedStartDate, selectedEndDate);
+    //   } else if (selectedStartDate.month === selectedEndDate.month) {
+    //     if (selectedStartDate.day < selectedEndDate.day) {
+    //       changeSelectedDates(selectedStartDate, selectedEndDate);
+    //     }
+    //   }
+    // }
   }
 
   if (viewCalendar) {
@@ -339,6 +353,7 @@ App.propTypes = {
   selectedInfants: PropTypes.number,
   selectedDates: PropTypes.array,
   changeSelectedDates: PropTypes.func.isRequired,
+  changeSelectedEndDate: PropTypes.func.isRequired,
 };
 
 App.defaultProps = {
