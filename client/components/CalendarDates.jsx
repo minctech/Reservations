@@ -158,6 +158,12 @@ const CalendarDates = ({
         }
       }
     }
+  } else if (!selectedEndDate) {
+    for (let i = 0; i < bookedDates.length; i++) {
+      if (bookedDates[i].year === currentYear && bookedDates[i].month === currentMonth) {
+        bookedDays.push(bookedDates[i].date);
+      }
+    }
   }
 
   // create array of selected days for current month
