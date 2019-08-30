@@ -367,10 +367,10 @@ const CalendarDates = ({
                 }
               } else if (selectedEndDate) {
                 if (currentYear < selectedEndDate.year) {
-                  changeHoverHighlightedDates(1, day);
+                  changeHoverHighlightedDates(day, numberOfDays);
                 } else if (currentYear === selectedEndDate.year) {
                   if (currentMonth < selectedEndDate.month) {
-                    changeHoverHighlightedDates(1, day);
+                    changeHoverHighlightedDates(day, numberOfDays);
                   } else if (currentMonth === selectedEndDate.month
                     && day < selectedEndDate.day) {
                     changeHoverHighlightedDates(day, selectedEndDate.day - 1);
