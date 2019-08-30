@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 import { connect } from 'react-redux';
 import CalendarDates from '../components/CalendarDates';
 import actionCreators from '../actions/CalendarDates';
@@ -12,6 +13,7 @@ const mapStateToProps = (state) => ({
   startDateView: state.startDateView,
   selectedDates: state.selectedDates,
   viewCalendar: state.viewCalendar,
+  hoverHighlightedDates: state.hoverHighlightedDates,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -29,6 +31,13 @@ const mapDispatchToProps = (dispatch) => ({
   },
   changeViewCalendar: (boolean) => {
     dispatch(appActionCreators.changeViewCalendar(boolean));
+  },
+  changeHoverHighlightedDates: (start, end) => {
+    const hoverHighlightedDays = [];
+    for (let i = start; i <= end; i++) {
+      hoverHighlightedDays.push(i);
+    }
+    dispatch(actionCreators.changeHoverHighlightedDates(hoverHighlightedDays));
   },
 });
 

@@ -53,6 +53,13 @@ const mapDispatchToProps = (dispatch) => ({
     });
     dispatch(calendarDatesActionCreators.changeSelectedDates(selectedDays));
   },
+  changeSelectedEndDate: (day, month, year) => {
+    if (day && month && year) {
+      dispatch(calendarDatesActionCreators.changeSelectedEndDate({ day, month, year }));
+    } else {
+      dispatch(calendarDatesActionCreators.changeSelectedEndDate());
+    }
+  },
 });
 
 const AppContainer = connect(mapStateToProps, mapDispatchToProps)(App);

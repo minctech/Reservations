@@ -82,6 +82,7 @@ describe('containers', () => {
       bookedDates: [],
       startDateView: false,
       selectedDates: [],
+      hoverHighlightedDates: [],
     };
 
     const store = createMockStore(props);

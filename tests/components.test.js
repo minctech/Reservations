@@ -38,6 +38,7 @@ describe('components', () => {
         startDateView: false,
         selectedDates: [],
         selectedStartDate: null,
+        changeSelectedEndDate: jest.fn(),
       };
       const enzymeWrapper = shallow(<App {...props} />);
       return {
@@ -218,6 +219,8 @@ describe('components', () => {
         startDateView: false,
         selectedDates: [],
         selectedStartDate: null,
+        hoverHighlightedDates: [],
+        changeHoverHighlightedDates: jest.fn(),
       };
       const enzymeWrapper = shallow(<CalendarDates {...props} />);
       return {
@@ -251,8 +254,13 @@ describe('components', () => {
       enzymeWrapper.setProps({ startDateView: false });
       enzymeWrapper.find('Day').at(0).simulate('click');
       expect(props.changeSelectedEndDate.mock.calls.length).to.equal(1);
-      expect(props.changeViewCalendar.mock.calls.length).to.equal(1);
+      expect(props.changeViewCalendar.mock.calls.length).to.equal(0);
       expect(props.changeSelectedDates.mock.calls.length).to.equal(1);
+      enzymeWrapper.setProps({ selectedStartDate: {} });
+      enzymeWrapper.find('Day').at(0).simulate('click');
+      expect(props.changeSelectedEndDate.mock.calls.length).to.equal(2);
+      expect(props.changeViewCalendar.mock.calls.length).to.equal(1);
+      expect(props.changeSelectedDates.mock.calls.length).to.equal(2);
     });
 
     it('should call changeStartDateView, changeSelectedStartedDate and changeSelectedDates when a SelectedDay is clicked on startView', () => {
@@ -295,12 +303,18 @@ describe('components', () => {
 
       enzymeWrapper.setProps({
         startDateView: false,
+        selectedStartDate: null,
         selectedDates,
       });
       enzymeWrapper.find('SelectedDay').at(0).simulate('click');
       expect(props.changeSelectedEndDate.mock.calls.length).to.equal(1);
-      expect(props.changeViewCalendar.mock.calls.length).to.equal(1);
+      expect(props.changeViewCalendar.mock.calls.length).to.equal(0);
       expect(props.changeSelectedDates.mock.calls.length).to.equal(1);
+      enzymeWrapper.setProps({ selectedStartDate: {} });
+      enzymeWrapper.find('SelectedDay').at(0).simulate('click');
+      expect(props.changeSelectedEndDate.mock.calls.length).to.equal(2);
+      expect(props.changeViewCalendar.mock.calls.length).to.equal(1);
+      expect(props.changeSelectedDates.mock.calls.length).to.equal(2);
     });
   });
 

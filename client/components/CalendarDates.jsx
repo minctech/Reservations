@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/mouse-events-have-key-events */
 /* eslint-disable no-lonely-if */
 /* eslint-disable react/no-array-index-key */
 /* eslint-disable no-plusplus */
@@ -37,6 +38,15 @@ const SelectedDay = styled(Day)`
   }
 `;
 
+const HoveredDay = styled(Day)`
+  background-color: rgb(178, 241, 236);
+  color: white;
+  :hover {
+    cursor: pointer;
+    background-color: rgb(178, 241, 236);
+  }
+`;
+
 SelectedDay.displayName = 'SelectedDay';
 
 const Table = styled.table`
@@ -54,9 +64,12 @@ const CalendarDates = ({
   startDateView,
   selectedDates,
   selectedStartDate,
+  selectedEndDate,
   changeSelectedDates,
   changeStartDateView,
   changeViewCalendar,
+  changeHoverHighlightedDates,
+  hoverHighlightedDates,
 }) => {
   const firstDate = new Date(currentYear, currentMonth, 1);
   const lastDate = new Date(currentYear, currentMonth + 1, 0);
@@ -66,11 +79,19 @@ const CalendarDates = ({
   const bookedDays = [];
   const highlightedSelectedDays = [];
   const startDate = {};
+  const endDate = {};
   let firstBookedDayAfterSelectedStartDate = {};
+  let lastBookedDayBeforeSelectedEndDate = {};
+
 
   // assign startdate to local variable for later rendering
   if (selectedStartDate) {
     Object.assign(startDate, selectedStartDate);
+  }
+
+  // assign startdate to local variable for later rendering
+  if (selectedEndDate) {
+    Object.assign(endDate, selectedEndDate);
   }
 
   // logic to find first booked date after selecting a start date
@@ -102,6 +123,35 @@ const CalendarDates = ({
     }
   }
 
+  // logic to find last booked date after selecting an end date
+  if (startDateView && selectedEndDate) {
+    const bookedDaysBeforeSelectedEndDate = [];
+    const dateObjectCreator = (date) => new Date(date.year, date.month, date.date);
+
+    for (let i = 0; i < bookedDates.length; i++) {
+      if (bookedDates[i].year < selectedEndDate.year) {
+        bookedDaysBeforeSelectedEndDate.push(dateObjectCreator(bookedDates[i]));
+      } else if (bookedDates[i].year === selectedEndDate.year) {
+        if (bookedDates[i].month < selectedEndDate.month) {
+          bookedDaysBeforeSelectedEndDate.push(dateObjectCreator(bookedDates[i]));
+        } else if (bookedDates[i].month === selectedEndDate.month
+          && bookedDates[i].date < selectedEndDate.day) {
+          bookedDaysBeforeSelectedEndDate.push(dateObjectCreator(bookedDates[i]));
+        }
+      }
+    }
+
+    // check if there is any booked days before selected end date
+    if (bookedDaysBeforeSelectedEndDate.length > 0) {
+      bookedDaysBeforeSelectedEndDate.sort((a, b) => (a > b ? -1 : 1));
+      lastBookedDayBeforeSelectedEndDate = {
+        year: bookedDaysBeforeSelectedEndDate[0].getFullYear(),
+        month: bookedDaysBeforeSelectedEndDate[0].getMonth(),
+        day: bookedDaysBeforeSelectedEndDate[0].getDate(),
+      };
+    }
+  }
+
   // helper function to gray out days
   const grayDaysFromStartToEnd = (start, end) => {
     for (let i = start; i <= end; i++) {
@@ -111,6 +161,19 @@ const CalendarDates = ({
 
   // create array of booked days for current month
   if (startDateView) {
+    if (selectedEndDate) {
+      if (lastBookedDayBeforeSelectedEndDate.day) {
+        if (currentYear < lastBookedDayBeforeSelectedEndDate.year) {
+          grayDaysFromStartToEnd(1, numberOfDays);
+        } else if (currentYear === lastBookedDayBeforeSelectedEndDate.year) {
+          if (currentMonth < lastBookedDayBeforeSelectedEndDate.month) {
+            grayDaysFromStartToEnd(1, numberOfDays);
+          } else if (currentMonth === lastBookedDayBeforeSelectedEndDate.month) {
+            grayDaysFromStartToEnd(1, lastBookedDayBeforeSelectedEndDate.day);
+          }
+        }
+      }
+    }
     for (let i = 0; i < bookedDates.length; i++) {
       if (bookedDates[i].year === currentYear && bookedDates[i].month === currentMonth) {
         bookedDays.push(bookedDates[i].date);
@@ -137,6 +200,15 @@ const CalendarDates = ({
         } else if (currentMonth === firstBookedDayAfterSelectedStartDate.month) {
           grayDaysFromStartToEnd(firstBookedDayAfterSelectedStartDate.day, numberOfDays);
         }
+      }
+    }
+  } else if (!selectedEndDate) {
+    for (let i = 0; i < bookedDates.length; i++) {
+      if (bookedDates[i].year === currentYear && bookedDates[i].month === currentMonth) {
+        bookedDays.push(bookedDates[i].date);
+        // this leads to duplicate dates in the bookeddays array.
+        // Should not have any effect but keep in mind.
+        bookedDays.push(bookedDates[i].date + 1);
       }
     }
   }
@@ -167,10 +239,43 @@ const CalendarDates = ({
     // which are normal,
     // and which are highlighted.
     if (bookedDays.includes(day)) {
-      days[week].push(<BookedDay className="calendar" key={day}>{day}</BookedDay>);
+      days[week].push(
+        <BookedDay
+          className="calendar"
+          key={day}
+          onMouseOut={() => {
+            changeHoverHighlightedDates(0, 0);
+          }}
+        >
+          {day}
+        </BookedDay>,
+      );
     } else if (startDate.day === day
       && currentMonth === startDate.month && currentYear === startDate.year) {
-      days[week].push(<SelectedDay className="calendar" key={day}>{day}</SelectedDay>);
+      days[week].push(
+        <SelectedDay
+          className="calendar"
+          key={day}
+          onMouseOut={() => {
+            changeHoverHighlightedDates(0, 0);
+          }}
+        >
+          {day}
+        </SelectedDay>,
+      );
+    } else if (endDate.day === day
+      && currentMonth === endDate.month && currentYear === endDate.year) {
+      days[week].push(
+        <SelectedDay
+          className="calendar"
+          key={day}
+          onMouseOut={() => {
+            changeHoverHighlightedDates(0, 0);
+          }}
+        >
+          {day}
+        </SelectedDay>,
+      );
     } else if (highlightedSelectedDays.includes(day)) {
       days[week].push(
         <SelectedDay
@@ -182,13 +287,49 @@ const CalendarDates = ({
               changeSelectedStartDate(day, currentMonth, currentYear);
             } else {
               changeSelectedEndDate(day, currentMonth, currentYear);
-              changeViewCalendar(false);
+              if (selectedStartDate) {
+                changeViewCalendar(false);
+              } else {
+                changeStartDateView(true);
+              }
+              changeHoverHighlightedDates(0, 0);
             }
             changeSelectedDates();
+          }}
+          onMouseOut={() => {
+            changeHoverHighlightedDates(0, 0);
           }}
         >
           {day}
         </SelectedDay>,
+      );
+    } else if (hoverHighlightedDates.includes(day)) {
+      days[week].push(
+        <HoveredDay
+          className="calendar"
+          key={day}
+          onClick={() => {
+            if (startDateView) {
+              changeStartDateView(false);
+              changeSelectedStartDate(day, currentMonth, currentYear);
+            } else {
+              changeSelectedEndDate(day, currentMonth, currentYear);
+              if (selectedStartDate) {
+                changeViewCalendar(false);
+              } else {
+                changeStartDateView(true);
+              }
+              changeHoverHighlightedDates(0, 0);
+            }
+            changeSelectedDates();
+          }}
+
+          onMouseOut={() => {
+            changeHoverHighlightedDates(0, 0);
+          }}
+        >
+          {day}
+        </HoveredDay>,
       );
     } else {
       days[week].push(
@@ -201,9 +342,46 @@ const CalendarDates = ({
               changeSelectedStartDate(day, currentMonth, currentYear);
             } else {
               changeSelectedEndDate(day, currentMonth, currentYear);
-              changeViewCalendar(false);
+              if (selectedStartDate) {
+                changeViewCalendar(false);
+              } else {
+                changeStartDateView(true);
+              }
+              changeHoverHighlightedDates(0, 0);
             }
             changeSelectedDates();
+          }}
+
+          onMouseOver={() => {
+            if (!(selectedStartDate && selectedEndDate)) {
+              if (selectedStartDate) {
+                if (currentYear > selectedStartDate.year) {
+                  changeHoverHighlightedDates(1, numberOfDays);
+                } else if (currentYear === selectedStartDate.year) {
+                  if (currentMonth > selectedStartDate.month) {
+                    changeHoverHighlightedDates(1, numberOfDays);
+                  } else if (currentMonth === selectedStartDate.month
+                    && day > selectedStartDate.day) {
+                    changeHoverHighlightedDates(selectedStartDate.day + 1, day);
+                  }
+                }
+              } else if (selectedEndDate) {
+                if (currentYear < selectedEndDate.year) {
+                  changeHoverHighlightedDates(1, numberOfDays);
+                } else if (currentYear === selectedEndDate.year) {
+                  if (currentMonth < selectedEndDate.month) {
+                    changeHoverHighlightedDates(1, numberOfDays);
+                  } else if (currentMonth === selectedEndDate.month
+                    && day < selectedEndDate.day) {
+                    changeHoverHighlightedDates(day, selectedEndDate.day - 1);
+                  }
+                }
+              }
+            }
+          }}
+
+          onMouseOut={() => {
+            changeHoverHighlightedDates(0, 0);
           }}
         >
           {day}
@@ -233,13 +411,17 @@ CalendarDates.propTypes = {
   startDateView: PropTypes.bool.isRequired,
   selectedDates: PropTypes.array.isRequired,
   selectedStartDate: PropTypes.any,
+  selectedEndDate: PropTypes.any,
   changeSelectedDates: PropTypes.func.isRequired,
   changeStartDateView: PropTypes.func.isRequired,
   changeViewCalendar: PropTypes.func.isRequired,
+  changeHoverHighlightedDates: PropTypes.func.isRequired,
+  hoverHighlightedDates: PropTypes.array.isRequired,
 };
 
 CalendarDates.defaultProps = {
   selectedStartDate: null,
+  selectedEndDate: null,
 };
 
 export default CalendarDates;

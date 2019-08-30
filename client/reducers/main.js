@@ -8,7 +8,9 @@ const {
   listing, viewCalendar, startDateView, guestContainerView,
 } = appReducers;
 const { currentMonth, currentYear, bookedDates } = calendarReducers;
-const { selectedEndDate, selectedStartDate, selectedDates } = calendarDatesReducers;
+const {
+  selectedEndDate, selectedStartDate, selectedDates, hoverHighlightedDates,
+} = calendarDatesReducers;
 const {
   selectedAdults,
   selectedChildren,
@@ -31,6 +33,7 @@ const rootReducer = combineReducers({
   selectedInfants,
   maxGuestsReached,
   guestContainerView,
+  hoverHighlightedDates,
 });
 
 export default rootReducer;

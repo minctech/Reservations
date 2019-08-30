@@ -25,4 +25,15 @@ const selectedDates = (state = [], action) => {
   }
 };
 
-export default { selectedStartDate, selectedEndDate, selectedDates };
+const hoverHighlightedDates = (state = [], action) => {
+  switch (action.type) {
+    case 'CHANGE_HOVER_HIGHLIGHTED_DATES':
+      return action.hoverHighlightedDates || [];
+    default:
+      return state;
+  }
+};
+
+export default {
+  selectedStartDate, selectedEndDate, selectedDates, hoverHighlightedDates,
+};
