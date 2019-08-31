@@ -103,6 +103,7 @@ const Calendar = ({
     <ClearDatesBox>
       <ClearDatesButton
         type="button"
+        className="calendar"
         onClick={() => {
           changeSelectedStartDate();
           changeSelectedEndDate();
