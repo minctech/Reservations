@@ -22,5 +22,6 @@ export default createStore(
     selectedEndDate: 0,
     selectedAdults: 1,
     maxGuestsReached: false,
+    windowY: 0,
   },
 );

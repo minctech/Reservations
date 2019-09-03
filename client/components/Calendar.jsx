@@ -11,8 +11,8 @@ const CalendarBox = styled.div`
   z-index: 1000;
   position: absolute;
   background-color: white;
-  top: 285px;
-  left: 77px;
+  top: 147px;
+  left: 24px;
 `;
 
 const HeaderBox = styled.div`

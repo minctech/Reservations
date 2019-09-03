@@ -41,16 +41,6 @@ const BottomStars = styled(StarRatings)`
   z-index: 0;
 `;
 
-// outercontainer top should be 75px
-// position should be: position: fixed;
-const OuterContainer = styled.div`
-  top: 150px;
-  margin-left: 45px;
-  width: 376px;
-  border: 1px lightgray solid;
-  font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
-`;
-
 const InnerContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -140,6 +130,7 @@ const App = ({
   selectedDates,
   changeSelectedDates,
   changeSelectedEndDate,
+  windowY,
 }) => {
   const chargePerNight = `$${listing.chargePerNight}`;
   const review = `${listing.numberOfRatings}`;
@@ -166,18 +157,6 @@ const App = ({
     } else if (startDateObject > endDateObject) {
       changeSelectedEndDate();
     }
-
-    // if (selectedStartDate.year < selectedEndDate.year) {
-    //   changeSelectedDates(selectedStartDate, selectedEndDate);
-    // } else if (selectedStartDate.year === selectedEndDate.year) {
-    //   if (selectedStartDate.month < selectedEndDate.month) {
-    //     changeSelectedDates(selectedStartDate, selectedEndDate);
-    //   } else if (selectedStartDate.month === selectedEndDate.month) {
-    //     if (selectedStartDate.day < selectedEndDate.day) {
-    //       changeSelectedDates(selectedStartDate, selectedEndDate);
-    //     }
-    //   }
-    // }
   }
 
   if (viewCalendar) {
@@ -241,6 +220,18 @@ const App = ({
   const InfantCount = styled(GuestCount)`
     background-color: white;
     margin-left: 0px;
+  `;
+
+  // outercontainer top should be 75px
+  // position should be: position: fixed;
+  const OuterContainer = styled.div`
+    top: ${windowY > 470 ? '75px' : '24px'};
+    margin-left: 45px;
+    width: 376px;
+    position: ${windowY > 470 ? 'fixed' : 'relative'};
+    border: 1px lightgray solid;
+    font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
+    background-color: white;
   `;
 
   return (
@@ -354,6 +345,7 @@ App.propTypes = {
   selectedDates: PropTypes.array,
   changeSelectedDates: PropTypes.func.isRequired,
   changeSelectedEndDate: PropTypes.func.isRequired,
+  windowY: PropTypes.number.isRequired,
 };
 
 App.defaultProps = {
