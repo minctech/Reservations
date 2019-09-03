@@ -18,6 +18,15 @@ const {
   maxGuestsReached,
 } = guestsReducers;
 
+const windowY = (state = 0, action) => {
+  switch (action.type) {
+    case 'CHANGE_Y_AXIS':
+      return action.windowY || 0;
+    default:
+      return state;
+  }
+};
+
 const rootReducer = combineReducers({
   listing,
   currentMonth,
@@ -34,6 +43,7 @@ const rootReducer = combineReducers({
   maxGuestsReached,
   guestContainerView,
   hoverHighlightedDates,
+  windowY,
 });
 
 export default rootReducer;

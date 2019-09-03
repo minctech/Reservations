@@ -1,16 +1,19 @@
 const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 const db = require('../database-sequelize/index');
 
-const port = 3000;
+const port = 3001;
 
 const app = express();
 
 app.use(morgan('tiny'));
 app.use('/api/listings/:listing', express.static('public'));
+app.use(express.static('public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cors());
 
 app.listen(port);
 

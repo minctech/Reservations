@@ -61,8 +61,8 @@ const OuterContainer = styled.div`
   z-index: 1000;
   position: absolute;
   background-color: white;
-  top: 341px;
-  left: 78px;
+  top: 212px;
+  left: 25px;
 `;
 
 const InnerContainer = styled.div`
