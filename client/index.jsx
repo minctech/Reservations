@@ -94,7 +94,6 @@ document.addEventListener('click', (e) => {
 });
 
 document.addEventListener('scroll', () => {
-  console.log(window.scrollY);
   store.dispatch({
     type: 'CHANGE_Y_AXIS',
     windowY: window.scrollY,
