@@ -222,20 +222,34 @@ const App = ({
     margin-left: 0px;
   `;
 
+  let top;
+  let position;
+
+  if (windowY < 470) {
+    top = '24px';
+    position = 'relative';
+  } else if (windowY > 470 && windowY < 4916) {
+    top = '75px';
+    position = 'fixed';
+  } else {
+    top = '4459px';
+    position = 'absolute';
+  }
+
   // outercontainer top should be 75px
   // position should be: position: fixed;
   const OuterContainer = styled.div`
-    top: ${windowY > 470 ? '75px' : '24px'};
+    top: ${top}
     margin-left: 45px;
     width: 376px;
-    position: ${windowY > 470 ? 'fixed' : 'relative'};
+    position: ${position};
     border: 1px lightgray solid;
     font-family: Circular, -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", sans-serif;
     background-color: white;
   `;
 
   return (
-    <OuterContainer>
+    <OuterContainer id="app">
       {guestContainer}
       {startCalendar}
       {endCalendar}
