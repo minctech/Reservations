@@ -250,7 +250,7 @@ const App = ({
   `;
 
   return (
-    <OuterContainer id="app">
+    <OuterContainer>
       {guestContainer}
       {startCalendar}
       {endCalendar}
