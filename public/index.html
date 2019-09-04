@@ -7,6 +7,15 @@
     <h1>Minctech</h1>
     <h2>A Python company</h2>
     <div id="root"></div>
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/styled-components/dist/styled-components.min.js"></script>
     <script src="bundle.js"></script>
+    <script>
+      Reservations.default.ReactDOM.render(
+        Reservations.default.React.createElement(Reservations.default.Reservations),
+        document.getElementById('root')
+      );
+    </script>
   </body>
 </html>
