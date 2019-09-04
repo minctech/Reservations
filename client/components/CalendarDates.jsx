@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable jsx-a11y/mouse-events-have-key-events */
 /* eslint-disable no-lonely-if */
 /* eslint-disable react/no-array-index-key */
@@ -5,7 +6,7 @@
 /* eslint-disable react/forbid-prop-types */
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 
 const Day = styled.td`
   width: 41px;
