@@ -82,6 +82,7 @@ const GuestsBox = styled.button`
   font-size: 17px;
   justify-content: space-between;
   align-items: center;
+  background-color: white;
 `;
 
 GuestsBox.displayName = 'GuestsBox';

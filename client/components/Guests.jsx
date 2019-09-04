@@ -31,6 +31,7 @@ const ClearButton = styled.button`
   font-weight: 500;
   font-size: 13px;
   color: teal;
+  background-color: white;
   :hover {
     text-decoration: underline;
   }
@@ -78,6 +79,7 @@ const Button = styled.button`
   border: rgba(0, 132, 137, 0.3) solid 1px
   height: 32px;
   width: 32px;
+  background-color: white;
 `;
 
 const Guests = ({

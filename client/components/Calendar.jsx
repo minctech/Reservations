@@ -31,6 +31,7 @@ const ClearDatesButton = styled.button`
   font-weight: 500;
   font-size: 13px;
   color: teal;
+  background-color: white;
   :hover {
     text-decoration: underline;
     cursor: pointer;
@@ -45,6 +46,7 @@ const Button = styled.button`
   margin: 20px;
   border: 1px solid lightgray;
   border-radius: 3px;
+  background-color: white;
 `;
 
 Button.displayName = 'Button';
