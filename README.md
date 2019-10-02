@@ -1,7 +1,7 @@
 # Reservations - Minctech
 
-> Reservation module for a private lodging platform. Built with react, redux and react-redux. Supports all dates in all years, interactive user interface with highlights for chosen and hovered dates and caculates total price based on number of nights chosen by user.
-> Utilizes MySQL and sequelize for database management, express for server handling.
+Reservation module for a private lodging platform. Built with react, redux and react-redux. Supports all dates in all years, interactive user interface with highlights for chosen and hovered dates and caculates total price based on number of nights chosen by user.
+Utilizes MySQL and sequelize for database management, express for server handling.
 
 ![](https://media.giphy.com/media/VcBoOQTxbs2ERR8BRd/giphy.gif)
 
@@ -20,8 +20,8 @@
 
 ## Usage
 
-> Click on Check-in or Checkout to view the calendar. Click on any date to select a length of stay.
-> Click on guest to change the number of Adults, Children and Infants.
+Click on Check-in or Checkout to view the calendar. Click on any date to select a length of stay.
+Click on guest to change the number of Adults, Children and Infants.
 
 ## Requirements
 
