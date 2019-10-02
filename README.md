@@ -3,7 +3,7 @@
 > Reservation module for a private lodging platform. Built with react, redux and react-redux. Supports all dates in all years, interactive user interface with highlights for chosen and hovered dates and caculates total price based on number of nights chosen by user.
 > Utilizes MySQL and sequelize for database management, express for server handling.
 
-![](https://gph.is/g/Z2VPpDA)
+![](https://media.giphy.com/media/VcBoOQTxbs2ERR8BRd/giphy.gif)
 
 ## Related Projects
 
